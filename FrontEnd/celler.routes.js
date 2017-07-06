@@ -13,7 +13,7 @@ modulo.config(function ($routeProvider) {
 modulo.constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário
-    urlUsuario: 'http://localhost:55508/api/Usuario',
+    urlUsuario: 'http://localhost:50694/api/Usuario',
 
     // Obrigatória - URL da aplicação que possui o formulário de login
     urlLogin: '/login',
