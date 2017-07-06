@@ -15,11 +15,14 @@ namespace Celler.Infraestrutura
         { }
 
         public DbSet<Usuario> Usuarios { get; set; }
-       
+        public DbSet<Notificacao> Notificacao { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new UsuarioMap());
-            
+            modelBuilder.Configurations.Add(new NotificacaoMap());
+            modelBuilder.Configurations.Add(new ProdutoMap());
         }
     }
 }

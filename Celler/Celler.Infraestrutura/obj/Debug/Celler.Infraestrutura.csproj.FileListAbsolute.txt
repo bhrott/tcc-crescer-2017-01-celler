@@ -12,3 +12,4 @@ C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Ce
 C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.pdb
 C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.Migrations.CriacaoTabelaUsuario.resources
 C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.csproj.GenerateResource.Cache
+C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.Migrations.CriarNotificacao.resources

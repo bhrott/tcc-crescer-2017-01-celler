@@ -50,10 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto.cs" />
+    <Compile Include="Mappings\NotificacaoMap.cs" />
+    <Compile Include="Mappings\ProdutoMap.cs" />
     <Compile Include="Mappings\UsuarioMap.cs" />
     <Compile Include="Migrations\201707061917071_CriacaoTabelaUsuario.cs" />
     <Compile Include="Migrations\201707061917071_CriacaoTabelaUsuario.Designer.cs">
       <DependentUpon>201707061917071_CriacaoTabelaUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707062026514_CriarNotificacao.cs" />
+    <Compile Include="Migrations\201707062026514_CriarNotificacao.Designer.cs">
+      <DependentUpon>201707062026514_CriarNotificacao.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707061917071_CriacaoTabelaUsuario.resx">
       <DependentUpon>201707061917071_CriacaoTabelaUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707062026514_CriarNotificacao.resx">
+      <DependentUpon>201707062026514_CriarNotificacao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
