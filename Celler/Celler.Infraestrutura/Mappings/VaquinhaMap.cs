@@ -16,6 +16,10 @@ namespace Celler.Infraestrutura.Mappings
             HasRequired(x => x.Criador)
                 .WithMany()
                 .Map(x => x.MapKey("IdUsuario"));
+
+            HasOptional(x => x.Comentarios)
+                .WithMany()
+                .Map(x => x.MapKey("IdComentario"));
         }
     }
 }

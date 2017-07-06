@@ -28,3 +28,4 @@ C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Infr
 C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.csproj.GenerateResource.Cache
 C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.dll
 C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.pdb
+C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Infraestrutura\obj\Debug\Celler.Infraestrutura.Migrations.Criacaodorestantedasentidades.resources

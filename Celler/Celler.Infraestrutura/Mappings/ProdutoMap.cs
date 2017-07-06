@@ -21,6 +21,10 @@ namespace Celler.Infraestrutura.Mappings
             HasOptional(x => x.Comprador)
                 .WithMany()
                 .Map(x => x.MapKey("IdComprador"));
+
+            HasOptional(x => x.Comentarios)
+                .WithMany()
+                .Map(x => x.MapKey("IdComentario"));
         }
     }
 }

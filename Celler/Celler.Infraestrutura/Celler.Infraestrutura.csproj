@@ -50,9 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto.cs" />
+    <Compile Include="Mappings\ComentarioMap.cs" />
+    <Compile Include="Mappings\DoadorMap.cs" />
+    <Compile Include="Mappings\EventoMap.cs" />
     <Compile Include="Mappings\NotificacaoMap.cs" />
     <Compile Include="Mappings\ProdutoMap.cs" />
     <Compile Include="Mappings\UsuarioMap.cs" />
+    <Compile Include="Mappings\VaquinhaMap.cs" />
     <Compile Include="Migrations\201707061917071_CriacaoTabelaUsuario.cs" />
     <Compile Include="Migrations\201707061917071_CriacaoTabelaUsuario.Designer.cs">
       <DependentUpon>201707061917071_CriacaoTabelaUsuario.cs</DependentUpon>
@@ -60,6 +64,10 @@
     <Compile Include="Migrations\201707062026514_CriarNotificacao.cs" />
     <Compile Include="Migrations\201707062026514_CriarNotificacao.Designer.cs">
       <DependentUpon>201707062026514_CriarNotificacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707062215520_Criacao do restante das entidades.cs" />
+    <Compile Include="Migrations\201707062215520_Criacao do restante das entidades.Designer.cs">
+      <DependentUpon>201707062215520_Criacao do restante das entidades.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707062026514_CriarNotificacao.resx">
       <DependentUpon>201707062026514_CriarNotificacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707062215520_Criacao do restante das entidades.resx">
+      <DependentUpon>201707062215520_Criacao do restante das entidades.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

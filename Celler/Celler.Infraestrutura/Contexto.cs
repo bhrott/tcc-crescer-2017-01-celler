@@ -17,12 +17,20 @@ namespace Celler.Infraestrutura
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Notificacao> Notificacao { get; set; }
         public DbSet<Produto> Produto { get; set; }
+        public DbSet<Comentario> Comentario { get; set; }
+        public DbSet<Doador> Doador { get; set; }
+        public DbSet<Evento> Evento { get; set; }
+        public DbSet<Vaquinha> Vaquinha { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new UsuarioMap());
             modelBuilder.Configurations.Add(new NotificacaoMap());
             modelBuilder.Configurations.Add(new ProdutoMap());
+            modelBuilder.Configurations.Add(new ComentarioMap());
+            modelBuilder.Configurations.Add(new DoadorMap());
+            modelBuilder.Configurations.Add(new EventoMap());
+            modelBuilder.Configurations.Add(new VaquinhaMap());
         }
     }
 }
