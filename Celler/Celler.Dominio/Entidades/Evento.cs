@@ -14,6 +14,8 @@ namespace Celler.Dominio.Entidades
 
         public string Descricao { get; private set; }
 
+        public DateTime DataAbertura { get; private set; }
+
         public DateTime DataRealizacao { get; private set; }
 
         public string Local { get; private set; }

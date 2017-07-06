@@ -10,6 +10,7 @@ namespace Celler.Dominio.Entidades
     {
         public int Id { get; private set; }
         public string Texto { get; private set; }
+        public Usuario Usuario { get; private set; }
 
         public Comentario(){}
     }

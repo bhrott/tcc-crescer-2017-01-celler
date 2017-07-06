@@ -19,6 +19,8 @@ namespace Celler.Dominio.Entidades
 
         public double TotalArrecadado { get; private set; }
 
+        public DateTime DataAbertura { get; private set; }
+
         public DateTime DateTermino { get; private set; }
 
         public Usuario Criador { get; private set; }

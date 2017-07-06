@@ -8,19 +8,14 @@ using System.Threading.Tasks;
 
 namespace Celler.Infraestrutura.Mappings
 {
-    public class ProdutoMap : EntityTypeConfiguration<Produto>
+    class VaquinhaMap : EntityTypeConfiguration<Vaquinha>
     {
-        public ProdutoMap()
+        public VaquinhaMap()
         {
-            ToTable("Produto");
-
+            ToTable("Vaquinha");
             HasRequired(x => x.Criador)
                 .WithMany()
-                .Map(x => x.MapKey("IdCriador"));
-
-            HasOptional(x => x.Comprador)
-                .WithMany()
-                .Map(x => x.MapKey("IdComprador"));
+                .Map(x => x.MapKey("IdUsuario"));
         }
     }
 }

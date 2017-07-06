@@ -16,6 +16,8 @@ namespace Celler.Dominio.Entidades
 
         public double Valor { get; private set; }
 
+        public DateTime DataAbertura { get; private set; }
+
         //Status: 'v' - vendido; 'a' - anunciado; 'd' - deletado 
         public char Status { get; private set; }
 
