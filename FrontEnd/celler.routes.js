@@ -1,4 +1,5 @@
-var modulo = angular.module('CellerApp', ['ngRoute', 'auth','ngStorage']);
+var modulo = angular.module('CellerApp', ['ngRoute', 'auth','ngStorage',  'ngSanitize',
+  'markdown']);
 modulo.config(function ($routeProvider) {
 
     $routeProvider
@@ -10,10 +11,18 @@ modulo.config(function ($routeProvider) {
         controller: 'FeedController',
         templateUrl: 'Feed.html',
         css: 'feed.css'
+    }).when('/test', {
+        controller: 'FeedController',
+        templateUrl: 'test.html',
+        css: 'feed.css'
     })
         .otherwise({redirectTo: '/login'});
 });
 
+modulo.config(function ($compileProvider) {
+    // Add optional support for custom schema links: "herp://" and "derp://"
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(herp|derp):/);
+  });
 modulo.constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário
@@ -28,3 +37,4 @@ modulo.constant('authConfig', {
     // Opcional - URL da aplicação para onde será redirecionado (se for informado) após o LOGOUT
     urlLogout: '/editora'
 });
+

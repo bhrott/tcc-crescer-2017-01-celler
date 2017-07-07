@@ -1,5 +1,8 @@
 modulo.controller('FeedController', function ($scope, authService, $routeParams, $location) {
   
+    
+   $scope.text = '*altas* \n- **emoções** 1\n- [Link](http://example.com)\n- [Custom Link 1](herp://is.this.working?)\n- [Custom Link 2](derp://is.this.working?)';
+    
 $scope.habilitarNotificacoes = false;
     $scope.buscar = buscar;
     
