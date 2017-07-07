@@ -1,0 +1,248 @@
+<nav class="nav has-shadow">
+    <div class="container">
+        <div class="nav-left">
+            <a class="nav-item is-tab is-active" href="#!/feed"><i class="fa fa-home"></i> &nbsp; Feed</a>
+            <a class="nav-item is-tab" href="#!/editar"><i class="fa fa-bars "></i> &nbsp; Meus anúncios</a>
+            <a class="nav-item is-tab" ng-click="logout()"> &nbsp; <i class="fa fa-hand-peace-o"></i> &nbsp; Logout</a>
+        </div>
+
+        <div class="nav-right nav-menu">
+            <span class="nav-item">
+                <a class="button" href="#!/newPost" >
+                    <span class="icon">
+                        <i class="fa fa-handshake-o"></i>
+                    </span>
+                    <span> &nbsp; Novo anúncio.</span>
+                </a>
+            </span>
+        </div>
+    </div>
+</nav>
+<section class="section main">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3">
+                <div class="card is-fullwidth">
+                    <header class="card-header">
+                    </header>
+                    <div class="card-content">
+                        <a class="card-avatar">
+                            <img src="{{accountOwner.foto}}" class="card-avatar-img">
+                        </a>
+
+                        <div class="card-user">
+                            <div class="card-user-name">
+                                   <i class="fa fa-bell novas"></i><span class="title is-5"> &nbsp;Notificações</span>
+                               <br>
+                            </div>
+                            <span>
+                                <a href="#"><span>{{accountOwner.email}}</span></a>
+                            </span>
+                        </div>
+
+                        <div class="card-stats">
+                            <ul class="card-stats-list">
+                              
+                                <li class="card-stats-item">
+                                   
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div class="box trending">
+              <p class="trend-title"></p>
+                      <div class="box trending">
+                  <p class="trend-hashtag">
+                
+                   Fulano comentou seu evento.
+                </p>
+                </div>
+                 <div class="box trending">
+                <p class="trend-hashtag">
+                   Fulano doou para  sua vaquinha.
+                </p>
+                </div>
+                 <div class="box trending">
+                <p class="trend-hashtag">
+                   Fulano está interessado em seu produto.
+                </p>
+                </div>
+            
+          </div>
+
+            </div> 
+            
+           <div class="columns is-multiline">
+            <div class="column is-half">
+        <div class="card">
+          <header class="card-header">
+            <span class="card-header-icon timestamp">
+              <i class="fa fa-calendar"> <br>Churras Illuminati </i>
+            </span>
+              <span class="card-header-icon timestamp"><i class="fa fa-user-circle"> André </i></span>
+          </header>
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://www.meliuz.com.br/blog/wp-content/uploads/2017/01/costela-assada.png" alt="Image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="panel-block-item">
+              <span class="likes">
+                <span class="icon">
+                  <i class="fa fa-check-circle confirmado "></i>
+                </span>
+                303k
+              </span>
+              <span class="comments">
+                <span class="icon">
+                  <i class="fa fa-comment"></i>
+                </span>
+                12k
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+       
+         <div class="column is-half">
+        <div class="card">
+           <header class="card-header">
+            <span class="card-header-icon timestamp">
+              <i class="fa fa-money"> <br> Ajudar o Maluco que tá doente </i>
+            </span>
+              <span class="card-header-icon timestamp"><i class="fa fa-user-circle"> André </i></span>
+          </header>
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://birl-language.github.io/images/birl2.png" alt="Image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="panel-block-item">
+              <span class="likes">
+                <span class="icon">
+                  <i class="fa fa-plus-circle"></i>
+                </span>
+                &nbsp; Apoiar
+              </span>
+              <span class="comments">
+                <span class="icon">
+                  <i class="fa fa-comment"></i>
+                </span>
+                12k
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="column is-half">
+        <div class="card">
+          <header class="card-header">
+            <span class="card-header-icon timestamp">
+              <i class="fa fa-cart-arrow-down"> <br> Churrasquera Controle Remoto </i>
+            </span>
+              <span class="card-header-icon timestamp"><i class="fa fa-user-circle"> André </i></span>
+          </header>
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://yt3.ggpht.com/-wPhiEBFskVQ/AAAAAAAAAAI/AAAAAAAAAAA/ocP2ODcEtNA/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt="Image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="panel-block-item">
+             <span class="likes">
+               
+               <span class="icon">
+                   <i class="fa fa-money interessado">
+                   </i> 
+               </span>
+                <span class="confirmado" > &nbsp; R$ 4,55 </span>
+                </span>
+              <span class="likes">
+              &nbsp; &nbsp; 
+                <span class="icon">
+                  <i class="fa fa-cart-plus interessado"></i>
+                </span>
+            
+              </span>
+              <span class="comments">
+                <span class="icon">
+                  <i class="fa fa-comment"></i>
+                </span>
+                12k
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+       
+       <div class="column is-half">
+        <div class="card">
+          <header class="card-header">
+            <span class="card-header-icon timestamp">
+              2m
+            </span>
+          </header>
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://placehold.it/1280x960" alt="Image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="panel-block-item">
+              <span class="likes">
+                <span class="icon">
+                  <i class="fa fa-heart"></i>
+                </span>
+                303k
+              </span>
+              <span class="comments">
+                <span class="icon">
+                  <i class="fa fa-comment"></i>
+                </span>
+                12k
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="card">
+          <header class="card-header">
+            <span class="card-header-icon timestamp">
+              2m
+            </span>
+          </header>
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://placehold.it/1280x960" alt="Image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="panel-block-item">
+              <span class="likes">
+                <span class="icon">
+                  <i class="fa fa-heart apoiado"></i>
+                </span>
+                303k
+              </span>
+              <span class="comments">
+                <span class="icon">
+                  <i class="fa fa-comment"></i>
+                </span>
+                12k
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+        </div>
+    </div>
+</section>

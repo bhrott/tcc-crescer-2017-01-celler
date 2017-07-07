@@ -6,6 +6,10 @@ modulo.config(function ($routeProvider) {
         controller: 'LoginController',
         templateUrl: 'Login.html',
         css: 'login.css'
+    }).when('/feed', {
+        controller: 'FeedController',
+        templateUrl: 'Feed.html',
+        css: 'feed.css'
     })
         .otherwise({redirectTo: '/login'});
 });
@@ -19,7 +23,7 @@ modulo.constant('authConfig', {
     urlLogin: '/login',
 
     // Opcional - URL da aplicação para onde será redirecionado (se for informado) após o LOGIN com sucesso
-    urlPrivado: '/cadastro',
+    urlPrivado: '/feed',
 
     // Opcional - URL da aplicação para onde será redirecionado (se for informado) após o LOGOUT
     urlLogout: '/editora'
