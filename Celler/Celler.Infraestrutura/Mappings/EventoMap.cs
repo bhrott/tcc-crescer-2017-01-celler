@@ -8,23 +8,19 @@ using System.Threading.Tasks;
 
 namespace Celler.Infraestrutura.Mappings
 {
-    public class ProdutoMap : EntityTypeConfiguration<Produto>
+    class EventoMap : EntityTypeConfiguration<Evento>
     {
-        public ProdutoMap()
+        public EventoMap()
         {
-            ToTable("Produto");
+            ToTable("Evento");
 
-            HasOptional(x => x.Comprador)
-                .WithMany()
-                .Map(x => x.MapKey("IdComprador"));
-
-            HasMany(x => x.Interessados)
+            HasMany(x => x.Confirmados)
                  .WithMany()
                  .Map(x =>
                  {
-                     x.MapLeftKey("IdProduto");
+                     x.MapLeftKey("IdEvento");
                      x.MapRightKey("IdUsuario");
-                     x.ToTable("InteressadoProduto");
+                     x.ToTable("ConfirmadoEvento");
                  });
         }
     }

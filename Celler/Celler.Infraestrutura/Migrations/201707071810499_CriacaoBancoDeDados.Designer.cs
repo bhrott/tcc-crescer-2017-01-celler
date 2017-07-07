@@ -7,13 +7,13 @@ namespace Celler.Infraestrutura.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CriarNotificacao : IMigrationMetadata
+    public sealed partial class CriacaoBancoDeDados : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CriarNotificacao));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CriacaoBancoDeDados));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707062026514_CriarNotificacao"; }
+            get { return "201707071810499_CriacaoBancoDeDados"; }
         }
         
         string IMigrationMetadata.Source

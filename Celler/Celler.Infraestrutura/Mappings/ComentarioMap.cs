@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 
 namespace Celler.Infraestrutura.Mappings
 {
-    public class UsuarioMap : EntityTypeConfiguration<Usuario>
+    class ComentarioMap : EntityTypeConfiguration<Comentario>
     {
-        public UsuarioMap()
+        public ComentarioMap()
         {
-            ToTable("Usuario");
-        }
-    }   
-}
+            ToTable("Comentario");
 
+            HasRequired(x => x.Usuario)
+                .WithMany()
+                .Map(x => x.MapKey("IdUsuario"));
+        }
+    }
+}

@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace Celler.Infraestrutura.Mappings
 {
-    public class UsuarioMap : EntityTypeConfiguration<Usuario>
+    class DoadorMap : EntityTypeConfiguration<Doador>
     {
-        public UsuarioMap()
+        public DoadorMap()
         {
-            ToTable("Usuario");
+            ToTable("Doador");
+            HasRequired(x => x.Usuario)
+                .WithMany()
+                .Map(x => x.MapKey("IdUsuario"));
         }
-    }   
+    }
 }
-
