@@ -1,0 +1,4 @@
+Server=crescer2071-sql.database.windows.net;
+User=usrCeller;
+Password=12qwaszx@@34;
+Database=crescer20171-celler-db"
