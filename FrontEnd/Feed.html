@@ -1,18 +1,24 @@
-<nav class="nav has-shadow">
+<nav class="nav is-mobile has-shadow">
     <div class="container">
         <div class="nav-left">
             <a class="nav-item is-tab is-active" href="#!/feed"><i class="fa fa-home"></i> &nbsp; Feed</a>
             <a class="nav-item is-tab" href="#!/editar"><i class="fa fa-bars "></i> &nbsp; Meus anúncios</a>
             <a class="nav-item is-tab" ng-click="logout()"> &nbsp; <i class="fa fa-hand-peace-o"></i> &nbsp; Logout</a>
-        </div>
-
-        <div class="nav-right nav-menu">
-            <span class="nav-item">
-                <a class="button" href="#!/newPost" >
+            <a class="nav-item is-hidden-tablet button is-success novoPostMobile" href="#!/newPost" >
                     <span class="icon">
                         <i class="fa fa-handshake-o"></i>
                     </span>
-                    <span> &nbsp; Novo anúncio.</span>
+                    <span> &nbsp; Novo anúncio</span>
+                </a>
+        </div>
+
+        <div class="nav-right nav-menu ajustarDireita">
+            <span class="nav-item">
+                <a class="button is-success novoPostTablet" href="#!/newPost" >
+                    <span class="icon">
+                        <i class="fa fa-handshake-o"></i>
+                    </span>
+                    <span> &nbsp; Novo anúncio</span>
                 </a>
             </span>
         </div>
@@ -22,22 +28,79 @@
     <div class="container">
         <div class="columns">
             <div class="column is-3">
+               <div class="card is-fullwidth">
+                    <header class="card-header">
+                    </header>
+                    <div class="card-content">
+                   
+
+                        <div class="card-user"  ng-click="habilitarBusca = !habilitarBusca">
+                            <div class="card-user-name">
+                                   <i class="fa fa-search-minus"></i><span class="title is-5"> &nbsp;Busca</span>
+                               <br>
+                            </div>
+                        </div>
+
+                        <div class="card-stats">
+                            <ul class="card-stats-list">
+                              
+                                <li class="card-stats-item">
+                                   
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="box trending" ng-if="habilitarBusca">
+              <p class="trend-title"></p>
+                      <label class="label">Por nome</label>
+              <p class="control inputBusca">
+                <input class="input" ng-model="busca.nome" type="text" placeholder="Churras do nunes.">
+              </p>
+             
+                
+                 
+             <label class="checkbox checkboxBusca">
+      <input type="checkbox" ng-model="busca.anuncios">
+              Anúncios
+        </label>
+            <br>
+             <label class="checkbox checkboxBusca">
+      <input type="checkbox"  ng-model="busca.eventos">
+              Eventos
+             </label>
+             <br>
+              <label class="checkbox checkboxBusca">
+      <input type="checkbox" ng-model="busca.vaquinhas">
+              Vaquinhas
+              </label>
+              
+               <div class="spacer"></div>
+                <p class="control">
+                    <a class="button is-success is-normal botaoBusca" ng-click="buscar(busca)" >
+                    <span class="icon">
+                        <i class="fa fa-search-minus"></i>
+                    </span>
+                    <span> &nbsp; Buscar</span>
+                    </a>
+               </p>
+               
+            
+              </div>
+               
                 <div class="card is-fullwidth">
                     <header class="card-header">
                     </header>
                     <div class="card-content">
-                        <a class="card-avatar">
-                            <img src="{{accountOwner.foto}}" class="card-avatar-img">
-                        </a>
+                   
 
-                        <div class="card-user">
+                        <div class="card-user"  ng-click="habilitarNotificacoes = !habilitarNotificacoes">
                             <div class="card-user-name">
                                    <i class="fa fa-bell novas"></i><span class="title is-5"> &nbsp;Notificações</span>
                                <br>
                             </div>
-                            <span>
-                                <a href="#"><span>{{accountOwner.email}}</span></a>
-                            </span>
                         </div>
 
                         <div class="card-stats">
@@ -52,7 +115,7 @@
                     </div>
                 </div>
                 <div class="spacer"></div>
-                <div class="box trending">
+                <div class="box trending" ng-if="habilitarNotificacoes">
               <p class="trend-title"></p>
                       <div class="box trending">
                   <p class="trend-hashtag">
@@ -71,25 +134,27 @@
                 </p>
                 </div>
             
-          </div>
-
+              </div>
+            
+      
+               
             </div> 
             
-           <div class="columns is-multiline">
+           <div class="columns is-multiline offset">
             <div class="column is-half">
         <div class="card">
           <header class="card-header">
             <span class="card-header-icon timestamp">
-              <i class="fa fa-calendar"> <br>Churras Illuminati </i>
+              <i class="fa fa-calendar"> Churras Illuminati </i>
             </span>
-              <span class="card-header-icon timestamp"><i class="fa fa-user-circle"> André </i></span>
+           
           </header>
           <div class="card-image">
             <figure class="image is-4by3">
               <img src="https://www.meliuz.com.br/blog/wp-content/uploads/2017/01/costela-assada.png" alt="Image">
             </figure>
           </div>
-          <div class="card-content">
+          <div class="card-content footerOffset">
             <div class="panel-block-item">
               <span class="likes">
                 <span class="icon">
@@ -103,6 +168,12 @@
                 </span>
                 12k
               </span>
+              <span class="comments">
+                      <span class="icon">
+                      <i class="fa  fa-user-circle"></i> 
+                      </span>
+                       André
+              </span>
             </div>
           </div>
         </div>
@@ -112,9 +183,8 @@
         <div class="card">
            <header class="card-header">
             <span class="card-header-icon timestamp">
-              <i class="fa fa-money"> <br> Ajudar o Maluco que tá doente </i>
+              <i class="fa fa-money"> Ajudar o Maluco que tá doente </i>
             </span>
-              <span class="card-header-icon timestamp"><i class="fa fa-user-circle"> André </i></span>
           </header>
           <div class="card-image">
             <figure class="image is-4by3">
@@ -135,6 +205,12 @@
                 </span>
                 12k
               </span>
+              <span class="comments">
+                      <span class="icon">
+                      <i class="fa  fa-user-circle"></i> 
+                      </span>
+                       André
+             </span>
             </div>
           </div>
         </div>
@@ -144,13 +220,12 @@
         <div class="card">
           <header class="card-header">
             <span class="card-header-icon timestamp">
-              <i class="fa fa-cart-arrow-down"> <br> Churrasquera Controle Remoto </i>
+              <i class="fa fa-cart-arrow-down">  Churrasquera Controle Remoto </i>
             </span>
-              <span class="card-header-icon timestamp"><i class="fa fa-user-circle"> André </i></span>
           </header>
           <div class="card-image">
             <figure class="image is-4by3">
-              <img src="https://yt3.ggpht.com/-wPhiEBFskVQ/AAAAAAAAAAI/AAAAAAAAAAA/ocP2ODcEtNA/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt="Image">
+              <img src="http://cache2.allpostersimages.com/p/LRG/37/3790/38EIF00Z/posters/fireball-of-h-bomb-explosion-after-test-blast-over-bikini-atoll.jpg" alt="Image">
             </figure>
           </div>
           <div class="card-content">
@@ -176,71 +251,18 @@
                 </span>
                 12k
               </span>
+                  <span class="comments">
+                      <span class="icon">
+                      <i class="fa  fa-user-circle"></i> 
+                      </span>
+                       André
+                  </span>
             </div>
           </div>
         </div>
       </div>
        
-       <div class="column is-half">
-        <div class="card">
-          <header class="card-header">
-            <span class="card-header-icon timestamp">
-              2m
-            </span>
-          </header>
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="https://placehold.it/1280x960" alt="Image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="panel-block-item">
-              <span class="likes">
-                <span class="icon">
-                  <i class="fa fa-heart"></i>
-                </span>
-                303k
-              </span>
-              <span class="comments">
-                <span class="icon">
-                  <i class="fa fa-comment"></i>
-                </span>
-                12k
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="column is-half">
-        <div class="card">
-          <header class="card-header">
-            <span class="card-header-icon timestamp">
-              2m
-            </span>
-          </header>
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="https://placehold.it/1280x960" alt="Image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="panel-block-item">
-              <span class="likes">
-                <span class="icon">
-                  <i class="fa fa-heart apoiado"></i>
-                </span>
-                303k
-              </span>
-              <span class="comments">
-                <span class="icon">
-                  <i class="fa fa-comment"></i>
-                </span>
-                12k
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+       
 </div>
 
         </div>
