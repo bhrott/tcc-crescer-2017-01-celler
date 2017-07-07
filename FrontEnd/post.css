@@ -1,0 +1,8 @@
+.postHero.title{
+    position:relative;
+    top:40px;
+}
+.button.novoPost{
+    width:32%;
+    box-sizing:border-box;
+}
