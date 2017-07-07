@@ -14,17 +14,18 @@ namespace Celler.Infraestrutura.Mappings
         {
             ToTable("Produto");
 
-            HasRequired(x => x.Criador)
-                .WithMany()
-                .Map(x => x.MapKey("IdCriador"));
-
             HasOptional(x => x.Comprador)
                 .WithMany()
                 .Map(x => x.MapKey("IdComprador"));
 
-            HasOptional(x => x.Comentarios)
-                .WithMany()
-                .Map(x => x.MapKey("IdComentario"));
+            HasMany(x => x.Interessados)
+                 .WithMany()
+                 .Map(x =>
+                 {
+                     x.MapLeftKey("IdProduto");
+                     x.MapRightKey("IdUsuario");
+                     x.ToTable("InteressadoProduto");
+                 });
         }
     }
 }

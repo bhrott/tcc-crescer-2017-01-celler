@@ -13,6 +13,7 @@ namespace Celler.Infraestrutura.Mappings
         public ComentarioMap()
         {
             ToTable("Comentario");
+
             HasRequired(x => x.Usuario)
                 .WithMany()
                 .Map(x => x.MapKey("IdUsuario"));

@@ -13,13 +13,16 @@ namespace Celler.Infraestrutura.Mappings
         public VaquinhaMap()
         {
             ToTable("Vaquinha");
-            HasRequired(x => x.Criador)
-                .WithMany()
-                .Map(x => x.MapKey("IdUsuario"));
 
-            HasOptional(x => x.Comentarios)
-                .WithMany()
-                .Map(x => x.MapKey("IdComentario"));
+            HasMany(x => x.Doadores)
+                 .WithMany()
+                 .Map(x =>
+                 {
+                     x.MapLeftKey("IdVaquinha");
+                     x.MapRightKey("IdDoador");
+                     x.ToTable("DoadorVaquinha");
+                 });
+
         }
     }
 }

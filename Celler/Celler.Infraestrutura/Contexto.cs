@@ -13,7 +13,8 @@ namespace Celler.Infraestrutura
     {
         public Contexto() : base("name=Connection")
         { }
-
+    
+        public DbSet<Anuncio> Anuncio { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Notificacao> Notificacao { get; set; }
         public DbSet<Produto> Produto { get; set; }
@@ -24,6 +25,7 @@ namespace Celler.Infraestrutura
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new AnuncioMap());
             modelBuilder.Configurations.Add(new UsuarioMap());
             modelBuilder.Configurations.Add(new NotificacaoMap());
             modelBuilder.Configurations.Add(new ProdutoMap());

@@ -13,12 +13,6 @@ namespace Celler.Infraestrutura.Mappings
         public UsuarioMap()
         {
             ToTable("Usuario");
-            HasMany(x => x.Permissoes).WithMany().Map(x =>
-            {
-                x.MapLeftKey("IdUsuario");
-                x.MapRightKey("IdPermissao");
-                x.ToTable("UsuarioPermissao");
-            });
         }
     }   
 }

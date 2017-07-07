@@ -13,13 +13,15 @@ namespace Celler.Infraestrutura.Mappings
         public EventoMap()
         {
             ToTable("Evento");
-            HasRequired(x => x.Criador)
-                .WithMany()
-                .Map(x => x.MapKey("IdUsuario"));
 
-            HasOptional(x => x.Comentarios)
-                .WithMany()
-                .Map(x => x.MapKey("IdComentario"));
+            HasMany(x => x.Confirmados)
+                 .WithMany()
+                 .Map(x =>
+                 {
+                     x.MapLeftKey("IdEvento");
+                     x.MapRightKey("IdUsuario");
+                     x.ToTable("ConfirmadoEvento");
+                 });
         }
     }
 }

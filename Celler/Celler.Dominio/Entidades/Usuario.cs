@@ -13,38 +13,22 @@ namespace Celler.Dominio.Entidades
         static readonly int _numeroCaracteresNovaSenha = 10;
 
         public int Id { get; private set; }
-
         public string Nome { get; private set; }
-
         public string Email { get; private set; }
-
         public string Senha { get; private set; }
         public List<Permissao> Permissoes { get; private set; }
-
         public bool NotificacaoComentarioAnuncioEmail { get; private set; }
-
         public bool NotificacaoComentarioAnuncioSlack { get; private set; }
-
         public bool NotificacaoComentarioAnuncioBrowser { get; private set; }
-
         public bool NotificacaoPresencaEmail { get; private set; }
-
         public bool NotificacaoPresencaSlack { get; private set; }
-
         public bool NotificacaoPresencaBrowser { get; private set; }
-
         public bool NotificacaoInteresseEmail { get; private set; }
-
         public bool NotificacaoInteresseSlack { get; private set; }
-
         public bool NotificacaoInteresseBrowser { get; private set; }
-
         public bool NotificacaoDoacaoVaquinhaEmail { get; private set; }
-
         public bool NotificacaoDoacaoVaquinhaSlack { get; private set; }
-
         public bool NotificacaoDoacaoVaquinhaBrowser { get; private set; }
-
         public string CanalSlack { get; private set; }
 
         protected Usuario()
