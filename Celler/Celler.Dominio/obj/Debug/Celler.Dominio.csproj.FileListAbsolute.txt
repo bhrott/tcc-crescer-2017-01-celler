@@ -3,3 +3,8 @@ C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Ce
 C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\obj\Debug\Celler.Dominio.csprojResolveAssemblyReference.cache
 C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\obj\Debug\Celler.Dominio.dll
 C:\Users\lucas.gaspar\Desktop\Trabalho .NET\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\obj\Debug\Celler.Dominio.pdb
+C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\bin\Debug\Celler.Dominio.dll
+C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\bin\Debug\Celler.Dominio.pdb
+C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\obj\Debug\Celler.Dominio.csprojResolveAssemblyReference.cache
+C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\obj\Debug\Celler.Dominio.dll
+C:\Users\mathi\Documents\Repos\CWI\tcc-crescer-2017-01-celler\Celler\Celler.Dominio\obj\Debug\Celler.Dominio.pdb

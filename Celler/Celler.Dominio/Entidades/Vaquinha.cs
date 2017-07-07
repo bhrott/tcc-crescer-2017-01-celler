@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
-    public class Produto
+    public class Vaquinha
     {
         public int Id { get; private set; }
 
@@ -14,14 +15,13 @@ namespace Celler.Dominio.Entidades
 
         public string Descricao { get; private set; }
 
-        public double Valor { get; private set; }
+        public double ArrecadamentoPrevisto { get; private set; }
 
-        //Status: 'v' - vendido; 'a' - anunciado; 'd' - deletado 
-        public char Status { get; private set; }
+        public double TotalArrecadado { get; private set; }
+
+        public DateTime DateTermino { get; private set; }
 
         public Usuario Criador { get; private set; }
-
-        public Usuario Comprador { get; private set; }
 
         public string Foto1 { get; private set; }
 
@@ -29,10 +29,10 @@ namespace Celler.Dominio.Entidades
 
         public string Foto3 { get; private set; }
 
-        public List<Usuario> Interessados { get; private set; }
-
         public List<Comentario> Comentarios { get; private set; }
 
-        public Produto(){ }
+        public List<Doador> Doadores { get; private set; }
+
+        public Vaquinha() { }
     }
 }
