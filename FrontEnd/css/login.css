@@ -54,7 +54,7 @@ font-family: 'PT Sans', sans-serif;
 }
 
 .hero-banner .hero {
-  background: url('login.jpg');
+  background: url('/images/login.jpg');
   background-position: center;
   background-size: cover;
   background-blend-mode: screen;
@@ -68,7 +68,6 @@ font-family: 'PT Sans', sans-serif;
 
 
 #divExibirPedidos{
-    
     background-color:#ddeae5;
     margin:40px;
 }

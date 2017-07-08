@@ -1,0 +1,60 @@
+   <div class="card is-fullwidth">
+                    <header class="card-header">
+                    </header>
+                    <div class="card-content">
+                   
+
+                        <div class="card-user"  ng-click="habilitarBusca = !habilitarBusca">
+                            <div class="card-user-name">
+                                   <i class="fa fa-search-minus"></i><span class="title is-5"> &nbsp;Busca</span>
+                               <br>
+                            </div>
+                        </div>
+
+                        <div class="card-stats">
+                            <ul class="card-stats-list">
+                              
+                                <li class="card-stats-item">
+                                   
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+             <div class="box trending" ng-if="habilitarBusca">
+              <p class="trend-title"></p>
+                      <label class="label">Por nome</label>
+              <p class="control inputBusca">
+                <input class="input" ng-model="busca.nome" type="text" placeholder="Churras do nunes.">
+              </p>
+             
+                
+                 
+             <label class="checkbox checkboxBusca">
+      <input type="checkbox" ng-model="busca.anuncios">
+              Anúncios
+        </label>
+            <br>
+             <label class="checkbox checkboxBusca">
+      <input type="checkbox"  ng-model="busca.eventos">
+              Eventos
+             </label>
+             <br>
+              <label class="checkbox checkboxBusca">
+      <input type="checkbox" ng-model="busca.vaquinhas">
+              Vaquinhas
+              </label>
+              
+               <div class="spacer"></div>
+                <p class="control">
+                    <a class="button is-success is-normal botaoBusca" ng-click="buscar(busca)" >
+                    <span class="icon">
+                        <i class="fa fa-search-minus"></i>
+                    </span>
+                    <span> &nbsp; Buscar</span>
+                    </a>
+               </p>
+               
+            
+              </div>

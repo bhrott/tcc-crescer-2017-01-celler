@@ -1,0 +1,45 @@
+<div class="card is-fullwidth">
+    <header class="card-header">
+    </header>
+    <div class="card-content">
+
+
+        <div class="card-user"  ng-click="habilitarNotificacoes = !habilitarNotificacoes">
+            <div class="card-user-name">
+                <i class="fa fa-bell novas"></i><span class="title is-5"> &nbsp;Notificações</span>
+                <br>
+            </div>
+        </div>
+
+        <div class="card-stats">
+            <ul class="card-stats-list">
+
+                <li class="card-stats-item">
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="spacer"></div>
+<div class="box trending" ng-if="habilitarNotificacoes">
+    <p class="trend-title"></p>
+    <div class="box trending">
+        <p class="trend-hashtag">
+
+            Fulano comentou seu evento.
+        </p>
+    </div>
+    <div class="box trending">
+        <p class="trend-hashtag">
+            Fulano doou para  sua vaquinha.
+        </p>
+    </div>
+    <div class="box trending">
+        <p class="trend-hashtag">
+            Fulano está interessado em seu produto.
+        </p>
+    </div>
+
+</div>
