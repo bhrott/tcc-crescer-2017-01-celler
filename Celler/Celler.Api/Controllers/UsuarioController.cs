@@ -13,7 +13,8 @@ using System.Web.Http.Cors;
 namespace Celler.Api.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("api/Usuario")]
+    [RoutePrefix("api/usuario")]
+
     public class UsuarioController : ApiController
     {
         private Contexto contexto = new Contexto();
