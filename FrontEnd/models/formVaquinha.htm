@@ -1,0 +1,53 @@
+ <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column  corrigirAltura is-10 is-offset-1">
+                    <div class="control columns">
+                        <div class="column">
+                            <label class="label">Título da Vaquinha</label>
+                            <input class="input column" ng-model="vaquinha.Titulo" type="text" placeholder="Churras do Nunes">
+                            <span style="color:red;" ng-if="vaquinha.Titulo == null || vaquinha.Titulo == ''"> Campo obrigatório.</span>
+                        </div>
+                        <div class="column">
+                            <label class="label"> &nbsp; Total a arrecadar(em reais)</label>
+                            <input class="input column" ng-model="vaquinha.ArrecadamentoPrevisto" type="number">
+                        </div>
+                          <div class="column">
+                            <label class="label">Data de Término da Vaquinha</label>
+                            <input class="input column" ng-model="vaquinha.DateTermino" type="date" placeholder="Churras do Nunes">
+                          </div>
+                    </div>
+                    <div class="control columns">
+                        <label class ="label">Insira até 3 imagens para Divulgação da Vaquinha(opcional): </label> 
+                    </div>
+                    <div class="control columns">
+                        <div class="column">
+                            <label class="label">Imagem 1</label>
+                            <input class="input" ng-model="vaquinha.Foto1" type="text" placeholder="Churras do Nunes"> 
+                            <img  src="{{vaquinha.Foto1}}" >
+                        </div>
+                        <div class="column">
+                            <label class="label">Imagem 2</label>
+                            <input class="input column" ng-model="vaquinha.Foto2" type="text" placeholder="Churras do Nunes">
+                            <img  src="{{vaquinha.Foto2}}">
+                        </div>
+                        <div class="column">
+                            <label class="label">Imagem 3</label>
+                            <input class="input column" ng-model="vaquinha.Foto3" type="text" placeholder="Churras do Nunes">
+                            <img  src="{{vaquinha.Foto3}}">
+                        </div>
+                    </div>
+                    <label class="label">Descricao da Vaquinha</label><span style="color:red;" ng-if="vaquinha.Descricao == null || vaquinha.Descricao == ''"> Campo obrigatório.</span>
+                    <p class="control">
+                        <textarea class="input" style="height:45vh;" ng-model="vaquinha.Descricao" type="textarea">
+                        </textarea>
+                    </p>
+                    <p class="control">
+                        <button class="button is-primary" ng-disabled="vaquinha.Titulo == null || vaquinha.Titulo == ''  || 
+                                                                       vaquinha.Descricao == null || vaquinha.Descricao == '' " ng-click="cadastrarVaquinha(vaquinha)">Criar Vaquinha.</button>
+                        <a href="#!/feed"><button class="button is-primary">Voltar para o Feed</button></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

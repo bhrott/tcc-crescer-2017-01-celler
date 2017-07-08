@@ -5,23 +5,34 @@
     <header class="card-header">
     </header>
     <div class="card-content">
-
-
-        <div ng-click="redirectToNewPost()" class="card-user">
+        <div ng-click="habilitarNovoPost = !habilitarNovoPost" class="card-user">
             <div class="card-user-name metade">
-                <a><i class="fa fa-handshake-o"></i><span class="title is-5"> &nbsp;Novo anúncio</span></a>
+                <i class="fa fa-plus "></i><span class="title is-5"> &nbsp;Novo Anúncio</span>
                 <br>
             </div>
         </div>
-
         <div class="card-stats">
             <ul class="card-stats-list">
-
                 <li class="card-stats-item">
-
                 </li>
-
             </ul>
         </div>
+    </div>
+</div>
+<div class="box trending metade" ng-if="habilitarNovoPost">
+    <div class="box trending column is-offset-one-quarter is-half" ng-click="redirectNovoProduto()">
+        <p class="trend-hashtag">
+           <i class="fa fa-cart-plus interessado "></i>  &nbsp; Anunciar um novo Produto
+        </p>
+    </div>
+    <div class="box trending column is-offset-one-quarter is-half" ng-click="redirectNovoEvento()">
+        <p class="trend-hashtag">
+            <i class="fa  fa-calendar interessado "></i> &nbsp; Criar novo Evento
+        </p>
+    </div>
+    <div class="box trending column is-offset-one-quarter is-half" ng-click="redirectNovaVaquinha()">
+        <p class="trend-hashtag">
+          <i class="fa fa-money interessado "></i>  &nbsp; Criar nova Vaquinha
+        </p>
     </div>
 </div>

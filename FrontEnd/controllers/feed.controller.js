@@ -3,11 +3,18 @@ modulo.controller('FeedController', function ($scope, authService, $routeParams,
     
    $scope.text = '*altas* \n- **emoções** 1\n- [Link](http://example.com)\n- [Custom Link 1](herp://is.this.working?)\n- [Custom Link 2](derp://is.this.working?)';
     
-    $scope.redirectToNewPost = redirectToNewPost;
+    $scope.redirectNovoProduto = redirectNovoProduto;
+    $scope.redirectNovoEvento = redirectNovoEvento;
+    $scope.redirectNovaVaquinha = redirectNovaVaquinha;
     
-    
-    function redirectToNewPost(){
-        $location.url('newPost');
+    function redirectNovoProduto(){
+        $location.url('novoProduto');
+    }
+    function redirectNovoEvento(){
+        $location.url('novoEvento');
+    }
+    function redirectNovaVaquinha(){
+        $location.url('novaVaquinha');
     }
 $scope.habilitarNotificacoes = false;
     $scope.buscar = buscar;

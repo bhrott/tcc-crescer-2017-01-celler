@@ -15,9 +15,17 @@ modulo.config(function ($routeProvider) {
         controller: 'FeedController',
         templateUrl: 'test.html',
         css: 'feed.css'
-    }).when('/newPost', {
+    }).when('/novoProduto', {
         controller: 'PostController',
-        templateUrl: 'Post.html',
+        templateUrl: 'novoProduto.html',
+        css: 'post.css'
+    }).when('/novoEvento', {
+        controller: 'PostController',
+        templateUrl: 'novoEvento.html',
+        css: 'post.css'
+    }).when('/novaVaquinha', {
+        controller: 'PostController',
+        templateUrl: 'novaVaquinha.html',
         css: 'post.css'
     })
         .otherwise({redirectTo: '/login'});
