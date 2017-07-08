@@ -14,9 +14,10 @@ namespace Celler.Dominio.Entidades
         public string Foto1 { get; private set; }
         public string Foto2 { get; private set; }
         public string Foto3 { get; private set; }
-        public DateTime DataAnuncio { get; set; }
-        public Usuario Criador { get; set; }
-        public List<Comentario> Comentarios { get; set; }
+        public DateTime DataAnuncio { get; private set; }
+        public Usuario Criador { get; private set; }
+        public List<Comentario> Comentarios { get; private set; }
+        public string TipoAnuncio { get; private set; }
 
         public Anuncio() { }
     }
