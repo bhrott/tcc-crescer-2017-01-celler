@@ -27,6 +27,18 @@ modulo.config(function ($routeProvider) {
         controller: 'PostController',
         templateUrl: 'novaVaquinha.html',
         css: 'post.css'
+    }).when('/produto/:idProduto', {
+        controller: 'AnuncioController',
+        templateUrl: 'detalheProduto.html',
+        css:'produto.css'
+    }).when('/vaquinha/:idVaquinha', {
+        controller: 'AnuncioController',
+        templateUrl: 'detalheVaquinha.html',
+        css:'produto.css'
+    }).when('/evento/:idEvento', {
+        controller: 'AnuncioController',
+        templateUrl: 'detalheEvento.html',
+        css:'produto.css'
     })
         .otherwise({redirectTo: '/login'});
 });
