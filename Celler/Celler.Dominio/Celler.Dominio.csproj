@@ -50,6 +50,7 @@
     <Compile Include="Entidades\Produto.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Entidades\Vaquinha.cs" />
+    <Compile Include="Models\AnuncioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
