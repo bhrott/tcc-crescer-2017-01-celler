@@ -39,6 +39,9 @@ modulo.config(function ($routeProvider) {
         controller: 'AnuncioController',
         templateUrl: 'detalheEvento.html',
         css:'produto.css'
+    }).when('/configs', {
+        controller: 'ConfigController',
+        templateUrl: 'configs.html'
     })
         .otherwise({redirectTo: '/login'});
 });
