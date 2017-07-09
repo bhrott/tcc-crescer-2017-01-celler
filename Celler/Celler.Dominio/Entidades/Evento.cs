@@ -15,5 +15,10 @@ namespace Celler.Dominio.Entidades
         public List<Usuario> Confirmados { get; private set; }
 
         public Evento() { }
+
+        public override int GetNumeroPessoasComInteresse()
+        {
+            return Confirmados.Count;
+        }
     }
 }
