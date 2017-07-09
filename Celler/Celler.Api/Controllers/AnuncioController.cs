@@ -25,11 +25,9 @@ namespace Celler.Api.Controllers
         }
 
         [HttpGet, Route("feed")]
-        public IHttpActionResult ObterUltimosAnunciosFiltrados(string filter1, string filter2 = null, string filter3 = null)
+        public IHttpActionResult ObterUltimosAnunciosFiltrados(string filtro1, string filtro2 = null, string filtro3 = null, string search = null)
         {
-            string[] filtros = new string[] { filter1, filter2, filter3 };
-
-            var anuncios = repositorio.ObterUltimosAnuncios(filtros);
+            var anuncios = repositorio.ObterUltimosAnuncios(filtro1, filtro2, filtro3,search);
             return Ok(new { dados = anuncios });
         }
     }

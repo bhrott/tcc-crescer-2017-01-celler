@@ -51,15 +51,8 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public object ObterUltimosAnuncios(string[] filtros)
+        public object ObterUltimosAnuncios(string filtro1, string filtro2, string filtro3, string search)
         {
-            //
-            // Devido ao fato de arrays e listas não poderem ser usadas dentro de expressões LINQ, variáveis temporárias foram criadas.
-            //
-            string tmpFiltro0 = filtros[0];
-            string tmpFiltro1 = filtros[1];
-            string tmpFiltro2 = filtros[2];
-
             List<AnuncioModel> anuncios = contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
@@ -80,9 +73,13 @@ namespace Celler.Infraestrutura.Repositorios
                                                0))
 
                 .Where(a=> 
-                      (a.TipoAnuncio.ToUpper() == tmpFiltro0.ToUpper()) ||
-                      (tmpFiltro1 != null ? a.TipoAnuncio.ToUpper() == tmpFiltro1.ToUpper() : false) ||
-                      (tmpFiltro2 != null ? a.TipoAnuncio.ToUpper() == tmpFiltro2.ToUpper() : false))
+                      (a.TipoAnuncio.ToUpper() == filtro1.ToUpper()) ||
+                      (filtro2 != null ? a.TipoAnuncio.ToUpper() == filtro2.ToUpper() : false) ||
+                      (filtro3 != null ? a.TipoAnuncio.ToUpper() == filtro3.ToUpper() : false))
+                .Where (a => (search != null ?
+                       a.Titulo.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                       a.Descricao.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0
+                       : true))
                 .ToList();
 
             PreencherNumeroDeInteressados(anuncios);
