@@ -23,5 +23,12 @@ namespace Celler.Api.Controllers
             var anuncios = repositorio.ObterUltimosAnuncios(pagina);
             return Ok(new { dados = anuncios });
         }
+
+        [HttpGet, Route("feed")]
+        public IHttpActionResult ObterUltimosAnunciosFiltrados(string filtro1, string filtro2 = null, string filtro3 = null, string search = null)
+        {
+            var anuncios = repositorio.ObterUltimosAnuncios(filtro1, filtro2, filtro3,search);
+            return Ok(new { dados = anuncios });
+        }
     }
 }
