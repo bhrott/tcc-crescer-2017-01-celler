@@ -18,6 +18,8 @@ namespace Celler.Dominio.Entidades
         public Usuario Criador { get; private set; }
         public List<Comentario> Comentarios { get; private set; }
         public string TipoAnuncio { get; private set; }
+        //Status: 'f' - fechado(vendido/realizado); 'a' - anunciado; 'd' - deletado 
+        public string Status { get; private set; }
 
         public Anuncio() { }
 

@@ -1,4 +1,40 @@
 <link rel="stylesheet" type="text/css" href="/css/produto.css">
+
+<div class="modal" ng-class="{'is-active':exibirModal}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Interessados</p>
+            <button ng-click="exibirModal = false" class="delete"></button>
+        </header>
+        <section class="modal-card-body">
+            <ul>
+                <div class="box trending metade">
+                    <p class="trend-title"></p>
+                    <div class="box trending">
+                        <p class="trend-hashtag">
+                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;Fulano.</span> 
+                            <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
+                        </p>
+                    </div>
+                    <div class="box trending">
+                        <p class="trend-hashtag">
+                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;Fulano.</span> 
+                          <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
+                        </p>
+                    </div> 
+                    <div class="box trending">
+                        <p class="trend-hashtag">
+                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;Fulano.</span> 
+                            <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
+                        </p>
+                    </div>
+                </div>
+            </ul>
+        </section>
+    </div>
+</div>
+
 <nav class="nav is-mobile has-shadow" ng-include="'/models/navbarItems.htm'">
 </nav>
 <div class="section product-header">
@@ -52,10 +88,10 @@
                     </tbody>
                 </table>
                 <p class="">
-                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                    <a class="button is-primary"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
-                </p>
+                    <a class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
+                  <a class="button is-primary is-small" ng-click="exibirModal = true"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
                 <br>
+                </p>
             </div>
         </div>
     </div>

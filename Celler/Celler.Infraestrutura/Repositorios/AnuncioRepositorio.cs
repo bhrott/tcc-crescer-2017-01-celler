@@ -60,7 +60,7 @@ namespace Celler.Infraestrutura.Repositorios
                 .Take(9)
                 .ToList()
                 .AsEnumerable()
-                .Select(a => new AnuncioModel(a.Id,
+                .Select(a => new AnuncioModel( a.Id,
                                                a.Titulo,
                                                a.Descricao,
                                                a.DataAnuncio,
@@ -69,6 +69,7 @@ namespace Celler.Infraestrutura.Repositorios
                                                a.Foto2,
                                                a.Foto3,
                                                a.Criador.Nome,
+                                               a.Status,
                                                a.Comentarios.Count,
                                                0))
 
