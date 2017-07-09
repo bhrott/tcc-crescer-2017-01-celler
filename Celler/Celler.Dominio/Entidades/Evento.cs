@@ -9,8 +9,6 @@ namespace Celler.Dominio.Entidades
     public class Evento : Anuncio
     {
         public DateTime DataRealizacao { get; private set; }
-        //Status: 'a' - anunciado; 'e' - encerrado; 'd' - deletado 
-        public string Status { get; private set; }
         public string Local { get; private set; }
         public DateTime DataMaximaConfirmacao { get; private set; }
         public double ValorPorPessoa { get; private set; }
