@@ -8,6 +8,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Collections;
+using Celler.Dominio.Models;
 
 namespace Celler.Infraestrutura.Repositorios
 {
@@ -15,10 +16,86 @@ namespace Celler.Infraestrutura.Repositorios
     {
         private Contexto contexto = new Contexto();
 
-        public List<Anuncio> ObterUltimosAnuncios(int pagina)
+        public List<AnuncioModel> ObterUltimosAnuncios(int pagina)
         {
-            return contexto.Anuncio.Include(a => a.Criador)
-                .OrderByDescending(a => a.DataAnuncio).Skip(pagina).Take(9).ToList();
+            //
+            // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
+            // o que pode ser coletado genericamente
+            //
+            List<AnuncioModel> anuncios = contexto.Anuncio
+                .Include(a => a.Criador)
+                .Include(a => a.Comentarios)
+                .OrderByDescending(a => a.DataAnuncio)
+                .Skip(pagina)
+                .Take(9)
+                .ToList()
+                .AsEnumerable()
+                .Select(a => new AnuncioModel( a.Id,
+                                               a.Titulo,
+                                               a.Descricao,
+                                               a.DataAnuncio,
+                                               a.TipoAnuncio,
+                                               a.Foto1,
+                                               a.Foto2,
+                                               a.Foto3,
+                                               a.Criador.Nome,
+                                               a.Comentarios.Count,
+                                               0))
+                .ToList();
+
+            //
+            // Para completar com as informações adicionais, é usado um método de preenchimento
+            //
+            PreencherNumeroDeInteressados(anuncios);
+
+            return anuncios;
+        }
+
+        private void PreencherNumeroDeInteressados(List<AnuncioModel> anuncios)
+        {
+            foreach (AnuncioModel anuncio in anuncios)
+            {
+                switch (anuncio.TipoAnuncio)
+                {
+                    case "Evento":
+                        anuncio.NumeroInteressados = GetNumeroConfirmadosEventos(anuncio);
+                        break;
+
+                    case "Produto":
+                        anuncio.NumeroInteressados = GetNumeroInteressadosProduto(anuncio);
+                        break;
+
+                    case "Vaquinha":
+                        anuncio.NumeroInteressados = GetNumeroDoadoresVaquinha(anuncio);
+                        break;
+
+                    default: break;
+                }
+            }
+        }
+
+        private int GetNumeroConfirmadosEventos(AnuncioModel anuncio)
+        {
+            return contexto.Evento
+                           .Include(a => a.Confirmados)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Confirmados.Count;
+        }
+
+        private int GetNumeroInteressadosProduto(AnuncioModel anuncio)
+        {
+            return contexto.Produto
+                           .Include(a => a.Interessados)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Interessados.Count;
+        }
+
+        private int GetNumeroDoadoresVaquinha (AnuncioModel anuncio)
+        {
+            return contexto.Vaquinha
+                           .Include(a => a.Doadores)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Doadores.Count;
         }
     }
 }
