@@ -1,14 +1,14 @@
 /*
 *
-* SCRIPT DE POPULAÇÃO DE BANCO
-* Os testes unitários são feitos com base em um banco com essas informações populadas
+* SCRIPT DE POPULAï¿½ï¿½O DE BANCO
+* Os testes unitï¿½rios sï¿½o feitos com base em um banco com essas informaï¿½ï¿½es populadas
 */
 
 
 select * from anuncio
 
 
-/*usuario não logável*/
+/*usuario nï¿½o logï¿½vel*/
 insert into usuario (nome, email, senha, 
 					 notificacaocomentarioanuncioemail,
 					 notificacaocomentarioanuncioslack,
@@ -36,7 +36,7 @@ values('admin', 'admin@admin', 'sem_hash',
 		1,
 		1);
 
-/*usuario logável*/
+/*usuario logï¿½vel*/
 insert into usuario (nome, email, senha, 
 					 notificacaocomentarioanuncioemail,
 					 notificacaocomentarioanuncioslack,
@@ -69,7 +69,7 @@ values('teste', 'teste@teste', 'af51a138526519a7ae40c41e7cae5d5c',
 /*anuncio*/
 insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcriador, tipoanuncio,status)
 
-values ('Churras dos Cresceres', 'Churrasco dos cresceres com várias opções de carne e jogos', 
+values ('Churras dos Cresceres', 'Churrasco dos cresceres com vÃ¡rias opÃ§Ãµes de carne e jogos', 
 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Churrasco_carioca.jpg', 
 'https://www.auxiliadorapredial.com.br/images/vendas/imoveis/210563/i5uU689O93v97_2105635847081e19135.jpg',
 null,'20171001',1,'Evento', 'a')
@@ -77,7 +77,7 @@ null,'20171001',1,'Evento', 'a')
 
 /*evento*/
 insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa)
-values (1,'20171003', 'CWI Software, 6° andar', '20171001', 10.0)
+values (1,'20171003', 'CWI Software, 6ï¿½ andar', '20171001', 10.0)
 
 /*confirmado*/
 insert into confirmadoevento(idevento, idusuario)
@@ -94,14 +94,14 @@ values ('Massa!', '20171002', 2, 1)
 /*anuncio*/
 insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcriador, tipoanuncio,status)
 
-values ('Palestra motivacional', 'Palestra motivacional com um tema diferenciado, que o fará se sentir muito melhor e muito mais entediado', 
+values ('Palestra motivacional', 'Palestra motivacional com um tema diferenciado, que o farÃ¡ se sentir muito melhor e muito mais entediado', 
 'http://3.bp.blogspot.com/-X14NwlGRyLk/T2QfWLbOvkI/AAAAAAAAHV0/Y79Ooj2Gweg/s1600/SUCESSO.jpg', 
 null,
 null,'20171001',2,'Evento', 'd')
 
 /*evento*/
 insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa)
-values (2,'20171003', 'Auditório do Tecnosinos', '20171001', 0.0)
+values (2,'20171003', 'Auditï¿½rio do Tecnosinos', '20171001', 0.0)
 
 /*comentario*/
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
@@ -116,7 +116,7 @@ values ('Que chato!', '20171002', 1, 2)
 /*anuncio*/
 insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcriador, tipoanuncio, status)
 
-values ('Comic do Batman', 'Comic raro do batman da minha coleção pessoal, pechincha!', 
+values ('Comic do Batman', 'Comic raro do batman da minha coleÃ§Ã£o pessoal, pechincha!', 
 'https://images-na.ssl-images-amazon.com/images/I/51L4f5ztm0L._SY344_BO1,204,203,200_.jpg', 
 null,
 null,'20171001',2,'Produto', 'a')
@@ -127,7 +127,7 @@ values (3,null, 35.0)
 
 /*comentario*/
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
-values ('Why so serious, São Leopoldo?', '20171002', 1, 3)
+values ('Why so serious, Sï¿½o Leopoldo?', '20171002', 1, 3)
 
 
 
@@ -137,7 +137,7 @@ values ('Why so serious, São Leopoldo?', '20171002', 1, 3)
 /*anuncio*/
 insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcriador, tipoanuncio, status)
 
-values ('Xícara personalizada', 'Faço xícaras personalizadas', 
+values ('XÃ­cara personalizada', 'FaÃ§o xÃ­caras personalizadas', 
 null, 
 null,
 null,'20171001',2,'Produto', 'a')
@@ -160,7 +160,7 @@ values (4,1)
 /*anuncio*/
 insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcriador, tipoanuncio, status)
 
-values ('Vaquinha para comparar miçangas', 'Ajude-nos a fazer um estoque de miçangas para o inverno', 
+values ('Vaquinha para comparar miÃ§angas', 'Ajude-nos a fazer um estoque de miÃ§angas para o inverno', 
 'http://www.fishingtur.com.br/imagens/artigos/100/f2.jpg', 
 null,
 null,'20171001',1,'Vaquinha', 'a')
