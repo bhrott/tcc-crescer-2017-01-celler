@@ -1,4 +1,4 @@
-select * from doador
+select * from anuncio
 
 
 /*usuario*/
@@ -40,8 +40,8 @@ null,'20171001',4,'Evento')
 
 
 /*evento*/
-insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa)
-values (5,'20171003', 'CWI Software, 6° andar', '20171001', 10.0)
+insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa, status)
+values (5,'20171003', 'CWI Software, 6° andar', '20171001', 10.0, 'a')
 
 /*confirmado*/
 insert into confirmadoevento(idevento, idusuario)
@@ -64,8 +64,8 @@ null,
 null,'20171001',2,'Evento')
 
 /*evento*/
-insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa)
-values (6,'20171003', 'Auditório do Tecnosinos', '20171001', 0.0)
+insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa, status)
+values (6,'20171003', 'Auditório do Tecnosinos', '20171001', 0.0, 'a')
 
 /*comentario*/
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
@@ -86,8 +86,8 @@ null,
 null,'20171001',2,'Produto')
 
 /*produto*/
-insert into produto (id, idcomprador, valor)
-values (7,null, 35.0)
+insert into produto (id, idcomprador, valor, status)
+values (7,null, 35.0, 'a')
 
 /*comentario*/
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
@@ -97,18 +97,18 @@ values ('Why so serious, São Leopoldo?', '20171002', 4, 7)
 /*anuncio*/
 insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcriador, tipoanuncio)
 
-values ('Comic do Batman', 'Comic raro do batman da minha coleção pessoal, pechincha!', 
-'https://images-na.ssl-images-amazon.com/images/I/51L4f5ztm0L._SY344_BO1,204,203,200_.jpg', 
+values ('Xícara personalizada', 'Faço xícaras personalizadas', 
+null, 
 null,
 null,'20171001',2,'Produto')
 
 /*produto*/
-insert into produto (id, idcomprador, valor)
-values (7,null, 35.0)
+insert into produto (id, idcomprador, valor,status)
+values (9,null, 35.0,'a')
 
 /*interessado*/
 insert into interessadoproduto(idproduto, idusuario)
-values (7,4)
+values (9,4)
 
 
 
@@ -125,13 +125,13 @@ values ('Vaquinha para comparar miçangas', 'Ajude-nos a fazer um estoque de miça
 null,
 null,'20171001',4,'Vaquinha')
 
-/*produto*/
-insert into vaquinha (id, arrecadamentoprevisto, totalarrecadado, datetermino)
-values (8,1500.0, 35.0, '20171225')
+/*vaquinha*/
+insert into vaquinha (id, arrecadamentoprevisto, totalarrecadado, datetermino, status)
+values (8,1500.0, 35.0, '20171225', 'a')
 
 /*interessado*/
-insert into doador(valordoado, idusuario)
-values (35.0,4)
+insert into doador(valordoado, idusuario, status)
+values (35.0,4,'n')
 
 insert into doadorvaquinha (idvaquinha, iddoador)
 values (8,1)

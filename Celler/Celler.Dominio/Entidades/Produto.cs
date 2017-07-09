@@ -10,7 +10,7 @@ namespace Celler.Dominio.Entidades
     {
         public double Valor { get; private set; }
         //Status: 'v' - vendido; 'a' - anunciado; 'd' - deletado 
-        public char Status { get; private set; }
+        public string Status { get; private set; }
         public Usuario Comprador { get; private set; }
         public List<Usuario> Interessados { get; private set; }
 
