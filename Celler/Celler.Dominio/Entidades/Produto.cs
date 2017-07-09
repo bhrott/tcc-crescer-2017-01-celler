@@ -13,5 +13,10 @@ namespace Celler.Dominio.Entidades
         public List<Usuario> Interessados { get; private set; }
 
         public Produto(){ }
+
+        public override int GetNumeroPessoasComInteresse()
+        {
+            return Interessados.Count;
+        }
     }
 }

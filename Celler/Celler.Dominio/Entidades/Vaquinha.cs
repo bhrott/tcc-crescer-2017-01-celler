@@ -15,5 +15,10 @@ namespace Celler.Dominio.Entidades
         public List<Doador> Doadores { get; set; }
 
         public Vaquinha() { }
+
+        public override int GetNumeroPessoasComInteresse()
+        {
+            return Doadores.Count;
+        }
     }
 }

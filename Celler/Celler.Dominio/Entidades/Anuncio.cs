@@ -22,5 +22,7 @@ namespace Celler.Dominio.Entidades
         public string Status { get; private set; }
 
         public Anuncio() { }
+
+        public abstract int GetNumeroPessoasComInteresse();
     }
 }
