@@ -1,8 +1,42 @@
+/*
+*
+* SCRIPT DE POPULA��O DE BANCO
+* Os testes unit�rios s�o feitos com base em um banco com essas informa��es populadas
+*/
+
+
 select * from anuncio
-update anuncio set status = 'd' where titulo = 'Palestra motivacional'
 
 
-/*usuario*/
+/*usuario n�o log�vel*/
+insert into usuario (nome, email, senha, 
+					 notificacaocomentarioanuncioemail,
+					 notificacaocomentarioanuncioslack,
+					 notificacaocomentarioanunciobrowser,
+					 notificacaopresencaemail,
+					 notificacaopresencaslack,
+					 notificacaopresencabrowser,
+					 notificacaointeresseemail,
+					 notificacaointeresseslack,
+					 notificacaointeressebrowser,
+					 notificacaodoacaovaquinhaemail,
+					 notificacaodoacaovaquinhaslack,
+					 notificacaodoacaovaquinhabrowser)
+values('admin', 'admin@admin', 'sem_hash',
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1);
+
+/*usuario log�vel*/
 insert into usuario (nome, email, senha, 
 					 notificacaocomentarioanuncioemail,
 					 notificacaocomentarioanuncioslack,
@@ -31,29 +65,30 @@ values('teste', 'teste@teste', 'af51a138526519a7ae40c41e7cae5d5c',
 		1);
 
 
+
 /*anuncio*/
 insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcriador, tipoanuncio,status)
 
 values ('Churras dos Cresceres', 'Churrasco dos cresceres com várias opções de carne e jogos', 
 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Churrasco_carioca.jpg', 
 'https://www.auxiliadorapredial.com.br/images/vendas/imoveis/210563/i5uU689O93v97_2105635847081e19135.jpg',
-null,'20171001',4,'Evento', 'a')
+null,'20171001',1,'Evento', 'a')
 
 
 /*evento*/
 insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa)
-values (5,'20171003', 'CWI Software, 6° andar', '20171001', 10.0)
+values (1,'20171003', 'CWI Software, 6� andar', '20171001', 10.0)
 
 /*confirmado*/
 insert into confirmadoevento(idevento, idusuario)
-values (5,4)
+values (1,1)
 
 /*comentario*/
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
-values ('Uhul!', '20171002', 4, 5)
+values ('Uhul!', '20171002', 1, 1)
 
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
-values ('Massa!', '20171002', 2, 5)
+values ('Massa!', '20171002', 2, 1)
 
 
 /*anuncio*/
@@ -66,11 +101,11 @@ null,'20171001',2,'Evento', 'd')
 
 /*evento*/
 insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa)
-values (6,'20171003', 'Auditório do Tecnosinos', '20171001', 0.0)
+values (2,'20171003', 'Audit�rio do Tecnosinos', '20171001', 0.0)
 
 /*comentario*/
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
-values ('Que chato!', '20171002', 4, 6)
+values ('Que chato!', '20171002', 1, 2)
 
 
 
@@ -88,11 +123,11 @@ null,'20171001',2,'Produto', 'a')
 
 /*produto*/
 insert into produto (id, idcomprador, valor)
-values (7,null, 35.0)
+values (3,null, 35.0)
 
 /*comentario*/
 insert into comentario (texto, datacomentario, idusuario, idanuncio)
-values ('Why so serious, São Leopoldo?', '20171002', 4, 7)
+values ('Why so serious, S�o Leopoldo?', '20171002', 1, 3)
 
 
 
@@ -109,11 +144,11 @@ null,'20171001',2,'Produto', 'a')
 
 /*produto*/
 insert into produto (id, idcomprador, valor)
-values (9,null, 35.0)
+values (4,null, 35.0)
 
 /*interessado*/
 insert into interessadoproduto(idproduto, idusuario)
-values (9,4)
+values (4,1)
 
 
 
@@ -128,15 +163,15 @@ insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcria
 values ('Vaquinha para comparar miçangas', 'Ajude-nos a fazer um estoque de miçangas para o inverno', 
 'http://www.fishingtur.com.br/imagens/artigos/100/f2.jpg', 
 null,
-null,'20171001',4,'Vaquinha', 'a')
+null,'20171001',1,'Vaquinha', 'a')
 
 /*vaquinha*/
 insert into vaquinha (id, arrecadamentoprevisto, totalarrecadado, datetermino)
-values (8,1500.0, 35.0, '20171225')
+values (5,1500.0, 35.0, '20171225')
 
 /*interessado*/
 insert into doador(valordoado, idusuario, status)
-values (35.0,4,'n')
+values (35.0,2,'n')
 
 insert into doadorvaquinha (idvaquinha, iddoador)
-values (8,1)
+values (5,1)
