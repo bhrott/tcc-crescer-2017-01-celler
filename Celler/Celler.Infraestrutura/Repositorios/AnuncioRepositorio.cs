@@ -39,8 +39,11 @@ namespace Celler.Infraestrutura.Repositorios
                                                a.Foto2,
                                                a.Foto3,
                                                a.Criador.Nome,
+                                               a.Status,
                                                a.Comentarios.Count,
                                                0))
+                //Status
+                .Where(a => a.Status != "d")
                 .ToList();
 
             //
@@ -72,11 +75,14 @@ namespace Celler.Infraestrutura.Repositorios
                                                a.Status,
                                                a.Comentarios.Count,
                                                0))
-
+                //Status
+                .Where(a => a.Status != "d")
+                //Filtros
                 .Where(a=> 
                       (a.TipoAnuncio.ToUpper() == filtro1.ToUpper()) ||
                       (filtro2 != null ? a.TipoAnuncio.ToUpper() == filtro2.ToUpper() : false) ||
                       (filtro3 != null ? a.TipoAnuncio.ToUpper() == filtro3.ToUpper() : false))
+                //Busca
                 .Where (a => (search != null ?
                        a.Titulo.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0 ||
                        a.Descricao.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0

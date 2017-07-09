@@ -1,4 +1,5 @@
-select * from produto
+select * from anuncio
+update anuncio set status = 'd' where titulo = 'Palestra motivacional'
 
 
 /*usuario*/
@@ -61,7 +62,7 @@ insert into anuncio (titulo, descricao, foto1, foto2, foto3, dataanuncio, idcria
 values ('Palestra motivacional', 'Palestra motivacional com um tema diferenciado, que o fará se sentir muito melhor e muito mais entediado', 
 'http://3.bp.blogspot.com/-X14NwlGRyLk/T2QfWLbOvkI/AAAAAAAAHV0/Y79Ooj2Gweg/s1600/SUCESSO.jpg', 
 null,
-null,'20171001',2,'Evento', 'a')
+null,'20171001',2,'Evento', 'd')
 
 /*evento*/
 insert into evento (id,datarealizacao, local, datamaximaconfirmacao, valorporpessoa)
