@@ -13,6 +13,7 @@ namespace Celler.Dominio.Entidades
         // Opções status: 'l' - lido; 'n' - não lido;
         public string Status { get; private set; }
         public Usuario Usuario { get; private set; }
+        public string Link { get; set; }
 
         public Notificacao() { }
     }

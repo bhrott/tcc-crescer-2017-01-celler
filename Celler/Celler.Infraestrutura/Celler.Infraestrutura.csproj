@@ -66,6 +66,22 @@
     <Compile Include="Migrations\201707081350093_AddTipoAEntidadeAnuncio.Designer.cs">
       <DependentUpon>201707081350093_AddTipoAEntidadeAnuncio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707090733088_alterar tipo de char para string.cs" />
+    <Compile Include="Migrations\201707090733088_alterar tipo de char para string.Designer.cs">
+      <DependentUpon>201707090733088_alterar tipo de char para string.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707090741539_adicionar status.cs" />
+    <Compile Include="Migrations\201707090741539_adicionar status.Designer.cs">
+      <DependentUpon>201707090741539_adicionar status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707091524414_AbstrairStatusDeAnuncio.cs" />
+    <Compile Include="Migrations\201707091524414_AbstrairStatusDeAnuncio.Designer.cs">
+      <DependentUpon>201707091524414_AbstrairStatusDeAnuncio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707092259223_adicionar campo link na notificacao.cs" />
+    <Compile Include="Migrations\201707092259223_adicionar campo link na notificacao.Designer.cs">
+      <DependentUpon>201707092259223_adicionar campo link na notificacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\AnuncioRepositorio.cs" />
@@ -87,6 +103,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707081350093_AddTipoAEntidadeAnuncio.resx">
       <DependentUpon>201707081350093_AddTipoAEntidadeAnuncio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707090733088_alterar tipo de char para string.resx">
+      <DependentUpon>201707090733088_alterar tipo de char para string.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707090741539_adicionar status.resx">
+      <DependentUpon>201707090741539_adicionar status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707091524414_AbstrairStatusDeAnuncio.resx">
+      <DependentUpon>201707091524414_AbstrairStatusDeAnuncio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707092259223_adicionar campo link na notificacao.resx">
+      <DependentUpon>201707092259223_adicionar campo link na notificacao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
