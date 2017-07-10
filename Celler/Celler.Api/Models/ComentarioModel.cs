@@ -6,17 +6,19 @@ using System.Web;
 
 namespace Celler.Api.Models
 {
-    public class ComentarioModel 
+    public class ComentarioModel : EntidadeBasica
     {
         public string  Texto { get; set; }
         public int IdAnuncio { get; set; }
 
-        internal void Validar()
+        public override bool Validar()
         {
-           if (this.Texto == null || this.Texto == "")
-            {
-                throw new Exception("Formato de comentário inválido");
-            }
+            Mensagens.Clear();
+
+            if (string.IsNullOrWhiteSpace(Texto))
+                Mensagens.Add("O texto informado não é válido.");
+
+            return Mensagens.Count == 0;
         }
     }
 }

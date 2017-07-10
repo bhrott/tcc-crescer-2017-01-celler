@@ -4,6 +4,7 @@ using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,7 +18,7 @@ namespace Celler.Api.Controllers
     [BasicAuthorization]
     [RoutePrefix("api/anuncio")]
 
-    public class AnuncioController : ApiController
+    public class AnuncioController : ControllerBasica
     {
         readonly AnuncioRepositorio _anuncioRepositorio;
         readonly UsuarioRepositorio _usuarioRepositorio;
@@ -50,15 +51,18 @@ namespace Celler.Api.Controllers
         }
 
         [HttpPost, Route("comentar")]
-        public IHttpActionResult ComentarAnuncio(ComentarioModel model)
+        public HttpResponseMessage ComentarAnuncio(ComentarioModel model)
         {
-            model.Validar();
+            if (!model.Validar())
+            { 
+                return ResponderErro(model.Mensagens);
+            }
+   
 
             Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-
-            var resposta = _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
+            _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
           
-            return Ok(new { dados = resposta });
+            return ResponderOk(new { texto = model.Texto });
         }
 
         protected override void Dispose(bool disposing)

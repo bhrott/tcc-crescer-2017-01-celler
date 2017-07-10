@@ -99,7 +99,7 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public bool ComentarAnuncio (string texto, int id, Usuario usuario)
+        public void ComentarAnuncio (string texto, int id, Usuario usuario)
         {
             Comentario comentario = new Comentario(texto, usuario, DateTime.Now);
             Anuncio anuncio = _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
