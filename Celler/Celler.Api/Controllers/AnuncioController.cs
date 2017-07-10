@@ -45,7 +45,7 @@ namespace Celler.Api.Controllers
         [HttpGet, Route("{id:int}")]
         public IHttpActionResult ObterAnuncioPorId(int id)
         {
-            var anuncio = repositorio.ObterAnuncioPorId(id);
+            var anuncio = _anuncioRepositorio.ObterAnuncioPorId(id);
             return Ok(new { dados = anuncio });
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using Celler.Dominio.Models;
+using System.Collections;
 
 namespace Celler.Infraestrutura.Repositorios
 {
@@ -241,11 +242,11 @@ namespace Celler.Infraestrutura.Repositorios
 
                 default: return null;
             }
+        }
 
-            public void Dispose()
-            {
-                contexto.Dispose();
-            }
+        public void Dispose()
+        {
+            contexto.Dispose();
         }
     }
 }
