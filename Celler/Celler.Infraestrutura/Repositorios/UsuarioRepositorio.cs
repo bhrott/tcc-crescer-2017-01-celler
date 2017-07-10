@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Celler.Infraestrutura.Repositorios
 {
-    public class UsuarioRepositorio
+    public class UsuarioRepositorio:IDisposable
     {
         private Contexto contexto = new Contexto();
 
@@ -50,6 +50,11 @@ namespace Celler.Infraestrutura.Repositorios
                 .Where(u => u.Email == email)
                 .Include(u => u.Permissoes)
                 .FirstOrDefault();
+        }
+
+        public Usuario ObterUsuarioLogado(string basicAuth)
+        {
+            return Obter(Usuario.ObterEmail(basicAuth));
         }
 
         public void Dispose()

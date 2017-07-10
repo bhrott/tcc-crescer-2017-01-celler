@@ -25,6 +25,7 @@ namespace Celler.Infraestrutura
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
             modelBuilder.Configurations.Add(new AnuncioMap());
             modelBuilder.Configurations.Add(new UsuarioMap());
             modelBuilder.Configurations.Add(new NotificacaoMap());

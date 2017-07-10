@@ -2,12 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Data.Entity;
-using System.Linq.Expressions;
-using System.Collections;
 using Celler.Dominio.Models;
 
 namespace Celler.Infraestrutura.Repositorios
@@ -16,19 +11,21 @@ namespace Celler.Infraestrutura.Repositorios
     {
         private Contexto contexto = new Contexto();
 
+        public Anuncio Obter (int id)
+        {
+            return contexto.Anuncio.FirstOrDefault(a => a.Id == id);
+        }
+
         public List<AnuncioModel> ObterUltimosAnuncios(int pagina)
         {
             //
             // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
             // o que pode ser coletado genericamente
             //
-            List<AnuncioModel> anuncios = contexto.Anuncio
+           List<AnuncioModel> anuncios = contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
-                .Skip(pagina)
-                .Take(9)
-                .ToList()
                 .AsEnumerable()
                 .Select(a => new AnuncioModel( a.Id,
                                                a.Titulo,
@@ -44,6 +41,8 @@ namespace Celler.Infraestrutura.Repositorios
                                                0))
                 //Status
                 .Where(a => a.Status != "d")
+                .Skip(pagina)
+                .Take(9)
                 .ToList();
 
             //
@@ -54,7 +53,7 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public object ObterUltimosAnuncios(string filtro1, string filtro2, string filtro3, string search)
+        public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search)
         {
             List<AnuncioModel> anuncios = contexto.Anuncio
                 .Include(a => a.Criador)
@@ -87,11 +86,23 @@ namespace Celler.Infraestrutura.Repositorios
                        a.Titulo.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0 ||
                        a.Descricao.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0
                        : true))
+                .Skip(pagina)
+                .Take(9)
                 .ToList();
 
             PreencherNumeroDeInteressados(anuncios);
 
             return anuncios;
+        }
+
+        public bool ComentarAnuncio (string texto, int id, Usuario usuario)
+        {
+            Comentario comentario = new Comentario(texto, usuario, DateTime.Now);
+            Anuncio anuncio = contexto.Anuncio.FirstOrDefault(a => a.Id == id);
+            anuncio.AdicionarComentario(comentario);
+            contexto.Entry(anuncio).State = EntityState.Modified;
+            contexto.SaveChanges();
+            return true;
         }
 
         private void PreencherNumeroDeInteressados(List<AnuncioModel> anuncios)
@@ -139,6 +150,11 @@ namespace Celler.Infraestrutura.Repositorios
                            .Include(a => a.Doadores)
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Doadores.Count;
+        }
+
+        public void Dispose()
+        {
+            contexto.Dispose();
         }
     }
 }

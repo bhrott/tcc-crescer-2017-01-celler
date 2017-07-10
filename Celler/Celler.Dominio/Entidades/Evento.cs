@@ -14,11 +14,16 @@ namespace Celler.Dominio.Entidades
         public double ValorPorPessoa { get; private set; }
         public List<Usuario> Confirmados { get; private set; }
 
-        public Evento() { }
+        protected Evento() { }
 
         public override int GetNumeroPessoasComInteresse()
         {
             return Confirmados.Count;
+        }
+
+        public void AdicionarConfirmado(Usuario usuario)
+        {
+            Confirmados.Add(usuario);
         }
     }
 }

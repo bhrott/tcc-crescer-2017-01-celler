@@ -14,6 +14,6 @@ namespace Celler.Dominio.Entidades
         //Status: 'p' - pago; 'n' - não pago
         public string Status { get; private set; }
 
-        public Doador(){}
+        protected Doador(){}
     }
 }

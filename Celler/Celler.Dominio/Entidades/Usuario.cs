@@ -97,5 +97,21 @@ namespace Celler.Dominio.Entidades
 
             return Mensagens.Count == 0;
         }
+
+        public static string ObterEmail(string basicAuth)
+        {
+            if (basicAuth == null && !basicAuth.StartsWith("Basic"))
+            { 
+                throw new Exception("A string de autorização é inválida.");
+            }
+            Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+
+            string encodedUsernamePassword = basicAuth.Substring("Basic ".Length).Trim();
+            string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
+            int seperatorIndex = usernamePassword.IndexOf(':');
+            string username = usernamePassword.Substring(0, seperatorIndex);
+
+            return username;
+        }
     }
 }

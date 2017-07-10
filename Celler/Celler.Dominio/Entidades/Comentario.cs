@@ -13,6 +13,13 @@ namespace Celler.Dominio.Entidades
         public Usuario Usuario { get; private set; }
         public DateTime DataComentario{ get; private set; }
 
-        public Comentario(){}
+        protected Comentario(){}
+
+        public Comentario(string texto, Usuario usuario, DateTime dataComentario)
+        {
+            Texto = texto;
+            Usuario = usuario;
+            DataComentario = dataComentario;
+        }
     }
 }
