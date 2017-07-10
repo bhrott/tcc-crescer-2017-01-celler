@@ -27,6 +27,7 @@ namespace Celler.Api.Controllers
         public AnuncioController()
         {
             _anuncioRepositorio = new AnuncioRepositorio(_contexto);
+            _usuarioRepositorio = new UsuarioRepositorio();
         }
 
         [HttpGet, Route("feed/{pagina:int}")]

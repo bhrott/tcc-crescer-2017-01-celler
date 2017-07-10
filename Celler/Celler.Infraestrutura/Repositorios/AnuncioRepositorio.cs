@@ -106,7 +106,6 @@ namespace Celler.Infraestrutura.Repositorios
             anuncio.AdicionarComentario(comentario);
             _contexto.Entry(anuncio).State = EntityState.Modified;
             _contexto.SaveChanges();
-            return true;
         }
 
         private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModel> anuncios)
