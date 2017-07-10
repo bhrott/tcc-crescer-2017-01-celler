@@ -20,9 +20,10 @@ namespace Celler.Dominio.Models
         public string Status { get; private set; }
         public int NumeroComentarios { get; private set; }
         public int NumeroInteressados { get; set; }
-        
+        public double ValorProduto { get; set; }
 
-        public AnuncioModel(int id, string titulo, string descricao, DateTime dataAnuncio, string tipoAnuncio, string foto1, string foto2, string foto3, string nomeCriador, string status, int numeroComentarios, int numeroInteressados)
+
+        public AnuncioModel(int id, string titulo, string descricao, DateTime dataAnuncio, string tipoAnuncio, string foto1, string foto2, string foto3, string nomeCriador, string status, int numeroComentarios)
         {
             Id = id;
             Titulo = titulo;
@@ -35,7 +36,6 @@ namespace Celler.Dominio.Models
             NomeCriador = nomeCriador;
             Status = status;
             NumeroComentarios = numeroComentarios;
-            NumeroInteressados = numeroInteressados;
         }
     }
 }

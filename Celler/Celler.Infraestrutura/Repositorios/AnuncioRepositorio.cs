@@ -38,8 +38,7 @@ namespace Celler.Infraestrutura.Repositorios
                                                a.Foto3,
                                                a.Criador.Nome,
                                                a.Status,
-                                               a.Comentarios.Count,
-                                               0))
+                                               a.Comentarios.Count))
                 //Status
                 .Where(a => a.Status != "d")
                 .Skip(pagina)
@@ -49,7 +48,7 @@ namespace Celler.Infraestrutura.Repositorios
             //
             // Para completar com as informações adicionais, é usado um método de preenchimento
             //
-            PreencherNumeroDeInteressados(anuncios);
+            PreencherInformacoesAdicionaisEspecificas(anuncios);
 
             return anuncios;
         }
@@ -73,8 +72,7 @@ namespace Celler.Infraestrutura.Repositorios
                                                a.Foto3,
                                                a.Criador.Nome,
                                                a.Status,
-                                               a.Comentarios.Count,
-                                               0))
+                                               a.Comentarios.Count))
                 //Status
                 .Where(a => a.Status != "d")
                 //Filtros
@@ -91,7 +89,7 @@ namespace Celler.Infraestrutura.Repositorios
                 .Take(9)
                 .ToList();
 
-            PreencherNumeroDeInteressados(anuncios);
+            PreencherInformacoesAdicionaisEspecificas(anuncios);
 
             return anuncios;
         }
@@ -106,7 +104,7 @@ namespace Celler.Infraestrutura.Repositorios
             return true;
         }
 
-        private void PreencherNumeroDeInteressados(List<AnuncioModel> anuncios)
+        private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModel> anuncios)
         {
             foreach (AnuncioModel anuncio in anuncios)
             {
@@ -118,6 +116,7 @@ namespace Celler.Infraestrutura.Repositorios
 
                     case "Produto":
                         anuncio.NumeroInteressados = GetNumeroInteressadosProduto(anuncio);
+                        anuncio.ValorProduto = GetValorProduto(anuncio);
                         break;
 
                     case "Vaquinha":
@@ -152,7 +151,15 @@ namespace Celler.Infraestrutura.Repositorios
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Doadores.Count;
         }
- 
+
+        private double GetValorProduto (AnuncioModel anuncio)
+        {
+            return contexto.Produto
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Valor;
+        }
+
+
         public IEnumerable ObterAnuncioPorId(int id)
         {
             Anuncio anuncio = contexto.Anuncio
