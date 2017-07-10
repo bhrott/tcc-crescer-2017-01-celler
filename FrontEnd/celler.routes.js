@@ -1,5 +1,5 @@
 var modulo = angular.module('CellerApp', ['ngRoute', 'auth','ngStorage',  'ngSanitize',
-  'markdown']);
+                                          'markdown']);
 modulo.config(function ($routeProvider) {
 
     $routeProvider
@@ -48,8 +48,10 @@ modulo.config(function ($routeProvider) {
 
 modulo.config(function ($compileProvider) {
     // Add optional support for custom schema links: "herp://" and "derp://"
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(herp|derp):/);
-  });
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|coui):/);
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|coui):/);
+});
+
 modulo.constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário

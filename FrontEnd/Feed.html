@@ -20,13 +20,12 @@
                 <div ng-if="anuncio.TipoAnuncio == 'Evento'" ng-include="'/models/cardEvento.htm'"></div>
                 <div  ng-if="anuncio.TipoAnuncio == 'Vaquinha'" ng-include="'/models/cardVaquinha.htm'"></div>
                 <div ng-if="anuncio.TipoAnuncio == 'Produto'"ng-include="'/models/cardAnuncio.htm'"></div>
-                </div>
+            </div>
         </div>
     </div>
     <div class="columns">
-        <div ng-click="carregarMais()" style="text-align:center;" class="column is-auto is-full-mobile">
+        <div ng-if="habilitarBuscarMais" ng-click="carregarMais()" style="text-align:center;" class="column is-auto is-full-mobile">
             <i  class="fa fa-sort-desc" aria-hidden="true"></i>
         </div>
     </div>
 </section>
-
