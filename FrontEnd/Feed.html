@@ -22,10 +22,13 @@
                 <div ng-if="anuncio.TipoAnuncio == 'Produto'"ng-include="'/models/cardAnuncio.htm'"></div>
             </div>
         </div>
-    </div>
-    <div class="columns">
-        <div ng-if="habilitarBuscarMais" ng-click="carregarMais()" style="text-align:center;" class="column is-auto is-full-mobile">
-            <i  class="fa fa-sort-desc" aria-hidden="true"></i>
+        <div class="columns is-multiline offset">
+        <div ng-if="habilitarBuscarMais" ng-click="carregarMais()" class="column is-full">
+           <div class="card"  style="text-align:center; height:5vh;">
+            <span>Carregar Mais</span>
+            </div>
         </div>
     </div>
+    </div>
 </section>
+    
