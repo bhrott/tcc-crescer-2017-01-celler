@@ -27,15 +27,15 @@ modulo.config(function ($routeProvider) {
         controller: 'PostController',
         templateUrl: 'novaVaquinha.html',
         css: 'post.css'
-    }).when('/produto/:idProduto', {
+    }).when('/produto/:idAnuncio', {
         controller: 'AnuncioController',
         templateUrl: 'detalheProduto.html',
         css:'produto.css'
-    }).when('/vaquinha/:idVaquinha', {
+    }).when('/vaquinha/:idAnuncio', {
         controller: 'AnuncioController',
         templateUrl: 'detalheVaquinha.html',
         css:'produto.css'
-    }).when('/evento/:idEvento', {
+    }).when('/evento/:idAnuncio', {
         controller: 'AnuncioController',
         templateUrl: 'detalheEvento.html',
         css:'produto.css'

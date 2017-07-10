@@ -20,7 +20,7 @@
                     <div class="box trending">
                         <p class="trend-hashtag">
                             <span><i class="fa fa-user"></i> &nbsp; &nbsp;Fulano.</span> 
-                          <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
+                            <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
                         </p>
                     </div> 
                     <div class="box trending">
@@ -41,7 +41,7 @@
     <div class="container">
         <div class="columns">
             <div class="column">
-                <span class="title is-3">Nome do Produto Anunciado</span>
+                <span class="title is-3">{{anuncioEspecifico.Titulo}}</span>
                 <span class="title is-3 has-text-muted">&nbsp;|&nbsp;</span>
                 <span class="title is-4 has-text-muted">Produto</span>
             </div>
@@ -53,22 +53,22 @@
         <div class="columns">
             <div class="column is-6">
                 <div>
-                    <img class="imagemProduto" style="max-height:430px;width:512px;" src="https://http2.mlstatic.com/D_Q_NP_498101-MLB20281659156_042015-Q.jpg">
+                    <img ng-if="anuncioEspecifico.Foto1 != null" class="imagemProduto" style="max-height:430px;width:512px;" src="{{anuncioEspecifico.Foto1}}">
 
 
-                    <img class="imagemProduto" style="max-height:256px;max-width:256px;" src="https://http2.mlstatic.com/D_Q_NP_498101-MLB20281659156_042015-Q.jpg">
+                    <img ng-if="anuncioEspecifico.Foto2 != null" class="imagemProduto" style="max-height:256px;max-width:256px;" src="{{anuncioEspecifico.Foto2}}">
 
 
-                    <img class="imagemProduto" style="max-height:256px;max-width:256px;" src="https://placehold.it/256x256">
+                    <img ng-if="anuncioEspecifico.Foto3 != null"class="imagemProduto" style="max-height:256px;max-width:256px;" src="{{anuncioEspecifico.Foto3}}">
                 </div>
 
             </div>
             <div class="column is-5 is-offset-1">
-                <div class="title is-2">Churrasquera </div>
-                <p class="title is-3 has-text-muted">$ 39.95</p>
-                <p>(Marty arrives in his radiation suit and helmet. He places headphones on George's head as he sleeps, and then pops a Van Halen tape into the walkman and presses play. George wakes up with a jerk, holding his head.) Who are you? (Marty presses play again and George falls silent.) Silence Earthling. my name is Darth Vader. I'm am an extra-terrestrial from the planet Vulcan. (George turns and looks at the cover of a book that's by his head, and the alien looks almost exactly like Marty does in his radiation suit.)That's Calvin Klein, oh my god, he's a dream. (Outside) (Marty runs over to a kid who's on a scooter.) Whoa, whoa, kid, kid, stop, stop, stop, stop. Hey.(Everyone in the Saloon is watching Doc with his shot glass.) How much has he had? None. That's his first one and he hasn't touched it, yet. He just likes to hold it. (The old man laughs as Marty runs into the Saloon.) Doc! Doc! (He sees the glass.) What're you doin'?
-                    Suspendisse sodale
-                </p>
+                <div class="title is-2">{{anuncioEspecifico.Titulo}}</div>
+                <p class="title is-3 has-text-muted">R$ {{anuncioEspecifico.Valor}}</p>
+                <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
+
+                </div>
                 <br>
                 <br>
                 <table class="table">
@@ -77,20 +77,20 @@
                             <td class="has-text-right">
                                 <strong>Vendedor</strong>
                             </td>
-                            <td>jsmith</td>
+                            <td>{{anuncioEspecifico.NomeCriador}}</td>
                         </tr>
                         <tr>
                             <td class="has-text-right">
                                 <strong>Interessados</strong>
                             </td>
-                            <td>3</td>
+                            <td>{{anuncioEspecifico.Interessados.Count || 0}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="">
                     <a class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
-                  <a class="button is-primary is-small" ng-click="exibirModal = true"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
-                <br>
+                    <a class="button is-primary is-small" ng-click="exibirModal = true"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
+                    <br>
                 </p>
             </div>
         </div>
@@ -103,15 +103,19 @@
                 <li><a>Comentários</a></li>
             </ul>
         </div>
-        <div class="box">
-            <article class="media">
+        <div  class="box">
+            <article ng-repeat="comentario in anuncioEspecifico.Comentarios" class="media">
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                            <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
                             <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
                         </p>
+                        <div ng-bind-html="comentario.Texto | markdown">
+
+                        </div>
+
+
                     </div>
                 </div>
             </article>
