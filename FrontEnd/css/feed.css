@@ -50,3 +50,14 @@ position:
     position:relative;
     text-align:center;
 }
+@media screen and (max-width: 768px) {
+    .hidden-xs {
+        display:none;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .show-xs {
+        display:none;
+    }
+}
