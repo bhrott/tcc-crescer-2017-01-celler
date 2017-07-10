@@ -1,42 +1,42 @@
 <div class="card">
                         <header class="card-header">
                             <span class="card-header-icon timestamp">
-                                <i class="fa fa-cart-arrow-down">  Churrasquera Controle Remoto </i>
+                                <i class="fa fa-cart-arrow-down">  {{anuncio.Titulo}} </i>
                             </span>
                         </header>
-                        <div class="card-image">
+                        <a href="#!/produto/{{anuncio.Id}}"><div class="card-image">
                             <figure class="image is-4by3">
-                                <img src="http://cache2.allpostersimages.com/p/LRG/37/3790/38EIF00Z/posters/fireball-of-h-bomb-explosion-after-test-blast-over-bikini-atoll.jpg" alt="Image">
+                                <img src="{{ anuncio.Foto1}}" alt="Image">
                             </figure>
-                        </div>
+                        </div></a>
                         <div class="card-content">
                             <div class="panel-block-item">
                                 <span class="likes">
-
                                     <span class="icon">
                                         <i class="fa fa-money interessado">
                                         </i> 
                                     </span>
-                                    <span class="confirmado" > &nbsp; R$ 4,55 </span>
+                                    <span class="confirmado" > &nbsp; {{anuncio.Preco || 'R$ 0.00'}} </span>
                                 </span>
                                 <span class="likes">
                                     &nbsp; &nbsp; 
                                     <span class="icon">
-                                        <i class="fa fa-cart-plus interessado"></i>
+                                        <i class="fa fa-cart-plus interessado"></i> &nbsp;{{anuncio.NumeroInteressados}}
                                     </span>
 
                                 </span>
+                                &nbsp;&nbsp;
                                 <span class="comments">
                                     <span class="icon">
                                         <i class="fa fa-comment"></i>
                                     </span>
-                                    12k
+                                    {{anuncio.NumeroComentarios}}
                                 </span>
                                 <span class="comments">
                                     <span class="icon">
                                         <i class="fa  fa-user-circle"></i> 
                                     </span>
-                                    André
+                                    {{anuncio.NomeCriador}}
                                 </span>
                             </div>
                         </div>

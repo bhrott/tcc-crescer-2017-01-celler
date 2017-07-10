@@ -50,13 +50,13 @@ position:
     position:relative;
     text-align:center;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .hidden-xs {
         display:none;
     }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 768px) {
     .show-xs {
         display:none;
     }

@@ -1,5 +1,5 @@
 var modulo = angular.module('CellerApp', ['ngRoute', 'auth','ngStorage',  'ngSanitize',
-  'markdown']);
+                                          'markdown']);
 modulo.config(function ($routeProvider) {
 
     $routeProvider
@@ -27,15 +27,15 @@ modulo.config(function ($routeProvider) {
         controller: 'PostController',
         templateUrl: 'novaVaquinha.html',
         css: 'post.css'
-    }).when('/produto/:idProduto', {
+    }).when('/produto/:idAnuncio', {
         controller: 'AnuncioController',
         templateUrl: 'detalheProduto.html',
         css:'produto.css'
-    }).when('/vaquinha/:idVaquinha', {
+    }).when('/vaquinha/:idAnuncio', {
         controller: 'AnuncioController',
         templateUrl: 'detalheVaquinha.html',
         css:'produto.css'
-    }).when('/evento/:idEvento', {
+    }).when('/evento/:idAnuncio', {
         controller: 'AnuncioController',
         templateUrl: 'detalheEvento.html',
         css:'produto.css'
@@ -48,8 +48,10 @@ modulo.config(function ($routeProvider) {
 
 modulo.config(function ($compileProvider) {
     // Add optional support for custom schema links: "herp://" and "derp://"
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(herp|derp):/);
-  });
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|coui):/);
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|coui):/);
+});
+
 modulo.constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário

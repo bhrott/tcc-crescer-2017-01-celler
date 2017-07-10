@@ -41,6 +41,13 @@ namespace Celler.Api.Controllers
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search);
             return Ok(new { dados = anuncios });
         }
+        
+        [HttpGet, Route("{id:int}")]
+        public IHttpActionResult ObterAnuncioPorId(int id)
+        {
+            var anuncio = repositorio.ObterAnuncioPorId(id);
+            return Ok(new { dados = anuncio });
+        }
 
         [HttpPost, Route("comentar")]
         public IHttpActionResult ComentarAnuncio(ComentarioModel model)

@@ -151,10 +151,101 @@ namespace Celler.Infraestrutura.Repositorios
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Doadores.Count;
         }
-
-        public void Dispose()
+ 
+        public IEnumerable ObterAnuncioPorId(int id)
         {
-            contexto.Dispose();
+            Anuncio anuncio = contexto.Anuncio
+                .Include(a => a.Criador)
+                .Include(a => a.Comentarios)
+                .FirstOrDefault(a => a.Id == id);
+
+            var AnuncioDetalhado = PreencherAnuncioDetalhado(anuncio);
+
+            return AnuncioDetalhado;
+
+        }
+
+        private IEnumerable PreencherAnuncioDetalhado(Anuncio anuncio)
+        {
+            dynamic AnuncioDetalhado = new System.Dynamic.ExpandoObject();
+            AnuncioDetalhado.Id = anuncio.Id;
+            AnuncioDetalhado.Titulo = anuncio.Titulo;
+            AnuncioDetalhado.Descricao = anuncio.Descricao;
+            AnuncioDetalhado.DataAnuncio = anuncio.DataAnuncio;
+            AnuncioDetalhado.TipoAnuncio = anuncio.TipoAnuncio;
+            AnuncioDetalhado.Foto1 = anuncio.Foto1;
+            AnuncioDetalhado.Foto2 = anuncio.Foto2;
+            AnuncioDetalhado.Foto3 = anuncio.Foto3;
+            AnuncioDetalhado.NomeCriador = anuncio.Criador.Nome;
+            AnuncioDetalhado.IdUsuario = anuncio.Criador.Id;
+            AnuncioDetalhado.Comentarios = anuncio.Comentarios;
+
+            switch (anuncio.TipoAnuncio)
+            {
+                case "Evento":
+                    Evento evento = contexto.Evento
+                        .Include(e => e.Confirmados)
+                        .FirstOrDefault(e => e.Id == anuncio.Id);
+                    AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
+                    AnuncioDetalhado.Local = evento.Local;
+                    AnuncioDetalhado.DataMaximaConfirmacao = evento.DataMaximaConfirmacao;
+                    AnuncioDetalhado.ValorPorPessoa = evento.ValorPorPessoa;
+                    AnuncioDetalhado.Confirmados = new List<IEnumerable>();
+
+                    foreach (var interessadoEvento in evento.Confirmados)
+                    {
+                        dynamic Interessado = new System.Dynamic.ExpandoObject();
+                        Interessado.Id = interessadoEvento.Id;
+                        Interessado.Nome = interessadoEvento.Nome;
+                        Interessado.Email = interessadoEvento.Email;
+                        AnuncioDetalhado.Confirmados.Add(Interessado);
+                    }
+                    return AnuncioDetalhado;
+
+                case "Produto":
+                    Produto produto = contexto.Produto
+                        .Include(p => p.Interessados)
+                        .FirstOrDefault(p => p.Id == anuncio.Id);
+
+                    AnuncioDetalhado.Valor = produto.Valor;
+                    AnuncioDetalhado.Interessados = new List<IEnumerable>();
+
+                        foreach (var interessadoProduto in produto.Interessados)
+                        {
+                            dynamic Interessado = new System.Dynamic.ExpandoObject();
+                            Interessado.Id = interessadoProduto.Id;
+                            Interessado.Nome = interessadoProduto.Nome;
+                            Interessado.Email = interessadoProduto.Email;
+                            AnuncioDetalhado.Interessados.Add(Interessado);
+                        }
+
+                    return AnuncioDetalhado;
+
+                case "Vaquinha":
+                    Vaquinha vaquinha = contexto.Vaquinha
+                        .Include(v => v.Doadores)
+                        .FirstOrDefault(v => v.Id == anuncio.Id);
+                    AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
+                    AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
+                    AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
+                    AnuncioDetalhado.Doadores = new List<IEnumerable>();
+
+                    foreach (var interessadoVaquinha in vaquinha.Doadores)
+                    {
+                        dynamic Interessado = new System.Dynamic.ExpandoObject();
+                        Interessado.Id = interessadoVaquinha.Id;
+                        AnuncioDetalhado.Doadores.Add(Interessado);
+                    }
+
+                    return AnuncioDetalhado;
+
+                default: return null;
+            }
+
+            public void Dispose()
+            {
+                contexto.Dispose();
+            }
         }
     }
 }

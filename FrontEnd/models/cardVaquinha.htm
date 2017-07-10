@@ -4,30 +4,39 @@
             <i class="fa fa-money"> {{anuncio.Titulo}} </i>
         </span>
     </header>
+    <a href="#!/vaquinha/{{anuncio.Id}}">
     <div class="card-image">
         <figure class="image is-4by3">
-            <img src="https://birl-language.github.io/images/birl2.png" alt="Image">
+            <img src="{{anuncio.Foto1}}" alt="Image">
         </figure>
     </div>
+    </a>
     <div class="card-content">
         <div class="panel-block-item">
             <span class="likes">
                 <span class="icon">
                     <i class="fa fa-plus-circle"></i>
                 </span>
-                &nbsp; Apoiar
+               Apoiar 
+            </span>
+            
+            <span class="comments">
+                <span class="icon" style="color:blue;">
+                    <i class="fa fa-thumbs-o-up"></i>
+                </span>
+                 {{anuncio.NumeroInteressados}}
             </span>
             <span class="comments">
                 <span class="icon">
                     <i class="fa fa-comment"></i>
                 </span>
-                12k
+                {{anuncio.NumeroComentarios}}
             </span>
             <span class="comments">
                 <span class="icon">
                     <i class="fa  fa-user-circle"></i> 
                 </span>
-                André
+                {{anuncio.NomeCriador}}
             </span>
         </div>
     </div>
