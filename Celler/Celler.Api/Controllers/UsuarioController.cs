@@ -17,15 +17,19 @@ namespace Celler.Api.Controllers
 
     public class UsuarioController : ApiController
     {
-        private Contexto contexto = new Contexto();
+        readonly UsuarioRepositorio _usuarioRepositorio;
+        readonly Contexto _contexto = new Contexto();
 
-        private UsuarioRepositorio repositorio = new UsuarioRepositorio();
+        public UsuarioController()
+        {
+            _usuarioRepositorio = new UsuarioRepositorio(_contexto);
+        }
 
         [BasicAuthorization]
         [HttpGet]
         public HttpResponseMessage Obter()
         {
-            var usuario = repositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+            var usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
 
             if (usuario == null)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { mensagem = "Usuario/Email não cadastrados." });
@@ -35,7 +39,7 @@ namespace Celler.Api.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                repositorio.Dispose();
+                _usuarioRepositorio.Dispose();
             base.Dispose(disposing);
         }
 

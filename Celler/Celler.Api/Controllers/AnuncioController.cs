@@ -27,7 +27,7 @@ namespace Celler.Api.Controllers
         public AnuncioController()
         {
             _anuncioRepositorio = new AnuncioRepositorio(_contexto);
-            _usuarioRepositorio = new UsuarioRepositorio();
+            _usuarioRepositorio = new UsuarioRepositorio(_contexto);
         }
 
         [HttpGet, Route("feed/{pagina:int}")]
@@ -43,7 +43,7 @@ namespace Celler.Api.Controllers
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search);
             return Ok(new { dados = anuncios });
         }
-        
+
         [HttpGet, Route("{id:int}")]
         public IHttpActionResult ObterAnuncioPorId(int id)
         {
@@ -55,21 +55,22 @@ namespace Celler.Api.Controllers
         public HttpResponseMessage ComentarAnuncio(ComentarioModel model)
         {
             if (!model.Validar())
-            { 
+            {
                 return ResponderErro(model.Mensagens);
             }
-   
+
 
             Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
             _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
-          
+
             return ResponderOk(new { texto = model.Texto });
         }
 
         protected override void Dispose(bool disposing)
         {
+            if (disposing)
+                _usuarioRepositorio.Dispose();
             base.Dispose(disposing);
-            _contexto.Dispose();
         }
     }
 }

@@ -10,40 +10,38 @@ namespace Celler.Infraestrutura.Repositorios
 {
     public class UsuarioRepositorio:IDisposable
     {
-        private Contexto contexto = new Contexto();
+        readonly Contexto _contexto;
 
-
-
-        public UsuarioRepositorio()
+        public UsuarioRepositorio(Contexto contexto)
         {
-
+            _contexto = contexto;
         }
 
         public void Criar(Usuario usuario)
         {
-            contexto.Usuarios.Add(usuario);
-            contexto.SaveChanges();
+            _contexto.Usuarios.Add(usuario);
+            _contexto.SaveChanges();
         }
 
         public void Alterar(Usuario usuario)
         {
-            contexto.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
-            contexto.SaveChanges();
+            _contexto.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
+            _contexto.SaveChanges();
         }
         public void Excluir(Usuario usuario)
         {
-            contexto.Usuarios.Remove(usuario);
-            contexto.SaveChanges();
+            _contexto.Usuarios.Remove(usuario);
+            _contexto.SaveChanges();
         }
 
         public IEnumerable<Usuario> Listar()
         {
-            return contexto.Usuarios.ToList();
+            return _contexto.Usuarios.ToList();
         }
 
         public Usuario Obter(string email)
         {
-            return contexto.Usuarios
+            return _contexto.Usuarios
                 .Where(u => u.Email == email)
                 .Include(u => u.Permissoes)
                 .FirstOrDefault();
@@ -56,7 +54,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         public void Dispose()
         {
-            contexto.Dispose();
+            _contexto.Dispose();
         }
     }
 }

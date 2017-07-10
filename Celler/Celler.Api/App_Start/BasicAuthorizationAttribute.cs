@@ -1,4 +1,5 @@
 ﻿using Celler.Dominio.Entidades;
+using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -17,34 +18,11 @@ namespace Celler.Api.App_Start
     public class BasicAuthorizationAttribute : AuthorizeAttribute
     {
         readonly UsuarioRepositorio _usuarioRepositorio;
+        readonly Contexto _contexto = new Contexto();
 
         public BasicAuthorizationAttribute()
         {
-            _usuarioRepositorio = new UsuarioRepositorio();
-        }
-
-        public UsuarioRepositorio UsuarioRepositorio
-        {
-            get
-            {
-                return _usuarioRepositorio;
-            }
-        }
-
-        public UsuarioRepositorio UsuarioRepositorio1
-        {
-            get
-            {
-                return _usuarioRepositorio;
-            }
-        }
-
-        public UsuarioRepositorio UsuarioRepositorio2
-        {
-            get
-            {
-                return _usuarioRepositorio;
-            }
+            _usuarioRepositorio = new UsuarioRepositorio(_contexto);
         }
 
         public override void OnAuthorization(HttpActionContext actionContext)
