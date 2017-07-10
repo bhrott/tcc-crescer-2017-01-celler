@@ -14,7 +14,7 @@ namespace Celler.Dominio.Entidades
         public DateTime DateTermino { get; private set; }
         public List<Doador> Doadores { get; set; }
 
-        public Vaquinha() { }
+        protected Vaquinha() { }
 
         public override int GetNumeroPessoasComInteresse()
         {

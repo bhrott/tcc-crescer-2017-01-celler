@@ -12,7 +12,7 @@ namespace Celler.Dominio.Entidades
         public Usuario Comprador { get; private set; }
         public List<Usuario> Interessados { get; private set; }
 
-        public Produto(){ }
+        protected Produto(){ }
 
         public override int GetNumeroPessoasComInteresse()
         {

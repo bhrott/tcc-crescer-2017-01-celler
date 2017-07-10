@@ -11,7 +11,7 @@ namespace Celler.Dominio.Entidades
         public string Nome { get; private set; }
         public int Id { get; private set; }
 
-        public Permissao()
+        protected Permissao()
         { }
 
         public Permissao(string nome)
