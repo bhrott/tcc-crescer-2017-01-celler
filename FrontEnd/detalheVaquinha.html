@@ -29,77 +29,77 @@
                 <p class="title is-3 has-text-muted">Arrecadado: {{anuncioEspecifico.TotalArrecadado}}</p>
                 <p class="title is-3 has-text-muted">Data Limite:{{anuncioEspecifico.DateTermino | date:'dd/MM/yy'}}</p>
                 <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
-                <br>
-                <br>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="has-text-right">
-                                <strong>Criador</strong>
-                            </td>
-                            <td>{{anuncioEspecifico.NomeCriador}}</td>
-                        </tr>
-                        <tr>
-                            <td class="has-text-right">
-                                <strong>Apoiadores</strong>
-                            </td>
-                            <td>anuncioEspecifico.Doadores.Count</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="">
-                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                    <a class="button is-primary"> <i class="fa fa-plus-circle interessado"> </i> &nbsp; &nbsp; Apoiar</a>
-                </p>
-                <br>
+                    <br>
+                    <br>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="has-text-right">
+                                    <strong>Criador</strong>
+                                </td>
+                                <td>{{anuncioEspecifico.NomeCriador}}</td>
+                            </tr>
+                            <tr>
+                                <td class="has-text-right">
+                                    <strong>Apoiadores</strong>
+                                </td>
+                                <td>anuncioEspecifico.Doadores.Count</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="">
+                        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                        <a class="button is-primary"> <i class="fa fa-plus-circle interessado"> </i> &nbsp; &nbsp; Apoiar</a>
+                    </p>
+                    <br>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="tabs">
-            <ul>
-                <li><a>Comentários</a></li>
-            </ul>
-        </div>
-         <div  class="box">
-            <article ng-repeat="comentario in anuncioEspecifico.Comentarios" class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <p>
-                            <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
-                            <br>
-                        </p>
-                        <div ng-bind-html="comentario.Texto | markdown">
+    <div class="section">
+        <div class="container">
+            <div class="tabs">
+                <ul>
+                    <li><a>Comentários</a></li>
+                </ul>
+            </div>
+            <div  class="box">
+                <article ng-repeat="comentario in anuncioEspecifico.Comentarios" class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
+                                <br>
+                            </p>
+                            <div ng-bind-html="comentario.Texto | markdown">
 
-                        </div>
-
-
-                    </div>
-                </div>
-            </article>
-        </div>
-        <div class="box">
-            <article class="media">
-                <div class="media-content">
-                    <div class="field">
-                        <p class="control">
-                            <textarea class="textarea" ng-model="produto.Comentario" placeholder="Adicionar um comentário"> 
-                            </textarea>
-                        </p>
-                    </div>
-                    <nav class="level">
-                        <div class="level-left">
-                            <div class="level-item">
-                                <a class="button is-info" ng-disabled="produto.Comentario == null || produto.Comentario == ''">Comentar</a>
                             </div>
+
+
                         </div>
-                    </nav>
-                </div>
-            </article>
+                    </div>
+                </article>
+            </div>
+            <div class="box">
+                <article class="media">
+                    <div class="media-content">
+                        <div class="field">
+                            <p class="control">
+                                <textarea class="textarea" ng-model="produto.Comentario" placeholder="Adicionar um comentário"> 
+                                </textarea>
+                            </p>
+                        </div>
+                        <nav class="level">
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <a class="button is-info" ng-click="postar(produto.Comentario)" ng-disabled="produto.Comentario == null || produto.Comentario == ''">Comentar</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
         </div>
-    </div>
     </div>
 </div>
 

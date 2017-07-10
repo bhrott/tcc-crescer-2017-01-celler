@@ -52,6 +52,10 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                 console.log(response.data.dados);
                 for(resposta of response.data.dados){
                     $scope.anuncios.push(resposta);
+                    
+                    if(resposta.TipoAnuncio == 'Produto' && resposta.ValorProduto == null){
+                        resposta.ValorProduto = 0;
+                    }
                     if(resposta.Foto1 == null){
                         resposta.Foto1 = 'https://placehold.it/256x256';
                     }

@@ -10,11 +10,16 @@ namespace Celler.Infraestrutura.Repositorios
 {
     public class AnuncioRepositorio
     {
-        private Contexto contexto = new Contexto();
+        readonly Contexto _contexto;
+
+        public AnuncioRepositorio(Contexto contexto)
+        {
+            _contexto = contexto;
+        }
 
         public Anuncio Obter (int id)
         {
-            return contexto.Anuncio.FirstOrDefault(a => a.Id == id);
+            return _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
         }
 
         public List<AnuncioModel> ObterUltimosAnuncios(int pagina)
@@ -23,7 +28,7 @@ namespace Celler.Infraestrutura.Repositorios
             // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
             // o que pode ser coletado genericamente
             //
-           List<AnuncioModel> anuncios = contexto.Anuncio
+           List<AnuncioModel> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
@@ -55,7 +60,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search)
         {
-            List<AnuncioModel> anuncios = contexto.Anuncio
+            List<AnuncioModel> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
@@ -97,10 +102,10 @@ namespace Celler.Infraestrutura.Repositorios
         public bool ComentarAnuncio (string texto, int id, Usuario usuario)
         {
             Comentario comentario = new Comentario(texto, usuario, DateTime.Now);
-            Anuncio anuncio = contexto.Anuncio.FirstOrDefault(a => a.Id == id);
+            Anuncio anuncio = _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
             anuncio.AdicionarComentario(comentario);
-            contexto.Entry(anuncio).State = EntityState.Modified;
-            contexto.SaveChanges();
+            _contexto.Entry(anuncio).State = EntityState.Modified;
+            _contexto.SaveChanges();
             return true;
         }
 
@@ -130,7 +135,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         private int GetNumeroConfirmadosEventos(AnuncioModel anuncio)
         {
-            return contexto.Evento
+            return _contexto.Evento
                            .Include(a => a.Confirmados)
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Confirmados.Count;
@@ -138,7 +143,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         private int GetNumeroInteressadosProduto(AnuncioModel anuncio)
         {
-            return contexto.Produto
+            return _contexto.Produto
                            .Include(a => a.Interessados)
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Interessados.Count;
@@ -146,7 +151,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         private int GetNumeroDoadoresVaquinha (AnuncioModel anuncio)
         {
-            return contexto.Vaquinha
+            return _contexto.Vaquinha
                            .Include(a => a.Doadores)
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Doadores.Count;
@@ -154,7 +159,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         private double GetValorProduto (AnuncioModel anuncio)
         {
-            return contexto.Produto
+            return _contexto.Produto
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Valor;
         }
@@ -162,7 +167,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         public IEnumerable ObterAnuncioPorId(int id)
         {
-            Anuncio anuncio = contexto.Anuncio
+            Anuncio anuncio = _contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .Include(a => a.Comentarios.Select(a1 => a1.Usuario))
@@ -205,7 +210,7 @@ namespace Celler.Infraestrutura.Repositorios
             switch (anuncio.TipoAnuncio)
             {
                 case "Evento":
-                    Evento evento = contexto.Evento
+                    Evento evento = _contexto.Evento
                         .Include(e => e.Confirmados)
                         .FirstOrDefault(e => e.Id == anuncio.Id);
                     AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
@@ -225,7 +230,7 @@ namespace Celler.Infraestrutura.Repositorios
                     return AnuncioDetalhado;
 
                 case "Produto":
-                    Produto produto = contexto.Produto
+                    Produto produto = _contexto.Produto
                         .Include(p => p.Interessados)
                         .FirstOrDefault(p => p.Id == anuncio.Id);
 
@@ -244,7 +249,7 @@ namespace Celler.Infraestrutura.Repositorios
                     return AnuncioDetalhado;
 
                 case "Vaquinha":
-                    Vaquinha vaquinha = contexto.Vaquinha
+                    Vaquinha vaquinha = _contexto.Vaquinha
                         .Include(v => v.Doadores)
                         .Include(v=> v.Doadores.Select(v1=> v1.Usuario))
                         .FirstOrDefault(v => v.Id == anuncio.Id);
@@ -271,7 +276,7 @@ namespace Celler.Infraestrutura.Repositorios
 
         public void Dispose()
         {
-            contexto.Dispose();
+            _contexto.Dispose();
         }
     }
 }

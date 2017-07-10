@@ -41,7 +41,7 @@
                     <tbody>
                         <tr>
                             <td class="has-text-right">
-                                <strong>Oganizador</strong>
+                                <strong>Organizador</strong>
                             </td>
                             <td>{{anuncioEspecifico.NomeCriador}}</td>
                         </tr>
@@ -74,7 +74,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
+                            <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
                             <br>
                         </p>
                             <div ng-bind-html="comentario.Texto | markdown">
@@ -98,7 +98,7 @@
                     <nav class="level">
                         <div class="level-left">
                             <div class="level-item">
-                                <a class="button is-info" ng-disabled="produto.Comentario == null || produto.Comentario == ''">Comentar</a>
+                                <a class="button is-info" ng-click="postar(produto.Comentario)" ng-disabled="produto.Comentario == null || produto.Comentario == ''">Comentar</a>
                             </div>
                         </div>
                     </nav>

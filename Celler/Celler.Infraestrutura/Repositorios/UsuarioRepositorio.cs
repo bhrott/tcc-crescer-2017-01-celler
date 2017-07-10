@@ -12,10 +12,7 @@ namespace Celler.Infraestrutura.Repositorios
     {
         private Contexto contexto = new Contexto();
 
-        static UsuarioRepositorio()
-        {
 
-        }
 
         public UsuarioRepositorio()
         {

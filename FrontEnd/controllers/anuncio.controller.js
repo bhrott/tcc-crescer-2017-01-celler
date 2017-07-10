@@ -1,6 +1,7 @@
-modulo.controller('AnuncioController', function ($scope, authService, detalheService, $routeParams, $location) {
+modulo.controller('AnuncioController', function ($scope, authService, postService, detalheService, $routeParams, $location) {
     var idAnuncioEspecifico = $routeParams.idAnuncio;
     $scope.idAnuncio = idAnuncioEspecifico;
+    $scope.postar = postar;
     console.log(idAnuncioEspecifico);
     detalheService.carregarDetalhes(idAnuncioEspecifico).then(
         function(response){
@@ -20,4 +21,19 @@ modulo.controller('AnuncioController', function ($scope, authService, detalheSer
 
     );
 
+
+    function postar(texto){
+        postService.postarComentario(texto, idAnuncioEspecifico).then(
+
+            function(response){
+                $scope.produto.Comentario = '';
+                console.log(response.data.dados);
+
+            },
+            function(response){
+                console.log('jabulani');
+            }
+
+        );
+    }
 });

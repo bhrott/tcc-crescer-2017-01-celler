@@ -21,11 +21,11 @@ namespace Celler.Api.Controllers
     {
         readonly AnuncioRepositorio _anuncioRepositorio;
         readonly UsuarioRepositorio _usuarioRepositorio;
+        readonly Contexto _contexto = new Contexto();
 
         public AnuncioController()
         {
-            _anuncioRepositorio = new AnuncioRepositorio();
-            _usuarioRepositorio  = new UsuarioRepositorio();
+            _anuncioRepositorio = new AnuncioRepositorio(_contexto);
         }
 
         [HttpGet, Route("feed/{pagina:int}")]
@@ -64,8 +64,7 @@ namespace Celler.Api.Controllers
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            _usuarioRepositorio.Dispose();
-            _anuncioRepositorio.Dispose();
+            _contexto.Dispose();
         }
     }
 }

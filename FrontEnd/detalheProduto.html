@@ -11,22 +11,10 @@
             <ul>
                 <div class="box trending metade">
                     <p class="trend-title"></p>
-                    <div class="box trending">
+                    <div ng-repeat="interessado in anuncioEspecifico.Interessados" class="box trending">
                         <p class="trend-hashtag">
-                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;Fulano.</span> 
-                            <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
-                        </p>
-                    </div>
-                    <div class="box trending">
-                        <p class="trend-hashtag">
-                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;Fulano.</span> 
-                            <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
-                        </p>
-                    </div> 
-                    <div class="box trending">
-                        <p class="trend-hashtag">
-                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;Fulano.</span> 
-                            <a class="button is-small is-primary" ng-click="exibirModal = true"> &nbsp; &nbsp; Vender</a>
+                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;{{interessado.Nome}}</span> <em>{{interessado.Email}}</em>
+                            <a class="button is-small is-primary" ng-click="exibirModal = true">  Vender</a>
                         </p>
                     </div>
                 </div>
@@ -108,7 +96,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
+                             <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
                             <br>
                         </p>
                         <div ng-bind-html="comentario.Texto | markdown">
@@ -132,7 +120,7 @@
                     <nav class="level">
                         <div class="level-left">
                             <div class="level-item">
-                                <a class="button is-info" ng-disabled="produto.Comentario == null || produto.Comentario == ''">Comentar</a>
+                                <a class="button is-info" ng-click="postar(produto.Comentario)" ng-disabled="produto.Comentario == null || produto.Comentario == ''">Comentar</a>
                             </div>
                         </div>
                     </nav>
