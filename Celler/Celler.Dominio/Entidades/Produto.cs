@@ -10,13 +10,18 @@ namespace Celler.Dominio.Entidades
     {
         public double Valor { get; private set; }
         public Usuario Comprador { get; private set; }
-        public List<Usuario> Interessados { get; private set; }
+        public List<Usuario> Interessados { get; set; }
 
         protected Produto(){ }
 
         public override int GetNumeroPessoasComInteresse()
         {
             return Interessados.Count;
+        }
+
+        public void AdicionarInteressado (Usuario usuario)
+        {
+            Interessados.Add(usuario);
         }
     }
 }
