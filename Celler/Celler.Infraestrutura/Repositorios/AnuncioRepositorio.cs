@@ -146,6 +146,7 @@ namespace Celler.Infraestrutura.Repositorios
             Anuncio anuncio = contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
+                .Include(a => a.Comentarios.Select(a1 => a1.Usuario))
                 .FirstOrDefault(a => a.Id == id);
 
             var AnuncioDetalhado = PreencherAnuncioDetalhado(anuncio);
@@ -167,7 +168,20 @@ namespace Celler.Infraestrutura.Repositorios
             AnuncioDetalhado.Foto3 = anuncio.Foto3;
             AnuncioDetalhado.NomeCriador = anuncio.Criador.Nome;
             AnuncioDetalhado.IdUsuario = anuncio.Criador.Id;
-            AnuncioDetalhado.Comentarios = anuncio.Comentarios;
+            AnuncioDetalhado.Comentarios = new List<IEnumerable>();
+            AnuncioDetalhado.Status = anuncio.Status;
+
+            foreach (var comentarioAnuncio in anuncio.Comentarios)
+            {
+                dynamic Comentario = new System.Dynamic.ExpandoObject();
+                Comentario.Texto = comentarioAnuncio.Texto;
+                Comentario.Id = comentarioAnuncio.Id;
+                Comentario.DataComentario = comentarioAnuncio.DataComentario;
+                Comentario.UsuarioNome = comentarioAnuncio.Usuario.Nome;
+                Comentario.UsuarioEmail = comentarioAnuncio.Usuario.Email;
+                Comentario.UsuarioId = comentarioAnuncio.Usuario.Id;
+                AnuncioDetalhado.Comentarios.Add(Comentario);
+            }
 
             switch (anuncio.TipoAnuncio)
             {
@@ -213,16 +227,20 @@ namespace Celler.Infraestrutura.Repositorios
                 case "Vaquinha":
                     Vaquinha vaquinha = contexto.Vaquinha
                         .Include(v => v.Doadores)
+                        .Include(v=> v.Doadores.Select(v1=> v1.Usuario))
                         .FirstOrDefault(v => v.Id == anuncio.Id);
                     AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
                     AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
                     AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
                     AnuncioDetalhado.Doadores = new List<IEnumerable>();
-
                     foreach (var interessadoVaquinha in vaquinha.Doadores)
                     {
                         dynamic Interessado = new System.Dynamic.ExpandoObject();
-                        Interessado.Id = interessadoVaquinha.Id;
+                        Interessado.Id = interessadoVaquinha.Usuario.Id;
+                        Interessado.Nome = interessadoVaquinha.Usuario.Nome;
+                        Interessado.Email = interessadoVaquinha.Usuario.Email;
+                        Interessado.Valor = interessadoVaquinha.ValorDoado;
+                        Interessado.Status = interessadoVaquinha.Status;
                         AnuncioDetalhado.Doadores.Add(Interessado);
                     }
 
