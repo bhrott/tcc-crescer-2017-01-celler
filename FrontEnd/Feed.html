@@ -9,22 +9,24 @@
                 <div ng-include="'/models/barraNovoPost.htm'"></div>
             </div> 
         </div>
-        
+
         <div class="columns  hidden-xs">
-                <div class="column  is-full is-one-third-desktop " ng-include="'/models/barraDeBusca.htm'"></div>
-                <div class="column is-full is-one-third-desktop " ng-include="'/models/barraDeNotificacoes.htm'"></div>
-                <div class="column is-full is-one-third-desktop "  ng-include="'/models/barraNovoPost.htm'"></div>
+            <div class="column  is-full is-one-third-desktop " ng-include="'/models/barraDeBusca.htm'"></div>
+            <div class="column is-full is-one-third-desktop " ng-include="'/models/barraDeNotificacoes.htm'"></div>
+            <div class="column is-full is-one-third-desktop "  ng-include="'/models/barraNovoPost.htm'"></div>
         </div>
         <div class="columns  is-multiline  offset">
-                <div class="column is-full  is-one-third-desktop" ng-include="'/models/cardEvento.htm'">       </div>
-                <div class="column is-full  is-one-third-desktop " ng-include="'/models/cardVaquinha.htm'">   </div>
-                <div class="column is-full  is-one-third-desktop " ng-include="'/models/cardAnuncio.htm'">    </div>
-            </div>
+            <div ng-repeat="anuncio in anuncios" class="column is-full  is-one-third-desktop"> 
+                <div ng-if="anuncio.TipoAnuncio == 'Evento'" ng-include="'/models/cardEvento.htm'"></div>
+                <div  ng-if="anuncio.TipoAnuncio == 'Vaquinha'" ng-include="'/models/cardVaquinha.htm'"></div>
+                <div ng-if="anuncio.TipoAnuncio == 'Produto'"ng-include="'/models/cardAnuncio.htm'"></div>
+                </div>
+        </div>
     </div>
-            <div class="columns">
+    <div class="columns">
         <div ng-click="carregarMais()" style="text-align:center;" class="column is-auto is-full-mobile">
             <i  class="fa fa-sort-desc" aria-hidden="true"></i>
         </div>
-        </div>
+    </div>
 </section>
 

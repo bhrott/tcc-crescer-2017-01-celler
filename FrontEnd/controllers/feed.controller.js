@@ -1,6 +1,7 @@
 modulo.controller('FeedController', function ($scope, authService, $routeParams, $location) {
   
-    
+    $scope.anuncios = [{Titulo:'Birlll', TipoAnuncio:'Vaquinha'},{Titulo:'Negativa bambam', TipoAnuncio:'Vaquinha'},{TipoAnuncio:'Produto'},{TipoAnuncio:'Evento'}];
+    console.log($scope.anuncios);
    $scope.text = '*altas* \n- **emoções** 1\n- [Link](http://example.com)\n- [Custom Link 1](herp://is.this.working?)\n- [Custom Link 2](derp://is.this.working?)';
     
     $scope.redirectNovoProduto = redirectNovoProduto;
