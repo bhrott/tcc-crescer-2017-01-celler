@@ -140,5 +140,64 @@ namespace Celler.Infraestrutura.Repositorios
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Doadores.Count;
         }
+
+        public IEnumerable ObterAnuncioPorId(int id)
+        {
+            Anuncio anuncio = contexto.Anuncio
+                .Include(a => a.Criador)
+                .Include(a => a.Comentarios)
+                .FirstOrDefault(a => a.Id == id);
+
+            var AnuncioDetalhado = PreencherAnuncioDetalhado(anuncio);
+
+            return AnuncioDetalhado;
+
+        }
+
+        private IEnumerable PreencherAnuncioDetalhado(Anuncio anuncio)
+        {
+            dynamic AnuncioDetalhado = new System.Dynamic.ExpandoObject();
+            AnuncioDetalhado.Id = anuncio.Id;
+            AnuncioDetalhado.Titulo = anuncio.Titulo;
+            AnuncioDetalhado.Descricao = anuncio.Descricao;
+            AnuncioDetalhado.DataAnuncio = anuncio.DataAnuncio;
+            AnuncioDetalhado.TipoAnuncio = anuncio.TipoAnuncio;
+            AnuncioDetalhado.Foto1 = anuncio.Foto1;
+            AnuncioDetalhado.Foto2 = anuncio.Foto2;
+            AnuncioDetalhado.Foto3 = anuncio.Foto3;
+            AnuncioDetalhado.NomeCriador = anuncio.Criador.Nome;
+            AnuncioDetalhado.Comentarios = anuncio.Comentarios;
+
+            switch (anuncio.TipoAnuncio)
+            {
+                case "Evento":
+                    Evento evento = contexto.Evento.FirstOrDefault(e => e.Id == anuncio.Id);
+                    AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
+                    AnuncioDetalhado.Local = evento.Local;
+                    AnuncioDetalhado.DataMaximaConfirmacao = evento.DataMaximaConfirmacao;
+                    AnuncioDetalhado.ValorPorPessoa = evento.ValorPorPessoa;
+                    AnuncioDetalhado.Confirmados = evento.Confirmados;
+                    return AnuncioDetalhado;
+
+                case "Produto":
+                    Produto produto = contexto.Produto.FirstOrDefault(p => p.Id == anuncio.Id);
+                    AnuncioDetalhado.Valor = produto.Valor;
+                    AnuncioDetalhado.Comprador = produto.Comprador;
+                    AnuncioDetalhado.Interessados = produto.Interessados;
+
+                    return AnuncioDetalhado;
+
+                case "Vaquinha":
+                    Vaquinha vaquinha = contexto.Vaquinha.FirstOrDefault(v => v.Id == anuncio.Id);
+                    AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
+                    AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
+                    AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
+                    AnuncioDetalhado.Doadores = vaquinha.Doadores;
+                    return AnuncioDetalhado;
+
+                default: return null;
+            }
+
+        }
     }
 }

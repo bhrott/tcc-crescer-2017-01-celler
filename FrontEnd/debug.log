@@ -1,0 +1,3 @@
+[0709/193355.649:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\temp\settings.dat: Acesso negado. (0x5)
+[0709/193355.715:ERROR:registration_protocol_win.cc(83)] TransactNamedPipe: O pipe foi finalizado. (0x6D)
+[0709/193355.760:ERROR:crashpad_win.cc(223)] Crashpad handler failed to start, crash reporting disabled
