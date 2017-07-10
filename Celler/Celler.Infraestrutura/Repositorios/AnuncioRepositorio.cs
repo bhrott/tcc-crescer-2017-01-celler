@@ -172,28 +172,60 @@ namespace Celler.Infraestrutura.Repositorios
             switch (anuncio.TipoAnuncio)
             {
                 case "Evento":
-                    Evento evento = contexto.Evento.FirstOrDefault(e => e.Id == anuncio.Id);
+                    Evento evento = contexto.Evento
+                        .Include(e => e.Confirmados)
+                        .FirstOrDefault(e => e.Id == anuncio.Id);
                     AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
                     AnuncioDetalhado.Local = evento.Local;
                     AnuncioDetalhado.DataMaximaConfirmacao = evento.DataMaximaConfirmacao;
                     AnuncioDetalhado.ValorPorPessoa = evento.ValorPorPessoa;
-                    AnuncioDetalhado.Confirmados = evento.Confirmados;
+                    AnuncioDetalhado.Confirmados = new List<IEnumerable>();
+
+                    foreach (var interessadoEvento in evento.Confirmados)
+                    {
+                        dynamic Interessado = new System.Dynamic.ExpandoObject();
+                        Interessado.Id = interessadoEvento.Id;
+                        Interessado.Nome = interessadoEvento.Nome;
+                        Interessado.Email = interessadoEvento.Email;
+                        AnuncioDetalhado.Confirmados.Add(Interessado);
+                    }
                     return AnuncioDetalhado;
 
                 case "Produto":
-                    Produto produto = contexto.Produto.FirstOrDefault(p => p.Id == anuncio.Id);
+                    Produto produto = contexto.Produto
+                        .Include(p => p.Interessados)
+                        .FirstOrDefault(p => p.Id == anuncio.Id);
+
                     AnuncioDetalhado.Valor = produto.Valor;
-                    AnuncioDetalhado.Comprador = produto.Comprador;
-                    AnuncioDetalhado.Interessados = produto.Interessados;
+                    AnuncioDetalhado.Interessados = new List<IEnumerable>();
+
+                        foreach (var interessadoProduto in produto.Interessados)
+                        {
+                            dynamic Interessado = new System.Dynamic.ExpandoObject();
+                            Interessado.Id = interessadoProduto.Id;
+                            Interessado.Nome = interessadoProduto.Nome;
+                            Interessado.Email = interessadoProduto.Email;
+                            AnuncioDetalhado.Interessados.Add(Interessado);
+                        }
 
                     return AnuncioDetalhado;
 
                 case "Vaquinha":
-                    Vaquinha vaquinha = contexto.Vaquinha.FirstOrDefault(v => v.Id == anuncio.Id);
+                    Vaquinha vaquinha = contexto.Vaquinha
+                        .Include(v => v.Doadores)
+                        .FirstOrDefault(v => v.Id == anuncio.Id);
                     AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
                     AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
                     AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
-                    AnuncioDetalhado.Doadores = vaquinha.Doadores;
+                    AnuncioDetalhado.Doadores = new List<IEnumerable>();
+
+                    foreach (var interessadoVaquinha in vaquinha.Doadores)
+                    {
+                        dynamic Interessado = new System.Dynamic.ExpandoObject();
+                        Interessado.Id = interessadoVaquinha.Id;
+                        AnuncioDetalhado.Doadores.Add(Interessado);
+                    }
+
                     return AnuncioDetalhado;
 
                 default: return null;
