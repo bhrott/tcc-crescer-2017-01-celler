@@ -21,7 +21,15 @@ namespace Celler.Dominio.Entidades
         //Status: 'f' - fechado(vendido/realizado); 'a' - anunciado; 'd' - deletado 
         public string Status { get; private set; }
 
-        public Anuncio() { }
+        public Anuncio()
+        {
+            Comentarios = new List<Comentario>();
+        }
+
+        public void AdicionarComentario(Comentario comentario)
+        {
+            Comentarios.Add(comentario);
+        }
 
         public abstract int GetNumeroPessoasComInteresse();
     }

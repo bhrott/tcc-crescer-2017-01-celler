@@ -15,6 +15,6 @@ namespace Celler.Dominio.Entidades
         public Usuario Usuario { get; private set; }
         public string Link { get; set; }
 
-        public Notificacao() { }
+        protected Notificacao() { }
     }
 }
