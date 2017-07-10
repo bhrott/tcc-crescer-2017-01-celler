@@ -63,15 +63,19 @@
                 <li><a>Comentários</a></li>
             </ul>
         </div>
-        <div class="box">
-            <article class="media">
+         <div  class="box">
+            <article ng-repeat="comentario in anuncioEspecifico.Comentarios" class="media">
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                            <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
                             <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
                         </p>
+                        <div ng-bind-html="comentario.Texto | markdown">
+
+                        </div>
+
+
                     </div>
                 </div>
             </article>
@@ -81,20 +85,21 @@
                 <div class="media-content">
                     <div class="field">
                         <p class="control">
-                            <textarea class="textarea" ng-model="vaquinha.Comentario" placeholder="Adicionar um comentário"> 
+                            <textarea class="textarea" ng-model="produto.Comentario" placeholder="Adicionar um comentário"> 
                             </textarea>
                         </p>
                     </div>
                     <nav class="level">
                         <div class="level-left">
                             <div class="level-item">
-                                <a class="button is-info" ng-disabled="vaquinha.Comentario == null || vaquinha.Comentario == ''">Comentar</a>
+                                <a class="button is-info" ng-disabled="produto.Comentario == null || produto.Comentario == ''">Comentar</a>
                             </div>
                         </div>
                     </nav>
                 </div>
             </article>
         </div>
+    </div>
     </div>
 </div>
 

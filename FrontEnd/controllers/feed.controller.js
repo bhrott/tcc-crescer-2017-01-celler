@@ -1,10 +1,11 @@
 modulo.controller('FeedController', function ($scope, authService, feedService, $routeParams, $location) {
 
-   //  $scope.anuncios = [{Titulo:'Birlll', TipoAnuncio:'Vaquinha'},{Titulo:'Negativa bambam', TipoAnuncio:'Vaquinha'},{TipoAnuncio:'Produto'},{TipoAnuncio:'Evento'}];
+    //  $scope.anuncios = [{Titulo:'Birlll', TipoAnuncio:'Vaquinha'},{Titulo:'Negativa bambam', TipoAnuncio:'Vaquinha'},{TipoAnuncio:'Produto'},{TipoAnuncio:'Evento'}];
 
     $scope.anuncios = [];
     $scope.habilitarBuscarMais = true;
     $scope.pular = 0;
+    $scope.logout = logout;
     $scope.carregarPosts = carregarPosts;
     carregarPosts();
     $scope.carregarMais = carregarMais;
@@ -54,25 +55,29 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                     if(resposta.Foto1 == null){
                         resposta.Foto1 = 'https://placehold.it/256x256';
                     }
-                     if(resposta.Foto2 == null){
+                    if(resposta.Foto2 == null){
                         resposta.Foto2 = 'https://placehold.it/256x256';
                     }
-                     if(resposta.Foto3 == null){
+                    if(resposta.Foto3 == null){
                         resposta.Foto3 = 'https://placehold.it/256x256';
                     }
                 }
                 console.log($scope.anuncios);
-                if(response.data.dados.length != 4){
+                if(response.data.dados.length != 3){
                     $scope.habilitarBuscarMais = false;
                 }
             }
         );
     }
-    
+
     function carregarMais(){
         console.log('entrei aqui');
-        $scope.pular += 9;
+        $scope.pular += 3;
         carregarPosts();
+    }
+
+    function logout(){
+        authService.logout();
     }
 
 });
