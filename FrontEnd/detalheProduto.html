@@ -52,6 +52,7 @@
 
             </div>
             <div class="column is-5 is-offset-1">
+                  <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarProduto/{{anuncioEspecifico.Id}}">Editar seu Produto</a></div>
                 <div class="title is-2">{{anuncioEspecifico.Titulo}}</div>
                 <p class="title is-3 has-text-muted">R$ {{anuncioEspecifico.Valor}}</p>
                 <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
@@ -77,7 +78,7 @@
                 </table>
                 <p class="">
                     <a class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
-                    <a class="button is-primary is-small" ng-click="exibirModal = true"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
+                    <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="button is-primary is-small" ng-click="exibirModal = true"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
                     <br>
                 </p>
             </div>

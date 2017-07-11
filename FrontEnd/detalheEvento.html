@@ -7,7 +7,7 @@
             <div class="column">
                 <span class="title is-3">{{anuncioEspecifico.Titulo}}</span>
                 <span class="title is-3 has-text-muted">&nbsp;|&nbsp;</span>
-                <span class="title is-4 has-text-muted"> Evento </span>
+                <span class="title is-4 has-text-muted"> Evento </span> 
             </div>
         </div>
     </div>
@@ -28,12 +28,14 @@
 
             </div>
             <div class="column is-5 is-offset-1">
-                <div class="title is-2">{{anuncioEspecifico.Titulo}}</div>
-                 <div class="title is-2"> Data de Realização:{{anuncioEspecifico.DataRealizacao | date:'short'}}</div>
-                  <div class="title is-2"> Local: {{anuncioEspecifico.Local}}</div>
+               <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarEvento/{{anuncioEspecifico.Id}}">Editar seu Evento</a></div>
+                <div class="title is-2">{{anuncioEspecifico.Titulo}}&nbsp; &nbsp;
+                </div>
+                <div class="title is-2"> Data de Realização:{{anuncioEspecifico.DataRealizacao | date:'short'}}</div>
+                <div class="title is-2"> Local: {{anuncioEspecifico.Local}}</div>
                 <p class="title is-3 has-text-muted">Ingresso: R$ {{anuncioEspecifico.ValorPorPessoa}}</p>
                 <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
-                    
+
                 </div>
                 <br>
                 <br>
@@ -77,11 +79,11 @@
                             <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
                             <br>
                         </p>
-                            <div ng-bind-html="comentario.Texto | markdown">
-                            
-                            </div>
-                            
-                        
+                        <div ng-bind-html="comentario.Texto | markdown">
+
+                        </div>
+
+
                     </div>
                 </div>
             </article>

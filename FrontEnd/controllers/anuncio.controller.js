@@ -1,7 +1,9 @@
-modulo.controller('AnuncioController', function ($scope, authService, postService, detalheService, $routeParams, $location) {
+modulo.controller('AnuncioController', function ($scope, authService, postService, detalheService, $routeParams, $location, $localStorage) {
     var idAnuncioEspecifico = $routeParams.idAnuncio;
     $scope.idAnuncio = idAnuncioEspecifico;
     $scope.postar = postar;
+    $scope.idUsuarioLogado = $localStorage.usuarioLogado.Id;
+    console.log($scope.idUsuarioLogado);
     console.log(idAnuncioEspecifico);
     detalheService.carregarDetalhes(idAnuncioEspecifico).then(
         function(response){

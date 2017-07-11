@@ -24,6 +24,7 @@
 
             </div>
             <div class="column is-5 is-offset-1">
+                  <div ng-if="idUsuarioLogado === anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarVaquinha/{{anuncioEspecifico.Id}}">Editar sua Vaquinha</a></div>
                 <div class="title is-2">{{anuncioEspecifico.Titulo}}</div>
                 <p class="title is-3 has-text-muted">Total Pretendido: {{anuncioEspecifico.ArrecadamentoPrevisto}}</p>
                 <p class="title is-3 has-text-muted">Arrecadado: {{anuncioEspecifico.TotalArrecadado}}</p>

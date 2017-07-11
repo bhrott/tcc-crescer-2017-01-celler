@@ -39,11 +39,22 @@ modulo.config(function ($routeProvider) {
         controller: 'AnuncioController',
         templateUrl: 'detalheEvento.html',
         css:'produto.css'
+    }).when('/editarProduto/:idAnuncio', {
+        controller: 'EditarController',
+        templateUrl: 'editarProduto.html',
+        css:'produto.css'
+    }).when('/editarVaquinha/:idAnuncio', {
+        controller: 'EditarController',
+        templateUrl: 'editarVaquinha.html',
+        css:'produto.css'
+    }).when('/editarEvento/:idAnuncio', {
+        controller: 'EditarController',
+        templateUrl: 'editarEvento.html',
+        css:'produto.css'
     }).when('/configs', {
         controller: 'ConfigController',
         templateUrl: 'configs.html'
-    })
-        .otherwise({redirectTo: '/login'});
+    }).otherwise({redirectTo: '/login'});
 });
 
 modulo.config(function ($compileProvider) {
