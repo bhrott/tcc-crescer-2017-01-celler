@@ -34,21 +34,28 @@ namespace Celler.Api.Controllers
         public HttpResponseMessage ObterUltimosAnuncios(int pagina)
         {
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina);
-            return ResponderOk(new { dados = anuncios });
+            return ResponderOk(anuncios );
         }
 
         [HttpGet, Route("feed")]
         public HttpResponseMessage ObterUltimosAnunciosFiltrados(int pagina, string filtro1, string filtro2 = null, string filtro3 = null, string search = null)
         {
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search);
-            return ResponderOk(new { dados = anuncios });
+            return ResponderOk(anuncios);
         }
 
         [HttpGet, Route("{id:int}")]
         public HttpResponseMessage ObterAnuncioPorId(int id)
         {
             var anuncio = _anuncioRepositorio.ObterAnuncioPorId(id);
-            return ResponderOk(new { dados = anuncio });
+            return ResponderOk(anuncio);
+        }
+
+        [HttpGet, Route("{comentarios}")]
+        public HttpResponseMessage ObterAnuncioPorId(int id, int pagina)
+        {
+            var anuncio = _anuncioRepositorio.ObterComentariosPorId(id, pagina);
+            return ResponderOk(anuncio);
         }
 
         [HttpPost, Route("comentar")]

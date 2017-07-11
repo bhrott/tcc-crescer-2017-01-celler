@@ -102,7 +102,7 @@ namespace Celler.Infraestrutura.Repositorios
         public bool ComentarAnuncio (string texto, int id, Usuario usuario)
         {
             Comentario comentario = new Comentario(texto, usuario, DateTime.Now);
-            Anuncio anuncio = _contexto.Anuncio.First(a => a.Id == id);
+            Anuncio anuncio = _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
 
             if(anuncio == null) { return false; }
 
@@ -180,6 +180,11 @@ namespace Celler.Infraestrutura.Repositorios
 
             return AnuncioDetalhado;
 
+        }
+        
+        public List<Comentario> ObterComentariosPorId(int id, int pagina)
+        {
+            return new List<Comentario>();
         }
 
         private IEnumerable PreencherAnuncioDetalhado(Anuncio anuncio)
