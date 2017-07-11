@@ -6,20 +6,11 @@ using System.Web;
 
 namespace Celler.Api.Models
 {
-    public class InteressarProdutoModel : EntidadeBasica
+    public class InteressarProdutoModel
     {
-        public int idUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
         public int IdProduto{ get; set; }
 
-        public override bool Validar()
-        {
-            if (idUsuario==0 || IdProduto==0)
-            {
-                Mensagens.Add("Os id's não foram informados corretamente.");
-            }
-
-            return Mensagens.Count == 0;
-        }
     }
 }

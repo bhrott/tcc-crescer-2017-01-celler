@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
-    public abstract class Anuncio
+    public abstract class Anuncio : EntidadeBasica
     {
         public int Id { get; private set; }
         public string Titulo { get; private set; }

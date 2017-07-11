@@ -22,18 +22,16 @@ namespace Celler.Infraestrutura.Repositorios
             _contexto.Dispose();
         }
 
-        public void SalvarInteressadoProduto(int idUsuario, int idProduto)
+        public Produto ObterPorId(int id)
         {
-            Produto produto = _contexto.Produto
+            return _contexto.Produto
                 .Include(p => p.Interessados)
-                .FirstOrDefault(p => p.Id == idProduto);
+                .FirstOrDefault(p => p.Id == id);
+        }
 
-            Usuario usuario = _contexto.Usuarios.FirstOrDefault(u => u.Id == idUsuario);
-
-            produto.AdicionarInteressado(usuario);
+        public void Alterar(Produto produto)
+        {
             _contexto.Entry(produto).State = EntityState.Modified;
-            _contexto.SaveChanges();
-
         }
     }
 }

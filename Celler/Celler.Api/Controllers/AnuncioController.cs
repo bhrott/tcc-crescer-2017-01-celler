@@ -53,13 +53,7 @@ namespace Celler.Api.Controllers
 
         [HttpPost, Route("comentar")]
         public HttpResponseMessage ComentarAnuncio(ComentarioModel model)
-        {
-            if (!model.Validar())
-            {
-                return ResponderErro(model.Mensagens);
-            }
-
-
+        {          
             Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
             _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
 
