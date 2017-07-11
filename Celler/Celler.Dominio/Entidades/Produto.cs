@@ -38,5 +38,13 @@ namespace Celler.Dominio.Entidades
                 Interessados.Add(usuario);
 
         }
+
+        public void RemoverInteressado(Usuario usuario)
+        {
+            if (!Interessados.Contains(usuario))
+                AdicionarMensagem("Usuário não está interessado neste produto.");
+
+            Interessados.Remove(usuario);   
+        }
     }
 }
