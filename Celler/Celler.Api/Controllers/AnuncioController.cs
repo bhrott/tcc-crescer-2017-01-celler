@@ -61,19 +61,33 @@ namespace Celler.Api.Controllers
         [HttpPost, Route("comentar")]
         public HttpResponseMessage ComentarAnuncio(ComentarioModel model)
         {
+            Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+            Anuncio anuncio = _contexto.Anuncio.FirstOrDefault(a => a.Id == model.IdAnuncio);
+
+            if(usuario == null || anuncio == null)
+            {
+                return ResponderErro("Anuncio ou usuario inválido");
+            }
+
             if (!model.Validar())
             {
                 return ResponderErro(model.Mensagens);
             }
 
-            Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            bool sucesso = _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
+            if (!usuario.Validar())
+            {
+                return ResponderErro(model.Mensagens);
+            }
 
-            if (sucesso)
-                return ResponderOk(new { texto = model.Texto });
+            if (!anuncio.Validar())
+            {
+                return ResponderErro(model.Mensagens);
+            }
 
-            else
-                return ResponderErro("O anuncio não existe.");
+            Comentario comentario = new Comentario(model.Texto, usuario, DateTime.Now);
+            _anuncioRepositorio.ComentarAnuncio(anuncio, comentario);
+
+            return ResponderOk(new { texto = model.Texto });
         }
 
         protected override void Dispose(bool disposing)
