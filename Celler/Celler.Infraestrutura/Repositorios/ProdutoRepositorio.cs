@@ -27,7 +27,9 @@ namespace Celler.Infraestrutura.Repositorios
             Produto produto = _contexto.Produto
                 .Include(p => p.Interessados)
                 .FirstOrDefault(p => p.Id == idProduto);
+
             Usuario usuario = _contexto.Usuarios.FirstOrDefault(u => u.Id == idUsuario);
+
             produto.AdicionarInteressado(usuario);
             _contexto.Entry(produto).State = EntityState.Modified;
             _contexto.SaveChanges();

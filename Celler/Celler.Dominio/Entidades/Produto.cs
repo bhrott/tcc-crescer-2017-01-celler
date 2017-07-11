@@ -23,5 +23,13 @@ namespace Celler.Dominio.Entidades
         {
             Interessados.Add(usuario);
         }
+
+        public bool Validar(Produto produto)
+        {
+            if (produto == null)
+                return false;
+            else
+                return true;
+        }
     }
 }
