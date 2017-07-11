@@ -27,23 +27,26 @@ modulo.config(function ($routeProvider) {
         controller: 'PostController',
         templateUrl: 'novaVaquinha.html',
         css: 'post.css'
-    }).when('/produto/:idAnuncio', {
+    }).when('/anuncio/:idAnuncio', {
         controller: 'AnuncioController',
         templateUrl: 'detalheProduto.html',
         css:'produto.css'
-    }).when('/vaquinha/:idAnuncio', {
-        controller: 'AnuncioController',
-        templateUrl: 'detalheVaquinha.html',
+    }).when('/editarProduto/:idAnuncio', {
+        controller: 'EditarController',
+        templateUrl: 'editarProduto.html',
         css:'produto.css'
-    }).when('/evento/:idAnuncio', {
-        controller: 'AnuncioController',
-        templateUrl: 'detalheEvento.html',
+    }).when('/editarVaquinha/:idAnuncio', {
+        controller: 'EditarController',
+        templateUrl: 'editarVaquinha.html',
+        css:'produto.css'
+    }).when('/editarEvento/:idAnuncio', {
+        controller: 'EditarController',
+        templateUrl: 'editarEvento.html',
         css:'produto.css'
     }).when('/configs', {
         controller: 'ConfigController',
         templateUrl: 'configs.html'
-    })
-        .otherwise({redirectTo: '/login'});
+    }).otherwise({redirectTo: '/login'});
 });
 
 modulo.config(function ($compileProvider) {

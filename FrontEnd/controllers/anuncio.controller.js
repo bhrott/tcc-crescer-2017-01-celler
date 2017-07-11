@@ -1,7 +1,11 @@
-modulo.controller('AnuncioController', function ($scope, authService, postService, detalheService, $routeParams, $location) {
+modulo.controller('AnuncioController', function ($scope, authService, postService, detalheService, $routeParams, $location, $localStorage) {
     var idAnuncioEspecifico = $routeParams.idAnuncio;
     $scope.idAnuncio = idAnuncioEspecifico;
     $scope.postar = postar;
+    $scope.produto = {};
+    var produto = $scope.produto;
+    $scope.idUsuarioLogado = $localStorage.usuarioLogado.Id;
+    console.log($scope.idUsuarioLogado);
     console.log(idAnuncioEspecifico);
     detalheService.carregarDetalhes(idAnuncioEspecifico).then(
         function(response){
@@ -26,8 +30,9 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
         postService.postarComentario(texto, idAnuncioEspecifico).then(
 
             function(response){
-                $scope.produto.Comentario = '';
                 console.log(response.data.dados);
+                
+                $scope.produto.Comentario = '';
 
             },
             function(response){
