@@ -52,6 +52,11 @@ namespace Celler.Infraestrutura.Repositorios
             return Obter(Usuario.ObterEmail(basicAuth));
         }
 
+        public Usuario ObterPorId(int id)
+        {
+            return _contexto.Usuarios.FirstOrDefault(u => u.Id==id);
+        }
+
         public void Dispose()
         {
             _contexto.Dispose();

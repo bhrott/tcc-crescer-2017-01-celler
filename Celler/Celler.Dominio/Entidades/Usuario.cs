@@ -44,6 +44,15 @@ namespace Celler.Dominio.Entidades
                 Senha = CriptografarSenha(senha);
             Permissoes = new List<Permissao>();
             AtribuirPermissoes("Colaborador");
+
+            if (string.IsNullOrWhiteSpace(Nome))
+                AdicionarMensagem("Nome é inválido.");
+
+            if (string.IsNullOrWhiteSpace(Email))
+                AdicionarMensagem("Email é inválido.");
+
+            if (string.IsNullOrWhiteSpace(Senha))
+                AdicionarMensagem("Senha é inválido.");
         }
 
         public string ResetarSenha()
@@ -80,22 +89,6 @@ namespace Celler.Dominio.Entidades
         {
             foreach (var nome in nomes)
                 Permissoes.Add(new Permissao(nome));
-        }
-
-        public override bool Validar()
-        {
-            Mensagens.Clear();
-
-            if (string.IsNullOrWhiteSpace(Nome))
-                Mensagens.Add("Nome é inválido.");
-
-            if (string.IsNullOrWhiteSpace(Email))
-                Mensagens.Add("Email é inválido.");
-
-            if (string.IsNullOrWhiteSpace(Senha))
-                Mensagens.Add("Senha é inválido.");
-
-            return Mensagens.Count == 0;
         }
 
         public static string ObterEmail(string basicAuth)

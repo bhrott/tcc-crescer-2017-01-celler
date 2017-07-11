@@ -15,6 +15,14 @@ namespace Celler.Dominio.Entidades
             Mensagens = new List<string>();
         }
 
-        public abstract bool Validar();
+        public void AdicionarMensagem(string mensagemErro)
+        {
+            this.Mensagens.Add(mensagemErro);
+        }
+
+        public bool Validar()
+        {
+            return this.Mensagens.Count == 0;
+        }
     }
 }

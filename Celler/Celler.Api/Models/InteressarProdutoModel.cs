@@ -6,10 +6,11 @@ using System.Web;
 
 namespace Celler.Api.Models
 {
-    public class ComentarioModel
+    public class InteressarProdutoModel
     {
-        public string Texto { get; set; }
-        public int IdAnuncio { get; set; }
+        public int IdUsuario { get; set; }
+
+        public int IdProduto{ get; set; }
 
     }
 }

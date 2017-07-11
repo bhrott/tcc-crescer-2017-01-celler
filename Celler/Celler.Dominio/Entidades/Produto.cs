@@ -10,13 +10,30 @@ namespace Celler.Dominio.Entidades
     {
         public double Valor { get; private set; }
         public Usuario Comprador { get; private set; }
-        public List<Usuario> Interessados { get; private set; }
+        public List<Usuario> Interessados { get; set; }
 
-        protected Produto(){ }
+        protected Produto() { }
+
+        public Produto(double valor)
+        {
+            Valor = valor;
+
+            if (valor < 5)
+                AdicionarMensagem("Produto com valor inferior a R$5.00.");
+        }
 
         public override int GetNumeroPessoasComInteresse()
         {
             return Interessados.Count;
+        }
+
+        public void AdicionarInteressado(Usuario usuario)
+        {
+            if (Interessados.Contains(usuario))
+                AdicionarMensagem("Usuário já está interessado neste produto.");
+            else
+                Interessados.Add(usuario);
+
         }
     }
 }
