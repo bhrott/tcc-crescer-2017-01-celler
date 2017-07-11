@@ -56,7 +56,20 @@ namespace Celler.Api.Controllers
         public HttpResponseMessage ObterDetalhesAnuncio(int id)
         {
             var anuncio = _anuncioRepositorio.ObterCompleto(id);
-            var anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncio(anuncio);
+            var usuarioQuePostouAnuncio = _anuncioRepositorio.Obter(anuncio.Criador.Id);
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+
+            IEnumerable anuncioDetalhes;
+
+            if (usuarioQuePostouAnuncio.Id == usuarioLogado.Id)
+            {
+                anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncioComoAnunciante(anuncio);
+            }
+            else
+            {
+                anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncio(anuncio);
+            }
+
             return ResponderOk(anuncioDetalhes);
         }
 

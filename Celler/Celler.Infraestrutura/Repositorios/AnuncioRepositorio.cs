@@ -167,13 +167,18 @@ namespace Celler.Infraestrutura.Repositorios
                            .Valor;
         }
 
+        public IEnumerable ObterDetalhesAnuncioComoAnunciante(Anuncio anuncio)
+        {
+            var AnuncioDetalhado = PreencherAnuncioDetalhadoComoAnunciante(anuncio);
+
+            return AnuncioDetalhado;
+        }
 
         public IEnumerable ObterDetalhesAnuncio(Anuncio anuncio)
         {
             var AnuncioDetalhado = PreencherAnuncioDetalhado(anuncio);
 
             return AnuncioDetalhado;
-
         }
 
         public dynamic ObterComentariosPorId(int id, int pagina)
@@ -186,6 +191,74 @@ namespace Celler.Infraestrutura.Repositorios
                 .Take(3);
 
             return result;
+        }
+
+        private IEnumerable PreencherAnuncioDetalhadoComoAnunciante(Anuncio anuncio)
+        {
+            dynamic AnuncioDetalhado = new System.Dynamic.ExpandoObject();
+            AnuncioDetalhado.Id = anuncio.Id;
+            AnuncioDetalhado.Titulo = anuncio.Titulo;
+            AnuncioDetalhado.Descricao = anuncio.Descricao;
+            AnuncioDetalhado.DataAnuncio = anuncio.DataAnuncio;
+            AnuncioDetalhado.TipoAnuncio = anuncio.TipoAnuncio;
+            AnuncioDetalhado.Foto1 = anuncio.Foto1;
+            AnuncioDetalhado.Foto2 = anuncio.Foto2;
+            AnuncioDetalhado.Foto3 = anuncio.Foto3;
+            AnuncioDetalhado.NomeCriador = anuncio.Criador.Nome;
+            AnuncioDetalhado.IdUsuario = anuncio.Criador.Id;
+            AnuncioDetalhado.Comentarios = new List<IEnumerable>();
+            AnuncioDetalhado.Status = anuncio.Status;
+
+            foreach (var comentarioAnuncio in anuncio.Comentarios)
+            {
+                dynamic Comentario = new System.Dynamic.ExpandoObject();
+                Comentario.Texto = comentarioAnuncio.Texto;
+                Comentario.Id = comentarioAnuncio.Id;
+                Comentario.DataComentario = comentarioAnuncio.DataComentario;
+                Comentario.UsuarioNome = comentarioAnuncio.Usuario.Nome;
+                Comentario.UsuarioEmail = comentarioAnuncio.Usuario.Email;
+                Comentario.UsuarioId = comentarioAnuncio.Usuario.Id;
+                AnuncioDetalhado.Comentarios.Add(Comentario);
+            }
+
+            switch (anuncio.TipoAnuncio)
+            {
+                case "Evento":
+                    Evento evento = _contexto.Evento
+                        .Include(e => e.Confirmados)
+                        .FirstOrDefault(e => e.Id == anuncio.Id);
+                    AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
+                    AnuncioDetalhado.Local = evento.Local;
+                    AnuncioDetalhado.DataMaximaConfirmacao = evento.DataMaximaConfirmacao;
+                    AnuncioDetalhado.ValorPorPessoa = evento.ValorPorPessoa;
+                    AnuncioDetalhado.Confirmados = evento.Confirmados.Count;
+
+                    return AnuncioDetalhado;
+
+                case "Produto":
+                    Produto produto = _contexto.Produto
+                        .Include(p => p.Interessados)
+                        .FirstOrDefault(p => p.Id == anuncio.Id);
+
+                    AnuncioDetalhado.Valor = produto.Valor;
+                    AnuncioDetalhado.Interessados = produto.Interessados.Count;
+
+                    return AnuncioDetalhado;
+
+                case "Vaquinha":
+                    Vaquinha vaquinha = _contexto.Vaquinha
+                        .Include(v => v.Doadores)
+                        .Include(v => v.Doadores.Select(v1 => v1.Usuario))
+                        .FirstOrDefault(v => v.Id == anuncio.Id);
+                    AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
+                    AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
+                    AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
+                    AnuncioDetalhado.Doadores = vaquinha.Doadores.Count;
+
+                    return AnuncioDetalhado;
+
+                default: return null;
+            }
         }
 
         private IEnumerable PreencherAnuncioDetalhado(Anuncio anuncio)
