@@ -8,16 +8,16 @@ namespace Celler.Tests
     [TestClass]
     public class ComentarioTest
     {
-        ComentarioModel comentarioCorreto;
-        ComentarioModel comentarioTextoNulo;
-        ComentarioModel comentarioTextoVazio;
+        Usuario usuario;
+        Comentario comentarioCorreto;
+        Comentario comentarioTextoNulo;
+        Comentario comentarioTextoVazio;
 
         [TestMethod]
         public void ComenarioCorretoEhValidado()
         {
-            comentarioCorreto = new ComentarioModel();
-            comentarioCorreto.Texto = "Comentario bombante";
-            comentarioCorreto.IdAnuncio = 2;
+            usuario = new Usuario("Robson", "robson@user.com", "hash");
+            comentarioCorreto = new Comentario("Comentario bombante", usuario);
 
             Assert.IsTrue(comentarioCorreto.Validar());
         }
@@ -25,9 +25,8 @@ namespace Celler.Tests
         [TestMethod]
         public void ComenarioNuloEhInvalidado()
         {
-            comentarioTextoNulo = new ComentarioModel();
-            comentarioTextoNulo.Texto = null;
-            comentarioTextoNulo.IdAnuncio = 2;
+            usuario = new Usuario("Robson", "robson@user.com", "hash");
+            comentarioCorreto = new Comentario(null, usuario);
 
             Assert.IsFalse(comentarioTextoNulo.Validar());
         }
@@ -35,9 +34,8 @@ namespace Celler.Tests
         [TestMethod]
         public void ComenarioVazioEhInvalidado()
         {
-            comentarioTextoVazio = new ComentarioModel();
-            comentarioTextoVazio.Texto = "";
-            comentarioTextoVazio.IdAnuncio = 2;
+            usuario = new Usuario("Robson", "robson@user.com", "hash");
+            comentarioTextoVazio = new Comentario("" ,usuario);
 
             Assert.IsFalse(comentarioTextoVazio.Validar());
         }

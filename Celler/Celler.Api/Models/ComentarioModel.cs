@@ -10,6 +10,5 @@ namespace Celler.Api.Models
     {
         public string Texto { get; set; }
         public int IdAnuncio { get; set; }
-
     }
 }

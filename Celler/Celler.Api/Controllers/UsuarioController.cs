@@ -35,7 +35,7 @@ namespace Celler.Api.Controllers
 
             if (usuario == null)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { mensagem = "Usuario/Email não cadastrados." });
-            return Request.CreateResponse(HttpStatusCode.OK, new { dados = new { Nome = usuario.Nome, Email = usuario.Email } });
+            return Request.CreateResponse(HttpStatusCode.OK, new { dados = new { Nome = usuario.Nome, Email = usuario.Email, Id = usuario.Id } });
         }
 
         [HttpPost, Route("registrar")]
