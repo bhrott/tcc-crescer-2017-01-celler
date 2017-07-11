@@ -53,10 +53,11 @@ namespace Celler.Api.Controllers
         }
 
         [HttpGet, Route("{id:int}")]
-        public HttpResponseMessage ObterAnuncioPorId(int id)
+        public HttpResponseMessage ObterDetalhesAnuncio(int id)
         {
-            var anuncio = _anuncioRepositorio.ObterAnuncioPorId(id);
-            return ResponderOk(anuncio);
+            var anuncio = _anuncioRepositorio.ObterCompleto(id);
+            var anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncio(anuncio);
+            return ResponderOk(anuncioDetalhes);
         }
 
         [HttpGet, Route("comentarios")]

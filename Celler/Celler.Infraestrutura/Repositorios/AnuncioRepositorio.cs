@@ -22,6 +22,15 @@ namespace Celler.Infraestrutura.Repositorios
             return _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
         }
 
+        public Anuncio ObterCompleto (int id)
+        {
+            return _contexto.Anuncio
+                .Include(a => a.Criador)
+                .Include(a => a.Comentarios)
+                .Include(a => a.Comentarios.Select(a1 => a1.Usuario))
+                .FirstOrDefault(a => a.Id == id);
+        }
+
         public List<AnuncioModel> ObterUltimosAnuncios(int pagina)
         {
             //
@@ -159,14 +168,8 @@ namespace Celler.Infraestrutura.Repositorios
         }
 
 
-        public IEnumerable ObterAnuncioPorId(int id)
+        public IEnumerable ObterDetalhesAnuncio(Anuncio anuncio)
         {
-            Anuncio anuncio = _contexto.Anuncio
-                .Include(a => a.Criador)
-                .Include(a => a.Comentarios)
-                .Include(a => a.Comentarios.Select(a1 => a1.Usuario))
-                .FirstOrDefault(a => a.Id == id);
-
             var AnuncioDetalhado = PreencherAnuncioDetalhado(anuncio);
 
             return AnuncioDetalhado;
