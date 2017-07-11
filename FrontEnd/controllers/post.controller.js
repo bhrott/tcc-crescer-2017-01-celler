@@ -1,6 +1,10 @@
 modulo.controller('PostController', function ($scope, authService, $routeParams, $location) {
 
 
+     if(!authService.isAutenticado()){
+        $location.path("#!/login");
+    }
+    
     $scope.habilitarNotificacoes = false;
     $scope.buscar = buscar;
     $scope.cadastrarProduto = cadastrarProduto;

@@ -1,4 +1,9 @@
 modulo.controller('AnuncioController', function ($scope, authService, postService, detalheService, $routeParams, $location, $localStorage) {
+    
+     if(!authService.isAutenticado()){
+        $location.path("#!/login");
+    }
+    
     var idAnuncioEspecifico = $routeParams.idAnuncio;
     $scope.idAnuncio = idAnuncioEspecifico;
     $scope.postar = postar;
