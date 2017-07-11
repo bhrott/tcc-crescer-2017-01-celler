@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
-    public class Comentario
+    public class Comentario : EntidadeBasica
     {
         public int Id { get; private set; }
         public string Texto { get; private set; }
         public Usuario Usuario { get; private set; }
-        public DateTime DataComentario{ get; private set; }
+        public DateTime DataComentario { get; private set; }
 
-        protected Comentario(){}
+        protected Comentario() { }
 
-        public Comentario(string texto, Usuario usuario, DateTime dataComentario)
+        public Comentario(string texto, Usuario usuario)
         {
             Texto = texto;
             Usuario = usuario;
-            DataComentario = dataComentario;
+            DataComentario = DateTime.Now;
+
+            if (string.IsNullOrWhiteSpace(texto))
+                AdicionarMensagem("Comentário não pode ser em branco.");
+
         }
     }
 }

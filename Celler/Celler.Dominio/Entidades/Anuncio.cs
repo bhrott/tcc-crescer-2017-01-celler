@@ -24,18 +24,6 @@ namespace Celler.Dominio.Entidades
         public Anuncio()
         {
             Comentarios = new List<Comentario>();
-        }
-
-        public void AdicionarComentario(Comentario comentario)
-        {
-            Comentarios.Add(comentario);
-        }
-
-        public abstract int GetNumeroPessoasComInteresse();
-
-        public override bool Validar()
-        {
-            Mensagens.Clear();
 
             if (string.IsNullOrWhiteSpace(Titulo))
                 Mensagens.Add("Informe um título.");
@@ -46,7 +34,13 @@ namespace Celler.Dominio.Entidades
             if (Status == "d")
                 Mensagens.Add("O anúncio foi excluído.");
 
-            return Mensagens.Count == 0;
         }
+
+        public void AdicionarComentario(Comentario comentario)
+        {
+            Comentarios.Add(comentario);
+        }
+
+        public abstract int GetNumeroPessoasComInteresse();
     }
 }
