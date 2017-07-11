@@ -40,12 +40,12 @@ namespace Celler.Api.Controllers
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
 
-            if (usuarioLogado.Equals(usuario))
+            if (usuarioLogado.Equals(produto.Criador))
             {
                 return ResponderErro("Você não pode manifestar interesse no próprio anúncio.");
             }
 
-            produto.AdicionarInteressado(usuario);
+            produto.AdicionarInteressado(usuarioLogado);
             
             if (produto.Validar())
             {
@@ -72,12 +72,12 @@ namespace Celler.Api.Controllers
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
 
-            if (usuarioLogado.Equals(usuario))
+            if (usuarioLogado.Equals(produto.Criador))
             {
                 return ResponderErro("Você não pode desmanifestar interesse no próprio anúncio.");
             }
 
-            produto.RemoverInteressado(usuario);
+            produto.RemoverInteressado(usuarioLogado);
 
             if (produto.Validar())
             {
