@@ -11,5 +11,6 @@ namespace Celler.Dominio.Models
         public double Valor { get; set; }
         public UsuarioModel Comprador { get; set; }
         public List<UsuarioModel> Interessados { get; set; }
+        public int NumeroInteressados { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace Celler.Dominio.Models
         public double TotalArrecadado { get; set; }
         public DateTime DataTermino { get; set; }
         public List<DoadorModel> Doadores { get; set; }
+        public int NumeroDoadores { get; set; }
     }
 }

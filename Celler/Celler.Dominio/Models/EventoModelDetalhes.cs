@@ -13,5 +13,6 @@ namespace Celler.Dominio.Models
         public DateTime DataMaximaConfirmacao { get; set; }
         public double ValorPorPessoa { get; set; }
         public List<UsuarioModel> Confirmados { get; set; }
+        public int NumeroConfirmados { get; set; }
     }
 }
