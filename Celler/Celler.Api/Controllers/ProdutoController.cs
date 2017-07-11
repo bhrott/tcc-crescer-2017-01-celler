@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 
 namespace Celler.Api.Controllers
@@ -35,6 +36,13 @@ namespace Celler.Api.Controllers
             if (usuario == null || produto == null)
             {
                 return ResponderErro("Usuario ou Produto inválidos.");
+            }
+
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+
+            if (usuarioLogado.Equals(usuario))
+            {
+
             }
 
             produto.AdicionarInteressado(usuario);
