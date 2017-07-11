@@ -38,8 +38,16 @@ namespace Celler.Api.Controllers
         }
 
         [HttpGet, Route("feed")]
-        public HttpResponseMessage ObterUltimosAnunciosFiltrados(int pagina, string filtro1, string filtro2 = null, string filtro3 = null, string search = null)
+        public HttpResponseMessage ObterUltimosAnunciosFiltrados(int pagina, string filtro1 = null, string filtro2 = null, string filtro3 = null, string search = null)
         {
+            if (filtro1 == null)
+            {
+                filtro1 = "Evento";
+                filtro2 = "Produto";
+                filtro3 = "Vaquinha";
+
+            }
+
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search);
             return ResponderOk(anuncios);
         }
