@@ -27,7 +27,7 @@ namespace Celler.Api.Controllers
             _usuarioRepositorio = new UsuarioRepositorio(_contexto);
         }
 
-        [HttpPost, Route("interessado")]
+        [HttpPost, Route("interessar")]
         public HttpResponseMessage SalvarInteressadoProduto([FromBody] InteressarProdutoModel model)
         {
             var usuario = _usuarioRepositorio.ObterPorId(model.IdUsuario);
@@ -57,6 +57,38 @@ namespace Celler.Api.Controllers
             {
                 return ResponderErro(produto.Mensagens);
             }            
+        }
+
+        [HttpPost, Route("desinteressar")]
+        public HttpResponseMessage SalvarDesinteressarProduto([FromBody] InteressarProdutoModel model)
+        {
+            var usuario = _usuarioRepositorio.ObterPorId(model.IdUsuario);
+            var produto = _produtoRepositorio.ObterPorId(model.IdProduto);
+
+            if (usuario == null || produto == null)
+            {
+                return ResponderErro("Usuario ou Produto inválidos.");
+            }
+
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+
+            if (usuarioLogado.Equals(usuario))
+            {
+                return ResponderErro("Você não pode desmanifestar interesse no próprio anúncio.");
+            }
+
+            produto.RemoverInteressado(usuario);
+
+            if (produto.Validar())
+            {
+                _produtoRepositorio.Alterar(produto);
+                _contexto.SaveChanges();
+                return ResponderOk(new { texto = "Desinteresse salvo com sucesso" });
+            }
+            else
+            {
+                return ResponderErro(produto.Mensagens);
+            }
         }
     }
 }
