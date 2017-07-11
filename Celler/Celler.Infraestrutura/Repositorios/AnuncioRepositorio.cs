@@ -99,13 +99,17 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public void ComentarAnuncio (string texto, int id, Usuario usuario)
+        public bool ComentarAnuncio (string texto, int id, Usuario usuario)
         {
             Comentario comentario = new Comentario(texto, usuario, DateTime.Now);
-            Anuncio anuncio = _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
+            Anuncio anuncio = _contexto.Anuncio.First(a => a.Id == id);
+
+            if(anuncio == null) { return false; }
+
             anuncio.AdicionarComentario(comentario);
             _contexto.Entry(anuncio).State = EntityState.Modified;
             _contexto.SaveChanges();
+            return true;
         }
 
         private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModel> anuncios)

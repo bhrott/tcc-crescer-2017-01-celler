@@ -31,24 +31,24 @@ namespace Celler.Api.Controllers
         }
 
         [HttpGet, Route("feed/{pagina:int}")]
-        public IHttpActionResult ObterUltimosAnuncios(int pagina)
+        public HttpResponseMessage ObterUltimosAnuncios(int pagina)
         {
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina);
-            return Ok(new { dados = anuncios });
+            return ResponderOk(new { dados = anuncios });
         }
 
         [HttpGet, Route("feed")]
-        public IHttpActionResult ObterUltimosAnunciosFiltrados(int pagina, string filtro1, string filtro2 = null, string filtro3 = null, string search = null)
+        public HttpResponseMessage ObterUltimosAnunciosFiltrados(int pagina, string filtro1, string filtro2 = null, string filtro3 = null, string search = null)
         {
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search);
-            return Ok(new { dados = anuncios });
+            return ResponderOk(new { dados = anuncios });
         }
 
         [HttpGet, Route("{id:int}")]
-        public IHttpActionResult ObterAnuncioPorId(int id)
+        public HttpResponseMessage ObterAnuncioPorId(int id)
         {
             var anuncio = _anuncioRepositorio.ObterAnuncioPorId(id);
-            return Ok(new { dados = anuncio });
+            return ResponderOk(new { dados = anuncio });
         }
 
         [HttpPost, Route("comentar")]
@@ -59,11 +59,14 @@ namespace Celler.Api.Controllers
                 return ResponderErro(model.Mensagens);
             }
 
-
             Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
+            bool sucesso = _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
 
-            return ResponderOk(new { texto = model.Texto });
+            if (sucesso)
+                return ResponderOk(new { texto = model.Texto });
+
+            else
+                return ResponderErro("O anuncio não existe.");
         }
 
         protected override void Dispose(bool disposing)

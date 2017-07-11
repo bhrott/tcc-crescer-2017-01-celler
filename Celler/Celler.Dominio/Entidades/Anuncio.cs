@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
-    public abstract class Anuncio
+    public abstract class Anuncio : EntidadeBasica
     {
         public int Id { get; private set; }
         public string Titulo { get; private set; }
@@ -32,5 +32,21 @@ namespace Celler.Dominio.Entidades
         }
 
         public abstract int GetNumeroPessoasComInteresse();
+
+        public override bool Validar()
+        {
+            Mensagens.Clear();
+
+            if (string.IsNullOrWhiteSpace(Titulo))
+                Mensagens.Add("Informe um título.");
+
+            if (string.IsNullOrWhiteSpace(Titulo))
+                Mensagens.Add("Informe uma descrição.");
+
+            if (Status == "d")
+                Mensagens.Add("O anúncio foi excluído.");
+
+            return Mensagens.Count == 0;
+        }
     }
 }
