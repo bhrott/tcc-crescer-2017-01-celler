@@ -2,6 +2,8 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
     var idAnuncioEspecifico = $routeParams.idAnuncio;
     $scope.idAnuncio = idAnuncioEspecifico;
     $scope.postar = postar;
+    $scope.produto = {};
+    var produto = $scope.produto;
     $scope.idUsuarioLogado = $localStorage.usuarioLogado.Id;
     console.log($scope.idUsuarioLogado);
     console.log(idAnuncioEspecifico);
@@ -28,8 +30,9 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
         postService.postarComentario(texto, idAnuncioEspecifico).then(
 
             function(response){
-                $scope.produto.Comentario = '';
                 console.log(response.data.dados);
+                
+                $scope.produto.Comentario = '';
 
             },
             function(response){
