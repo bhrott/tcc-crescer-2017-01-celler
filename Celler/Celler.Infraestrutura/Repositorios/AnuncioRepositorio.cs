@@ -17,7 +17,7 @@ namespace Celler.Infraestrutura.Repositorios
             _contexto = contexto;
         }
 
-        public Anuncio Obter (int id)
+        public Anuncio Obter(int id)
         {
             return _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
         }
@@ -28,27 +28,27 @@ namespace Celler.Infraestrutura.Repositorios
             // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
             // o que pode ser coletado genericamente
             //
-           List<AnuncioModel> anuncios = _contexto.Anuncio
-                .Include(a => a.Criador)
-                .Include(a => a.Comentarios)
-                .OrderByDescending(a => a.DataAnuncio)
-                .AsEnumerable()
-                .Select(a => new AnuncioModel( a.Id,
-                                               a.Titulo,
-                                               a.Descricao,
-                                               a.DataAnuncio,
-                                               a.TipoAnuncio,
-                                               a.Foto1,
-                                               a.Foto2,
-                                               a.Foto3,
-                                               a.Criador.Nome,
-                                               a.Status,
-                                               a.Comentarios.Count))
-                //Status
-                .Where(a => a.Status != "d")
-                .Skip(pagina)
-                .Take(9)
-                .ToList();
+            List<AnuncioModel> anuncios = _contexto.Anuncio
+                 .Include(a => a.Criador)
+                 .Include(a => a.Comentarios)
+                 .OrderByDescending(a => a.DataAnuncio)
+                 .AsEnumerable()
+                 .Select(a => new AnuncioModel(a.Id,
+                                                a.Titulo,
+                                                a.Descricao,
+                                                a.DataAnuncio,
+                                                a.TipoAnuncio,
+                                                a.Foto1,
+                                                a.Foto2,
+                                                a.Foto3,
+                                                a.Criador.Nome,
+                                                a.Status,
+                                                a.Comentarios.Count))
+                 //Status
+                 .Where(a => a.Status != "d")
+                 .Skip(pagina)
+                 .Take(9)
+                 .ToList();
 
             //
             // Para completar com as informações adicionais, é usado um método de preenchimento
@@ -64,10 +64,9 @@ namespace Celler.Infraestrutura.Repositorios
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
-                .Take(9)
                 .ToList()
                 .AsEnumerable()
-                .Select(a => new AnuncioModel( a.Id,
+                .Select(a => new AnuncioModel(a.Id,
                                                a.Titulo,
                                                a.Descricao,
                                                a.DataAnuncio,
@@ -81,15 +80,15 @@ namespace Celler.Infraestrutura.Repositorios
                 //Status
                 .Where(a => a.Status != "d")
                 //Filtros
-                .Where(a=> 
+                .Where(a =>
                       (a.TipoAnuncio.ToUpper() == filtro1.ToUpper()) ||
                       (filtro2 != null ? a.TipoAnuncio.ToUpper() == filtro2.ToUpper() : false) ||
                       (filtro3 != null ? a.TipoAnuncio.ToUpper() == filtro3.ToUpper() : false))
                 //Busca
-                .Where (a => (search != null ?
-                       a.Titulo.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                       a.Descricao.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0
-                       : true))
+                .Where(a => (search != null ?
+                      a.Titulo.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      a.Descricao.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0
+                      : true))
                 .Skip(pagina)
                 .Take(9)
                 .ToList();
@@ -99,10 +98,8 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public void ComentarAnuncio (string texto, int id, Usuario usuario)
+        public void ComentarAnuncio(Anuncio anuncio, Comentario comentario)
         {
-            Comentario comentario = new Comentario(texto, usuario, DateTime.Now);
-            Anuncio anuncio = _contexto.Anuncio.FirstOrDefault(a => a.Id == id);
             anuncio.AdicionarComentario(comentario);
             _contexto.Entry(anuncio).State = EntityState.Modified;
             _contexto.SaveChanges();
@@ -148,7 +145,7 @@ namespace Celler.Infraestrutura.Repositorios
                            .Interessados.Count;
         }
 
-        private int GetNumeroDoadoresVaquinha (AnuncioModel anuncio)
+        private int GetNumeroDoadoresVaquinha(AnuncioModel anuncio)
         {
             return _contexto.Vaquinha
                            .Include(a => a.Doadores)
@@ -156,7 +153,7 @@ namespace Celler.Infraestrutura.Repositorios
                            .Doadores.Count;
         }
 
-        private double GetValorProduto (AnuncioModel anuncio)
+        private double GetValorProduto(AnuncioModel anuncio)
         {
             return _contexto.Produto
                            .SingleOrDefault(a => a.Id == anuncio.Id)
@@ -176,6 +173,18 @@ namespace Celler.Infraestrutura.Repositorios
 
             return AnuncioDetalhado;
 
+        }
+
+        public dynamic ObterComentariosPorId(int id, int pagina)
+        {
+            var result = _contexto.Anuncio
+                .Where(a => a.Id == id)
+                .SelectMany(a => a.Comentarios)
+                .OrderByDescending(p => p.DataComentario)
+                .Skip(pagina)
+                .Take(3);
+
+            return result;
         }
 
         private IEnumerable PreencherAnuncioDetalhado(Anuncio anuncio)
@@ -236,21 +245,21 @@ namespace Celler.Infraestrutura.Repositorios
                     AnuncioDetalhado.Valor = produto.Valor;
                     AnuncioDetalhado.Interessados = new List<IEnumerable>();
 
-                        foreach (var interessadoProduto in produto.Interessados)
-                        {
-                            dynamic Interessado = new System.Dynamic.ExpandoObject();
-                            Interessado.Id = interessadoProduto.Id;
-                            Interessado.Nome = interessadoProduto.Nome;
-                            Interessado.Email = interessadoProduto.Email;
-                            AnuncioDetalhado.Interessados.Add(Interessado);
-                        }
+                    foreach (var interessadoProduto in produto.Interessados)
+                    {
+                        dynamic Interessado = new System.Dynamic.ExpandoObject();
+                        Interessado.Id = interessadoProduto.Id;
+                        Interessado.Nome = interessadoProduto.Nome;
+                        Interessado.Email = interessadoProduto.Email;
+                        AnuncioDetalhado.Interessados.Add(Interessado);
+                    }
 
                     return AnuncioDetalhado;
 
                 case "Vaquinha":
                     Vaquinha vaquinha = _contexto.Vaquinha
                         .Include(v => v.Doadores)
-                        .Include(v=> v.Doadores.Select(v1=> v1.Usuario))
+                        .Include(v => v.Doadores.Select(v1 => v1.Usuario))
                         .FirstOrDefault(v => v.Id == anuncio.Id);
                     AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
                     AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;

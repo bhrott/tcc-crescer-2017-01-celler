@@ -1,4 +1,26 @@
-<link rel="stylesheet" type="text/css" href="/css/produto.css">
+<div class="modal" ng-class="{'is-active':exibirModal}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Interessados</p>
+            <button ng-click="exibirModal = false" class="delete"></button>
+        </header>
+        <section class="modal-card-body">
+            <ul>
+                <div class="box trending metade">
+                    <p class="trend-title"></p>
+                    <div ng-repeat="interessado in anuncioEspecifico.Interessados" class="box trending">
+                        <p class="trend-hashtag">
+                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;{{interessado.Nome}}</span> <em>{{interessado.Email}}</em>
+                            <a class="button is-small is-primary" ng-click="exibirModal = true">  Vender</a>
+                        </p>
+                    </div>
+                </div>
+            </ul>
+        </section>
+    </div>
+</div>
+
 <nav class="nav is-mobile has-shadow" ng-include="'/models/navbarItems.htm'">
 </nav>
 <div class="section product-header">
@@ -7,7 +29,7 @@
             <div class="column">
                 <span class="title is-3">{{anuncioEspecifico.Titulo}}</span>
                 <span class="title is-3 has-text-muted">&nbsp;|&nbsp;</span>
-                <span class="title is-4 has-text-muted"> Evento </span> 
+                <span class="title is-4 has-text-muted">Produto</span>
             </div>
         </div>
     </div>
@@ -28,12 +50,9 @@
 
             </div>
             <div class="column is-5 is-offset-1">
-               <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarEvento/{{anuncioEspecifico.Id}}">Editar seu Evento</a></div>
-                <div class="title is-2">{{anuncioEspecifico.Titulo}}&nbsp; &nbsp;
-                </div>
-                <div class="title is-2"> Data de Realização:{{anuncioEspecifico.DataRealizacao | date:'short'}}</div>
-                <div class="title is-2"> Local: {{anuncioEspecifico.Local}}</div>
-                <p class="title is-3 has-text-muted">Ingresso: R$ {{anuncioEspecifico.ValorPorPessoa}}</p>
+                  <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarProduto/{{anuncioEspecifico.Id}}">Editar seu Produto</a></div>
+                <div class="title is-2">{{anuncioEspecifico.Titulo}}</div>
+                <p class="title is-3 has-text-muted">R$ {{anuncioEspecifico.Valor}}</p>
                 <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
 
                 </div>
@@ -43,23 +62,23 @@
                     <tbody>
                         <tr>
                             <td class="has-text-right">
-                                <strong>Organizador</strong>
+                                <strong>Vendedor</strong>
                             </td>
                             <td>{{anuncioEspecifico.NomeCriador}}</td>
                         </tr>
                         <tr>
                             <td class="has-text-right">
-                                <strong>Confirmados</strong>
+                                <strong>Interessados</strong>
                             </td>
-                            <td>{{anuncioEspecifico.Confirmados.Length || 0}}</td>
+                            <td>{{anuncioEspecifico.Interessados.Count || 0}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="">
-                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                    <a class="button is-primary"> <i class="fa fa-thumbs-up interessado"> &nbsp; &nbsp;</i> Confirmar Presença</a>
+                    <a class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
+                    <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="button is-primary is-small" ng-click="exibirModal = true"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
+                    <br>
                 </p>
-                <br>
             </div>
         </div>
     </div>
@@ -76,7 +95,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
+                             <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
                             <br>
                         </p>
                         <div ng-bind-html="comentario.Texto | markdown">
@@ -109,4 +128,3 @@
         </div>
     </div>
 </div>
-

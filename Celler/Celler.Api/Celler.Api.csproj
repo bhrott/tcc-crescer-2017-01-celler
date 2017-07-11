@@ -111,6 +111,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ComentarioModel.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\InteressarProdutoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

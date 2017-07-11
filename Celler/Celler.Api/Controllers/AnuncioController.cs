@@ -31,31 +31,69 @@ namespace Celler.Api.Controllers
         }
 
         [HttpGet, Route("feed/{pagina:int}")]
-        public IHttpActionResult ObterUltimosAnuncios(int pagina)
+        public HttpResponseMessage ObterUltimosAnuncios(int pagina)
         {
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina);
-            return Ok(new { dados = anuncios });
+            return ResponderOk(anuncios );
         }
 
         [HttpGet, Route("feed")]
-        public IHttpActionResult ObterUltimosAnunciosFiltrados(int pagina, string filtro1, string filtro2 = null, string filtro3 = null, string search = null)
+        public HttpResponseMessage ObterUltimosAnunciosFiltrados(int pagina, string filtro1 = null, string filtro2 = null, string filtro3 = null, string search = null)
         {
+            if (filtro1 == null)
+            {
+                filtro1 = "Evento";
+                filtro2 = "Produto";
+                filtro3 = "Vaquinha";
+
+            }
+
             var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search);
-            return Ok(new { dados = anuncios });
+            return ResponderOk(anuncios);
         }
 
         [HttpGet, Route("{id:int}")]
-        public IHttpActionResult ObterAnuncioPorId(int id)
+        public HttpResponseMessage ObterAnuncioPorId(int id)
         {
             var anuncio = _anuncioRepositorio.ObterAnuncioPorId(id);
-            return Ok(new { dados = anuncio });
+            return ResponderOk(anuncio);
+        }
+
+        [HttpGet, Route("comentarios")]
+        public HttpResponseMessage ObterAnuncioPorId(int id, int pagina)
+        {
+            var anuncio = _anuncioRepositorio.ObterComentariosPorId(id, pagina);
+            return ResponderOk(anuncio);
         }
 
         [HttpPost, Route("comentar")]
         public HttpResponseMessage ComentarAnuncio(ComentarioModel model)
-        {          
+        {
             Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            _anuncioRepositorio.ComentarAnuncio(model.Texto, model.IdAnuncio, usuario);
+            Anuncio anuncio = _contexto.Anuncio.FirstOrDefault(a => a.Id == model.IdAnuncio);
+
+            if(usuario == null || anuncio == null)
+            {
+                return ResponderErro("Anuncio ou usuario inválido");
+            }
+
+            if (!model.Validar())
+            {
+                return ResponderErro(model.Mensagens);
+            }
+
+            if (!usuario.Validar())
+            {
+                return ResponderErro(model.Mensagens);
+            }
+
+            if (!anuncio.Validar())
+            {
+                return ResponderErro(model.Mensagens);
+            }
+
+            Comentario comentario = new Comentario(model.Texto, usuario, DateTime.Now);
+            _anuncioRepositorio.ComentarAnuncio(anuncio, comentario);
 
             return ResponderOk(new { texto = model.Texto });
         }
