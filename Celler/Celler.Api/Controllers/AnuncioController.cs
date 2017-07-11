@@ -51,7 +51,7 @@ namespace Celler.Api.Controllers
             return ResponderOk(anuncio);
         }
 
-        [HttpGet, Route("{comentarios}")]
+        [HttpGet, Route("comentarios")]
         public HttpResponseMessage ObterAnuncioPorId(int id, int pagina)
         {
             var anuncio = _anuncioRepositorio.ObterComentariosPorId(id, pagina);
