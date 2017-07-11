@@ -106,5 +106,11 @@ namespace Celler.Dominio.Entidades
 
             return username;
         }
+
+        public override bool Equals(object obj)
+        {
+            Usuario outro = (Usuario)obj;
+            return outro.Id == this.Id;
+        }
     }
 }
