@@ -3,7 +3,7 @@
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">Interessados</p>
-            <button ng-click="exibirModal = false" class="delete"></button>
+            <button ng-click="esconderAModal()" class="delete"></button>
         </header>
         <section class="modal-card-body">
             <ul>
@@ -70,13 +70,15 @@
                             <td class="has-text-right">
                                 <strong>Interessados</strong>
                             </td>
-                            <td>{{anuncioEspecifico.Interessados.Count || 0}}</td>
+                            <td>{{anuncioEspecifico.Interessados.length || 0}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="">
-                    <a class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
-                    <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="button is-primary is-small" ng-click="exibirModal = true"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
+                    <a ng-if="!temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
+                      <a ng-if="temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-warning is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Cancelar Interesse</a>
+                    <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario && anuncioEspecifico.Interessados.length > 0" class="button is-primary is-small" ng-click=" exibirAModal()"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
+                    <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario && anuncioEspecifico.Interessados.length <= 0" class="button is-warning is-small"> <i class="fa fa-warning"> &nbsp; &nbsp;</i> Nenhum interessado :( </a>
                     <br>
                 </p>
             </div>
