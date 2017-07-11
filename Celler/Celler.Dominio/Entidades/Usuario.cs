@@ -110,8 +110,7 @@ namespace Celler.Dominio.Entidades
         public override bool Equals(object obj)
         {
             Usuario outro = (Usuario)obj;
-            var sucesso = outro.Id == this.Id;
-            return sucesso;
+            return outro.Id == this.Id;
         }
     }
 }

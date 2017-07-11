@@ -31,18 +31,18 @@ namespace Celler.Infraestrutura.Repositorios
                 .FirstOrDefault(a => a.Id == id);
         }
 
-        public List<AnuncioModel> ObterUltimosAnuncios(int pagina)
+        public List<AnuncioModelFeed> ObterUltimosAnuncios(int pagina)
         {
             //
             // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
             // o que pode ser coletado genericamente
             //
-            List<AnuncioModel> anuncios = _contexto.Anuncio
+            List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                  .Include(a => a.Criador)
                  .Include(a => a.Comentarios)
                  .OrderByDescending(a => a.DataAnuncio)
                  .AsEnumerable()
-                 .Select(a => new AnuncioModel(a.Id,
+                 .Select(a => new AnuncioModelFeed(a.Id,
                                                 a.Titulo,
                                                 a.Descricao,
                                                 a.DataAnuncio,
@@ -69,13 +69,13 @@ namespace Celler.Infraestrutura.Repositorios
 
         public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search)
         {
-            List<AnuncioModel> anuncios = _contexto.Anuncio
+            List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
                 .ToList()
                 .AsEnumerable()
-                .Select(a => new AnuncioModel(a.Id,
+                .Select(a => new AnuncioModelFeed(a.Id,
                                                a.Titulo,
                                                a.Descricao,
                                                a.DataAnuncio,
@@ -112,9 +112,9 @@ namespace Celler.Infraestrutura.Repositorios
             _contexto.Entry(anuncio).State = EntityState.Modified;
         }
 
-        private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModel> anuncios)
+        private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModelFeed> anuncios)
         {
-            foreach (AnuncioModel anuncio in anuncios)
+            foreach (AnuncioModelFeed anuncio in anuncios)
             {
                 switch (anuncio.TipoAnuncio)
                 {
@@ -136,7 +136,7 @@ namespace Celler.Infraestrutura.Repositorios
             }
         }
 
-        private int GetNumeroConfirmadosEventos(AnuncioModel anuncio)
+        private int GetNumeroConfirmadosEventos(AnuncioModelFeed anuncio)
         {
             return _contexto.Evento
                            .Include(a => a.Confirmados)
@@ -144,7 +144,7 @@ namespace Celler.Infraestrutura.Repositorios
                            .Confirmados.Count;
         }
 
-        private int GetNumeroInteressadosProduto(AnuncioModel anuncio)
+        private int GetNumeroInteressadosProduto(AnuncioModelFeed anuncio)
         {
             return _contexto.Produto
                            .Include(a => a.Interessados)
@@ -152,7 +152,7 @@ namespace Celler.Infraestrutura.Repositorios
                            .Interessados.Count;
         }
 
-        private int GetNumeroDoadoresVaquinha(AnuncioModel anuncio)
+        private int GetNumeroDoadoresVaquinha(AnuncioModelFeed anuncio)
         {
             return _contexto.Vaquinha
                            .Include(a => a.Doadores)
@@ -160,7 +160,7 @@ namespace Celler.Infraestrutura.Repositorios
                            .Doadores.Count;
         }
 
-        private double GetValorProduto(AnuncioModel anuncio)
+        private double GetValorProduto(AnuncioModelFeed anuncio)
         {
             return _contexto.Produto
                            .SingleOrDefault(a => a.Id == anuncio.Id)
