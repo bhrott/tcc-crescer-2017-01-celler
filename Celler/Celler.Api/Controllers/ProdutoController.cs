@@ -42,7 +42,7 @@ namespace Celler.Api.Controllers
 
             if (usuarioLogado.Equals(usuario))
             {
-
+                return ResponderErro("Você não pode manifestar interesse no próprio anúncio.");
             }
 
             produto.AdicionarInteressado(usuario);

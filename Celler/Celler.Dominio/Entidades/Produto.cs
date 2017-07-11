@@ -12,11 +12,13 @@ namespace Celler.Dominio.Entidades
         public Usuario Comprador { get; private set; }
         public List<Usuario> Interessados { get; set; }
 
-        protected Produto() : base() { }
+        protected Produto() { }
 
-        public Produto(double valor) : base()
+        public Produto(string titulo,
+            string descricao,
+            Usuario criador,
+            double valor) : base(titulo, descricao, criador, "Produto")
         {
-
             Valor = valor;
 
             if (valor < 5)

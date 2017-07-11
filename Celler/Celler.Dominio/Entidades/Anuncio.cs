@@ -8,32 +8,47 @@ namespace Celler.Dominio.Entidades
 {
     public abstract class Anuncio : EntidadeBasica
     {
-        public int Id { get; private set; }
-        public string Titulo { get; private set; }
-        public string Descricao { get; private set; }
-        public string Foto1 { get; private set; }
-        public string Foto2 { get; private set; }
-        public string Foto3 { get; private set; }
-        public DateTime DataAnuncio { get; private set; }
-        public Usuario Criador { get; private set; }
-        public List<Comentario> Comentarios { get; private set; }
-        public string TipoAnuncio { get; private set; }
-        //Status: 'f' - fechado(vendido/realizado); 'a' - anunciado; 'd' - deletado 
-        public string Status { get; private set; }
+        public int Id { get; protected set; }
+        public string Titulo { get; protected set; }
+        public string Descricao { get; protected set; }
+        public string Foto1 { get; protected set; }
+        public string Foto2 { get; protected set; }
+        public string Foto3 { get; protected set; }
+        public DateTime DataAnuncio { get; protected set; }
+        public Usuario Criador { get; protected set; }
+        public List<Comentario> Comentarios { get; protected set; }
+        public string TipoAnuncio { get; protected set; }
+        /// <summary>
+        /// 'f' - fechado(vendido/realizado); 'a' - anunciado; 'd' - deletado 
+        /// </summary>
+        public string Status { get; protected set; }
 
-        public Anuncio()
+        protected Anuncio() { }
+
+        protected Anuncio(string titulo,
+            string descricao,
+            Usuario criador,
+            string tipoAnuncio)
         {
             Comentarios = new List<Comentario>();
+            Titulo = titulo;
+            Descricao = descricao;
+            DataAnuncio = DateTime.Now;
+            Criador = criador;
+            TipoAnuncio = tipoAnuncio;
+            Status = "A";
 
             if (string.IsNullOrWhiteSpace(Titulo))
                 Mensagens.Add("Informe um título.");
 
-            if (string.IsNullOrWhiteSpace(Titulo))
+            if (string.IsNullOrWhiteSpace(Descricao))
                 Mensagens.Add("Informe uma descrição.");
 
-            if (Status == "d")
-                Mensagens.Add("O anúncio foi excluído.");
+            if (criador == null)
+                Mensagens.Add("Informe o criador.");
 
+            if (string.IsNullOrWhiteSpace(TipoAnuncio))
+                Mensagens.Add("Informe o tipo do anuncio.");
         }
 
         public void AdicionarComentario(Comentario comentario)
