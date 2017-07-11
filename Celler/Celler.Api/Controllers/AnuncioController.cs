@@ -58,17 +58,9 @@ namespace Celler.Api.Controllers
             var anuncio = _anuncioRepositorio.ObterCompleto(id);
             var usuarioQuePostouAnuncio = _anuncioRepositorio.Obter(anuncio.Criador.Id);
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+            bool isUsuarioLogado = usuarioQuePostouAnuncio.Id == usuarioLogado.Id;
 
-            IEnumerable anuncioDetalhes;
-
-            if (usuarioQuePostouAnuncio.Id == usuarioLogado.Id)
-            {
-                anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncioComoAnunciante(anuncio);
-            }
-            else
-            {
-                anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncio(anuncio);
-            }
+            object anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncio(anuncio, isUsuarioLogado);
 
             return ResponderOk(anuncioDetalhes);
         }

@@ -167,20 +167,6 @@ namespace Celler.Infraestrutura.Repositorios
                            .Valor;
         }
 
-        public IEnumerable ObterDetalhesAnuncioComoAnunciante(Anuncio anuncio)
-        {
-            var AnuncioDetalhado = PreencherAnuncioDetalhadoComoAnunciante(anuncio);
-
-            return AnuncioDetalhado;
-        }
-
-        public IEnumerable ObterDetalhesAnuncio(Anuncio anuncio)
-        {
-            var AnuncioDetalhado = PreencherAnuncioDetalhado(anuncio);
-
-            return AnuncioDetalhado;
-        }
-
         public dynamic ObterComentariosPorId(int id, int pagina)
         {
             var result = _contexto.Anuncio
@@ -193,23 +179,33 @@ namespace Celler.Infraestrutura.Repositorios
             return result;
         }
 
-        private IEnumerable PreencherAnuncioDetalhadoComoAnunciante(Anuncio anuncio)
+        public object ObterDetalhesAnuncio(Anuncio anuncio, bool usuarioLogado)
         {
-            dynamic AnuncioDetalhado = new System.Dynamic.ExpandoObject();
-            AnuncioDetalhado.Id = anuncio.Id;
-            AnuncioDetalhado.Titulo = anuncio.Titulo;
-            AnuncioDetalhado.Descricao = anuncio.Descricao;
-            AnuncioDetalhado.DataAnuncio = anuncio.DataAnuncio;
-            AnuncioDetalhado.TipoAnuncio = anuncio.TipoAnuncio;
-            AnuncioDetalhado.Foto1 = anuncio.Foto1;
-            AnuncioDetalhado.Foto2 = anuncio.Foto2;
-            AnuncioDetalhado.Foto3 = anuncio.Foto3;
-            AnuncioDetalhado.NomeCriador = anuncio.Criador.Nome;
-            AnuncioDetalhado.IdUsuario = anuncio.Criador.Id;
-            AnuncioDetalhado.Comentarios = new List<IEnumerable>();
-            AnuncioDetalhado.Status = anuncio.Status;
+            object retorno;
+            switch (anuncio.TipoAnuncio)
+            {
+                case "Evento":
+                    {
+                        EventoModelDetalhes eventoModel = new EventoModelDetalhes(anuncio);
+                        //
+                        //TODO: PEGAR EVENTO
+                        //Evento evento = eventoRepositorio
+                        //
+                        //
+                        eventoModel.PopularComentarios(anuncio);
+                        if (usuarioLogado)
+                            eventoModel.PopularConfirmados(anuncio);
+                        else
+                            eventoModel.ContarConfirmados(anuncio);
 
-            foreach (var comentarioAnuncio in anuncio.Comentarios)
+                        retorno = eventoModel;
+                        break;
+                    }
+            }
+
+            return null;
+
+            /*foreach (var comentarioAnuncio in anuncio.Comentarios)
             {
                 dynamic Comentario = new System.Dynamic.ExpandoObject();
                 Comentario.Texto = comentarioAnuncio.Texto;
@@ -258,102 +254,7 @@ namespace Celler.Infraestrutura.Repositorios
                     return AnuncioDetalhado;
 
                 default: return null;
-            }
-        }
-
-        private IEnumerable PreencherAnuncioDetalhado(Anuncio anuncio)
-        {
-            dynamic AnuncioDetalhado = new System.Dynamic.ExpandoObject();
-            AnuncioDetalhado.Id = anuncio.Id;
-            AnuncioDetalhado.Titulo = anuncio.Titulo;
-            AnuncioDetalhado.Descricao = anuncio.Descricao;
-            AnuncioDetalhado.DataAnuncio = anuncio.DataAnuncio;
-            AnuncioDetalhado.TipoAnuncio = anuncio.TipoAnuncio;
-            AnuncioDetalhado.Foto1 = anuncio.Foto1;
-            AnuncioDetalhado.Foto2 = anuncio.Foto2;
-            AnuncioDetalhado.Foto3 = anuncio.Foto3;
-            AnuncioDetalhado.NomeCriador = anuncio.Criador.Nome;
-            AnuncioDetalhado.IdUsuario = anuncio.Criador.Id;
-            AnuncioDetalhado.Comentarios = new List<IEnumerable>();
-            AnuncioDetalhado.Status = anuncio.Status;
-
-            foreach (var comentarioAnuncio in anuncio.Comentarios)
-            {
-                dynamic Comentario = new System.Dynamic.ExpandoObject();
-                Comentario.Texto = comentarioAnuncio.Texto;
-                Comentario.Id = comentarioAnuncio.Id;
-                Comentario.DataComentario = comentarioAnuncio.DataComentario;
-                Comentario.UsuarioNome = comentarioAnuncio.Usuario.Nome;
-                Comentario.UsuarioEmail = comentarioAnuncio.Usuario.Email;
-                Comentario.UsuarioId = comentarioAnuncio.Usuario.Id;
-                AnuncioDetalhado.Comentarios.Add(Comentario);
-            }
-
-            switch (anuncio.TipoAnuncio)
-            {
-                case "Evento":
-                    Evento evento = _contexto.Evento
-                        .Include(e => e.Confirmados)
-                        .FirstOrDefault(e => e.Id == anuncio.Id);
-                    AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
-                    AnuncioDetalhado.Local = evento.Local;
-                    AnuncioDetalhado.DataMaximaConfirmacao = evento.DataMaximaConfirmacao;
-                    AnuncioDetalhado.ValorPorPessoa = evento.ValorPorPessoa;
-                    AnuncioDetalhado.Confirmados = new List<IEnumerable>();
-
-                    foreach (var interessadoEvento in evento.Confirmados)
-                    {
-                        dynamic Interessado = new System.Dynamic.ExpandoObject();
-                        Interessado.Id = interessadoEvento.Id;
-                        Interessado.Nome = interessadoEvento.Nome;
-                        Interessado.Email = interessadoEvento.Email;
-                        AnuncioDetalhado.Confirmados.Add(Interessado);
-                    }
-                    return AnuncioDetalhado;
-
-                case "Produto":
-                    Produto produto = _contexto.Produto
-                        .Include(p => p.Interessados)
-                        .FirstOrDefault(p => p.Id == anuncio.Id);
-
-                    AnuncioDetalhado.Valor = produto.Valor;
-                    AnuncioDetalhado.Interessados = new List<IEnumerable>();
-
-                    foreach (var interessadoProduto in produto.Interessados)
-                    {
-                        dynamic Interessado = new System.Dynamic.ExpandoObject();
-                        Interessado.Id = interessadoProduto.Id;
-                        Interessado.Nome = interessadoProduto.Nome;
-                        Interessado.Email = interessadoProduto.Email;
-                        AnuncioDetalhado.Interessados.Add(Interessado);
-                    }
-
-                    return AnuncioDetalhado;
-
-                case "Vaquinha":
-                    Vaquinha vaquinha = _contexto.Vaquinha
-                        .Include(v => v.Doadores)
-                        .Include(v => v.Doadores.Select(v1 => v1.Usuario))
-                        .FirstOrDefault(v => v.Id == anuncio.Id);
-                    AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
-                    AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
-                    AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
-                    AnuncioDetalhado.Doadores = new List<IEnumerable>();
-                    foreach (var interessadoVaquinha in vaquinha.Doadores)
-                    {
-                        dynamic Interessado = new System.Dynamic.ExpandoObject();
-                        Interessado.Id = interessadoVaquinha.Usuario.Id;
-                        Interessado.Nome = interessadoVaquinha.Usuario.Nome;
-                        Interessado.Email = interessadoVaquinha.Usuario.Email;
-                        Interessado.Valor = interessadoVaquinha.ValorDoado;
-                        Interessado.Status = interessadoVaquinha.Status;
-                        AnuncioDetalhado.Doadores.Add(Interessado);
-                    }
-
-                    return AnuncioDetalhado;
-
-                default: return null;
-            }
+            }*/
         }
 
         public void Dispose()
