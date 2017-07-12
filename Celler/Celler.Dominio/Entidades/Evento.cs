@@ -12,7 +12,7 @@ namespace Celler.Dominio.Entidades
         public string Local { get; private set; }
         public DateTime DataMaximaConfirmacao { get; private set; }
         public double ValorPorPessoa { get; private set; }
-        public List<Usuario> Confirmados { get; private set; }
+        public List<Usuario> Confirmados { get; set; }
 
         protected Evento() { }
 
@@ -21,9 +21,21 @@ namespace Celler.Dominio.Entidades
             return Confirmados.Count;
         }
 
-        public void AdicionarConfirmado(Usuario usuario)
+        public void AdicionarInteressado(Usuario usuario)
         {
-            Confirmados.Add(usuario);
+            if (Confirmados.Contains(usuario))
+                AdicionarMensagem("Usuário já está confirmado nesse evento.");
+            else
+                Confirmados.Add(usuario);
+
+        }
+
+        public void RemoverInteressado(Usuario usuario)
+        {
+            if (!Confirmados.Contains(usuario))
+                AdicionarMensagem("Usuário ainda não está confirmado neste evento.");
+
+            Confirmados.Remove(usuario);
         }
     }
 }

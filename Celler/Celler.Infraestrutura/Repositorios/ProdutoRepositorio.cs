@@ -26,6 +26,7 @@ namespace Celler.Infraestrutura.Repositorios
         {
             return _contexto.Produto
                 .Include(p => p.Interessados)
+                .Include(p =>p.Criador)
                 .FirstOrDefault(p => p.Id == id);
         }
 
