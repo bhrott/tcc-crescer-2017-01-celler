@@ -1,12 +1,7 @@
 ﻿using Celler.Api.App_Start;
 using Celler.Api.Models;
-using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
@@ -122,6 +117,16 @@ namespace Celler.Api.Controllers
             {
                 return ResponderErro(produto.Mensagens);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _usuarioRepositorio.Dispose();
+                _produtoRepositorio.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

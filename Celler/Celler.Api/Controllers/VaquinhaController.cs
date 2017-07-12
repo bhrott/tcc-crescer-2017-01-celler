@@ -94,5 +94,15 @@ namespace Celler.Api.Controllers
                 return ResponderErro(vaquinha.Mensagens);
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _usuarioRepositorio.Dispose();
+                _vaquinhaRepositorio.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Celler.Dominio.Entidades;
+using Celler.Dominio.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data.Entity;
-using Celler.Dominio.Models;
-using System.Collections;
+using System.Linq;
 
 namespace Celler.Infraestrutura.Repositorios
 {
@@ -67,7 +66,7 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado)
+        public dynamic ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado)
         {
             List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
@@ -100,7 +99,7 @@ namespace Celler.Infraestrutura.Repositorios
                       : true))
                 .Skip(pagina)
                 .Take(9)
-                .ToList();
+                .;
 
             PreencherInformacoesAdicionaisEspecificas(anuncios, usuarioLogado);
 
