@@ -36,5 +36,22 @@ namespace Celler.Dominio.Models
         public List<ComentarioModel> Comentarios { get; set; }
         public string TipoAnuncio { get; set; }
         public string Status { get; set; }
+
+        public void PopularComentarios(Anuncio anuncio)
+        {
+            Comentarios = new List<ComentarioModel>();
+
+            foreach (var comentarioAnuncio in anuncio.Comentarios)
+            {
+                UsuarioModel usuarioComentador = new UsuarioModel(comentarioAnuncio.Usuario.Id,
+                                                                  comentarioAnuncio.Usuario.Nome,
+                                                                  comentarioAnuncio.Usuario.Email);
+
+                Comentarios.Add(new ComentarioModel(comentarioAnuncio.Id,
+                                                    comentarioAnuncio.Texto,
+                                                    usuarioComentador,
+                                                    comentarioAnuncio.DataComentario));
+            }
+        }
     }
 }

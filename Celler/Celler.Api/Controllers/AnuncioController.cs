@@ -22,12 +22,18 @@ namespace Celler.Api.Controllers
     {
         readonly AnuncioRepositorio _anuncioRepositorio;
         readonly UsuarioRepositorio _usuarioRepositorio;
+        ProdutoRepositorio _produtoRepositorio;
+        EventoRepositorio _eventoRepositorio;
+        //VaquinhaRepositorio _vaquinhaRepositorio;
         readonly Contexto _contexto = new Contexto();
 
         public AnuncioController()
         {
             _anuncioRepositorio = new AnuncioRepositorio(_contexto);
             _usuarioRepositorio = new UsuarioRepositorio(_contexto);
+            _eventoRepositorio = new EventoRepositorio(_contexto);
+            _produtoRepositorio = new ProdutoRepositorio(_contexto);
+            //_vaquinhaRepositorio = new UsuarioRepositorio(_contexto);
         }
 
         [HttpGet, Route("feed/{pagina:int}")]
@@ -60,7 +66,7 @@ namespace Celler.Api.Controllers
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
             bool isUsuarioLogado = usuarioQuePostouAnuncio.Id == usuarioLogado.Id;
 
-            object anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncio(anuncio, isUsuarioLogado);
+            object anuncioDetalhes = _anuncioRepositorio.ObterDetalhesAnuncio(anuncio, isUsuarioLogado, ref _produtoRepositorio, ref _eventoRepositorio);
 
             return ResponderOk(anuncioDetalhes);
         }
@@ -99,7 +105,13 @@ namespace Celler.Api.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
+            {
+                _anuncioRepositorio.Dispose();
                 _usuarioRepositorio.Dispose();
+                _produtoRepositorio.Dispose();
+                _eventoRepositorio.Dispose();
+                //_vaquinhaRepositorio.Dispose();
+            }
             base.Dispose(disposing);
         }
     }

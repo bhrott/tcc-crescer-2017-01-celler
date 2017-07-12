@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Celler.Dominio.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,5 +35,37 @@ namespace Celler.Dominio.Models
                                           criador,
                                           status)
         { }
+
+        public ProdutoModelDetalhes(Anuncio anuncio)
+                                   : base(anuncio.Id,
+                                          anuncio.Titulo,
+                                          anuncio.Descricao,
+                                          anuncio.DataAnuncio,
+                                          anuncio.TipoAnuncio,
+                                          anuncio.Foto1,
+                                          anuncio.Foto2,
+                                          anuncio.Foto3,
+                                          new UsuarioModel (anuncio.Criador.Id, anuncio.Criador.Nome, anuncio.Criador.Email),
+                                          anuncio.Status)
+        { }
+
+        public void PopularConfirmados(Produto produto)
+        {
+            Interessados = new List<UsuarioModel>();
+
+            foreach (var confirmados in produto.Interessados)
+            {
+                this.Interessados.Add(new UsuarioModel(confirmados.Id,
+                                                       confirmados.Nome,
+                                                       confirmados.Email));
+            }
+            ContarConfirmados(produto);
+        }
+
+        public void ContarConfirmados(Produto produto)
+        {
+            Interessados = new List<UsuarioModel>();
+            this.NumeroInteressados = produto.Interessados.Count;
+        }
     }
 }

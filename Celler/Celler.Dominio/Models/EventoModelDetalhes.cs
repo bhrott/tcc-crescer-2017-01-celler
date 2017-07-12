@@ -51,27 +51,9 @@ namespace Celler.Dominio.Models
                                           anuncio.Status)
         { }
 
-        public void PopularComentarios(Anuncio anuncio)
-        {
-            Comentarios = new List<ComentarioModel>();
-
-            foreach (var comentarioAnuncio in anuncio.Comentarios)
-            {
-                UsuarioModel usuarioComentador = new UsuarioModel(comentarioAnuncio.Usuario.Id,
-                                                                  comentarioAnuncio.Usuario.Nome,
-                                                                  comentarioAnuncio.Usuario.Email);
-
-                Comentarios.Add(new ComentarioModel(comentarioAnuncio.Id,
-                                                    comentarioAnuncio.Texto,
-                                                    usuarioComentador,
-                                                    comentarioAnuncio.DataComentario));
-            }
-        }
-
-        public void PopularConfirmados(Anuncio anuncio)
+        public void PopularConfirmados(Evento evento)
         {
             Confirmados = new List<UsuarioModel>();
-            Evento evento = (Evento)anuncio;
 
             foreach (var confirmados in evento.Confirmados)
             {
@@ -79,13 +61,12 @@ namespace Celler.Dominio.Models
                                                        confirmados.Nome,
                                                        confirmados.Email));
             }
-            ContarConfirmados(anuncio);
+            ContarConfirmados(evento);
         }
 
-        public void ContarConfirmados(Anuncio anuncio)
+        public void ContarConfirmados(Evento evento)
         {
             Confirmados = new List<UsuarioModel>();
-            Evento evento = (Evento)anuncio;
             this.NumeroConfirmados = evento.Confirmados.Count;
         }
     }

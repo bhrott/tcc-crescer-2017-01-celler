@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Celler.Dominio.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,5 +36,40 @@ namespace Celler.Dominio.Models
                                           criador,
                                           status)
         { }
+
+        public VaquinhaModelDetalhes(Anuncio anuncio)
+                                   : base(anuncio.Id,
+                                          anuncio.Titulo,
+                                          anuncio.Descricao,
+                                          anuncio.DataAnuncio,
+                                          anuncio.TipoAnuncio,
+                                          anuncio.Foto1,
+                                          anuncio.Foto2,
+                                          anuncio.Foto3,
+                                          new UsuarioModel (anuncio.Criador.Id, anuncio.Criador.Nome, anuncio.Criador.Email),
+                                          anuncio.Status)
+        { }
+
+        public void PopularConfirmados(Vaquinha vaquinha)
+        {
+            Doadores = new List<DoadorModel>();
+
+            foreach (var doador in vaquinha.Doadores)
+            {
+                this.Doadores.Add(new DoadorModel( doador.Id,
+                                                   doador.ValorDoado,
+                                                   doador.Status,
+                                                   new UsuarioModel(doador.Usuario.Id,
+                                                                    doador.Usuario.Nome,
+                                                                    doador.Usuario.Email)));
+            }
+            ContarConfirmados(vaquinha);
+        }
+
+        public void ContarConfirmados(Vaquinha vaquinha)
+        {
+            Doadores = new List<DoadorModel>();
+            this.NumeroDoadores = vaquinha.Doadores.Count;
+        }
     }
 }

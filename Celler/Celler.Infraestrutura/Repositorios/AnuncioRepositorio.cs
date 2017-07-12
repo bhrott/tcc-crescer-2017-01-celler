@@ -179,82 +179,55 @@ namespace Celler.Infraestrutura.Repositorios
             return result;
         }
 
-        public object ObterDetalhesAnuncio(Anuncio anuncio, bool usuarioLogado)
+        public object ObterDetalhesAnuncio(Anuncio anuncio, bool usuarioLogado, ref ProdutoRepositorio _produtoRepositorio, ref EventoRepositorio _eventoRepositorio)
         {
-            object retorno;
+            object retorno = null;
             switch (anuncio.TipoAnuncio)
             {
                 case "Evento":
                     {
                         EventoModelDetalhes eventoModel = new EventoModelDetalhes(anuncio);
-                        //
-                        //TODO: PEGAR EVENTO
-                        //Evento evento = eventoRepositorio
-                        //
-                        //
-                        eventoModel.PopularComentarios(anuncio);
+                        Evento evento = _eventoRepositorio.ObterPorId(anuncio.Id);
+                        eventoModel.PopularComentarios(evento);
                         if (usuarioLogado)
-                            eventoModel.PopularConfirmados(anuncio);
+                            eventoModel.PopularConfirmados(evento);
                         else
-                            eventoModel.ContarConfirmados(anuncio);
+                            eventoModel.ContarConfirmados(evento);
 
                         retorno = eventoModel;
                         break;
                     }
-            }
-
-            return null;
-
-            /*foreach (var comentarioAnuncio in anuncio.Comentarios)
-            {
-                dynamic Comentario = new System.Dynamic.ExpandoObject();
-                Comentario.Texto = comentarioAnuncio.Texto;
-                Comentario.Id = comentarioAnuncio.Id;
-                Comentario.DataComentario = comentarioAnuncio.DataComentario;
-                Comentario.UsuarioNome = comentarioAnuncio.Usuario.Nome;
-                Comentario.UsuarioEmail = comentarioAnuncio.Usuario.Email;
-                Comentario.UsuarioId = comentarioAnuncio.Usuario.Id;
-                AnuncioDetalhado.Comentarios.Add(Comentario);
-            }
-
-            switch (anuncio.TipoAnuncio)
-            {
-                case "Evento":
-                    Evento evento = _contexto.Evento
-                        .Include(e => e.Confirmados)
-                        .FirstOrDefault(e => e.Id == anuncio.Id);
-                    AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
-                    AnuncioDetalhado.Local = evento.Local;
-                    AnuncioDetalhado.DataMaximaConfirmacao = evento.DataMaximaConfirmacao;
-                    AnuncioDetalhado.ValorPorPessoa = evento.ValorPorPessoa;
-                    AnuncioDetalhado.Confirmados = evento.Confirmados.Count;
-
-                    return AnuncioDetalhado;
 
                 case "Produto":
-                    Produto produto = _contexto.Produto
-                        .Include(p => p.Interessados)
-                        .FirstOrDefault(p => p.Id == anuncio.Id);
+                    {
+                        ProdutoModelDetalhes produtoModel = new ProdutoModelDetalhes(anuncio);
+                        Produto produto = _produtoRepositorio.ObterPorId(anuncio.Id);
+                        produtoModel.PopularComentarios(produto);
+                        if (usuarioLogado)
+                            produtoModel.PopularConfirmados(produto);
+                        else
+                            produtoModel.ContarConfirmados(produto);
 
-                    AnuncioDetalhado.Valor = produto.Valor;
-                    AnuncioDetalhado.Interessados = produto.Interessados.Count;
+                        retorno = produtoModel;
+                        break;
+                    }
 
-                    return AnuncioDetalhado;
+                /*case "Vaquinha":
+                    {
+                        VaquinhaModelDetalhes vaquinhaModel = new VaquinhaModelDetalhes(anuncio);
+                        Vaquinha vaquinha = _produtoRepositorio.ObterPorId(anuncio.Id);
+                        produtoModel.PopularComentarios(vaquinha);
+                        if (usuarioLogado)
+                            vaquinhaModel.PopularConfirmados(vaquinha);
+                        else
+                            vaquinhaModel.ContarConfirmados(vaquinha);
 
-                case "Vaquinha":
-                    Vaquinha vaquinha = _contexto.Vaquinha
-                        .Include(v => v.Doadores)
-                        .Include(v => v.Doadores.Select(v1 => v1.Usuario))
-                        .FirstOrDefault(v => v.Id == anuncio.Id);
-                    AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
-                    AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
-                    AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
-                    AnuncioDetalhado.Doadores = vaquinha.Doadores.Count;
+                        retorno = vaquinhaModel;
+                        break;
+                    }*/
+            }
 
-                    return AnuncioDetalhado;
-
-                default: return null;
-            }*/
+            return retorno;
         }
 
         public void Dispose()
