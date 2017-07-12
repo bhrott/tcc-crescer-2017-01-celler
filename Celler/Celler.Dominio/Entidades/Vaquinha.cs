@@ -20,5 +20,10 @@ namespace Celler.Dominio.Entidades
         {
             return Doadores.Count;
         }
+
+        public void AdicionarDoador()
+        {
+
+        }
     }
 }

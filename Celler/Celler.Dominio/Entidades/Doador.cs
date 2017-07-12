@@ -15,5 +15,12 @@ namespace Celler.Dominio.Entidades
         public string Status { get; private set; }
 
         protected Doador(){}
+
+        public Doador(Usuario usuario, double valorDoado)
+        {
+            this.Usuario = usuario;
+            this.ValorDoado = valorDoado;
+            this.Status = "n";
+        }
     }
 }

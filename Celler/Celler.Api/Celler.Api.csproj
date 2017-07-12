@@ -108,10 +108,12 @@
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\VaquinhaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ComentarioModel.cs" />
+    <Compile Include="Models\DoarVaquinhaModel.cs" />
     <Compile Include="Models\ParticiparEventoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\InteressarProdutoModel.cs" />
