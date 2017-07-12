@@ -36,7 +36,7 @@ namespace Celler.Api.Controllers
 
             if (usuario == null || vaquinha == null)
             {
-                return ResponderErro("Usuario ou Vaquinha inválidos.");
+                return ResponderErro("Usuario ou Vaquinha inválidos");
             }
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
