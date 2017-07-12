@@ -97,7 +97,7 @@ namespace Celler.Api.Controllers
         }
 
         [HttpPost, Route("comentar")]
-        public HttpResponseMessage ComentarAnuncio(ComentarioModelDetalhes model)
+        public HttpResponseMessage ComentarAnuncio(ComentarioModel model)
         {
             Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
             Anuncio anuncio = _anuncioRepositorio.ObterCompleto(model.IdAnuncio);

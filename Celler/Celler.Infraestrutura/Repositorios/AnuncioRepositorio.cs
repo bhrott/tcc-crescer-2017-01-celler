@@ -121,17 +121,20 @@ namespace Celler.Infraestrutura.Repositorios
                     case TipoAnuncio.EVENTO:
                         anuncio.NumeroInteressados = GetNumeroConfirmadosEventos(anuncio);
                         anuncio.TemInteresse = UsuarioLogadoConfirmado(anuncio, usuarioLogado);
+                        anuncio.Postou = UsuarioLogadoPostou(anuncio, usuarioLogado);
                         break;
 
                     case TipoAnuncio.PRODUTO:
                         anuncio.NumeroInteressados = GetNumeroInteressadosProduto(anuncio);
                         anuncio.ValorProduto = GetValorProduto(anuncio);
                         anuncio.TemInteresse = UsuarioLogadoInteressado(anuncio, usuarioLogado);
+                        anuncio.Postou = UsuarioLogadoPostou(anuncio, usuarioLogado);
                         break;
 
                     case TipoAnuncio.VAQUINHA:
                         anuncio.NumeroInteressados = GetNumeroDoadoresVaquinha(anuncio);
                         anuncio.TemInteresse = UsuarioLogadoDoou(anuncio, usuarioLogado);
+                        anuncio.Postou = UsuarioLogadoPostou(anuncio, usuarioLogado);
                         break;
 
                     default: break;
@@ -194,6 +197,14 @@ namespace Celler.Infraestrutura.Repositorios
                            .AsEnumerable()
                            .Select(e => e.Id == usuario.Id)
                            .Count() > 0;
+        }
+
+        private bool UsuarioLogadoPostou(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Anuncio
+                           .Include(a => a.Criador)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Criador.Id == usuario.Id;
         }
 
         private double GetValorProduto(AnuncioModelFeed anuncio)
