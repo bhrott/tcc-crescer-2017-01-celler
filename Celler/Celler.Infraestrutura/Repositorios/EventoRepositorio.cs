@@ -1,12 +1,7 @@
 ﻿using Celler.Dominio.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
-using System.Collections;
 using Celler.Dominio.Models;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Celler.Infraestrutura.Repositorios
 {
