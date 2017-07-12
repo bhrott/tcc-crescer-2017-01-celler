@@ -48,7 +48,7 @@ namespace Celler.Api.Controllers
             {
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();
-                Notificar notificar = new Notificar(usuario, produto);
+                Notificar notificar = new Notificar(produto.Criador, produto);
                 notificar.NotificarUsuarioInteresse();
                 return ResponderOk(new { texto = "Interesse salvo com sucesso" });
             }
