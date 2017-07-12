@@ -37,14 +37,14 @@ namespace Celler.Infraestrutura.Servicos
 
         public void NotificarUsuarioEvento()
         {
-            if (this.Usuario.NotificacaoComentarioAnuncioEmail == true)
+            if (this.Usuario.NotificacaoPresencaEmail == true)
             {
                 EnviarEmail email = new EnviarEmail();
                 MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " confirmou presença no evento: " + this.Anuncio.Titulo);
                 email.enviar(this.Usuario.Email, modelEmail);
             }
 
-            if (this.Usuario.NotificacaoComentarioAnuncioSlack == true)
+            if (this.Usuario.NotificacaoPresencaSlack == true)
             {
                 EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " confirmou presença no evento: " + this.Anuncio.Titulo);
             }
@@ -53,14 +53,14 @@ namespace Celler.Infraestrutura.Servicos
 
         public void NotificarUsuarioInteresse()
         {
-            if (this.Usuario.NotificacaoComentarioAnuncioEmail == true)
+            if (this.Usuario.NotificacaoInteresseEmail == true)
             {
                 EnviarEmail email = new EnviarEmail();
                 MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " se interessou no seu: " + this.Anuncio.Titulo);
                 email.enviar(this.Usuario.Email, modelEmail);
             }
 
-            if (this.Usuario.NotificacaoComentarioAnuncioSlack == true)
+            if (this.Usuario.NotificacaoInteresseSlack == true)
             {
                 EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " se interessou no seu: " + this.Anuncio.Titulo);
             }
