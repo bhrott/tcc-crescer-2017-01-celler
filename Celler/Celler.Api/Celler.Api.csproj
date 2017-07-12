@@ -106,6 +106,7 @@
     <Compile Include="Controllers\AnuncioController.cs" />
     <Compile Include="Controllers\ControllerBasica.cs" />
     <Compile Include="Controllers\EventoController.cs" />
+    <Compile Include="Controllers\NotificacaoController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VaquinhaController.cs" />

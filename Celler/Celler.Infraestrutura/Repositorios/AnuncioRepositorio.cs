@@ -72,6 +72,7 @@ namespace Celler.Infraestrutura.Repositorios
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
+                .AsEnumerable()
                 .Select(a => new AnuncioModelFeed(a.Id,
                                                a.Titulo,
                                                a.Descricao,
