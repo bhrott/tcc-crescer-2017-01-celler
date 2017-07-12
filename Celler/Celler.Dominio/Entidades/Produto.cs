@@ -46,5 +46,11 @@ namespace Celler.Dominio.Entidades
 
             Interessados.Remove(usuario);   
         }
+
+        public void MarcarVendido(Usuario usuario)
+        {
+            this.Comprador = usuario;
+            this.Status = "f";
+        }
     }
 }
