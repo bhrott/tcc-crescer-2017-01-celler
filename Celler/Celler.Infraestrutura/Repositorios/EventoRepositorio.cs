@@ -40,6 +40,7 @@ namespace Celler.Infraestrutura.Repositorios
         {
             Evento evento = ObterPorId(idEvento);
             EventoModelDetalhes eventoModel = new EventoModelDetalhes(evento);
+            eventoModel.SetarInformacoesEspecificas(evento);
             eventoModel.PopularComentarios(evento);
             eventoModel.PopularConfirmados(evento);
 

@@ -40,6 +40,7 @@ namespace Celler.Infraestrutura.Repositorios
         {
             Produto produto = ObterPorId(idProduto);
             ProdutoModelDetalhes produtoModel = new ProdutoModelDetalhes(produto);
+            produtoModel.SetarInformacoesEspecificas(produto);
             produtoModel.PopularComentarios(produto);
             if (usuarioLogado)
                 produtoModel.PopularConfirmados(produto);

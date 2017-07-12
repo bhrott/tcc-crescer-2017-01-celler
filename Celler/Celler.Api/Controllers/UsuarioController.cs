@@ -3,9 +3,6 @@ using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Entidades;
 using Celler.Infraestrutura.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -68,7 +65,6 @@ namespace Celler.Api.Controllers
                 _usuarioRepositorio.Dispose();
             base.Dispose(disposing);
         }
-
     }
 }
 

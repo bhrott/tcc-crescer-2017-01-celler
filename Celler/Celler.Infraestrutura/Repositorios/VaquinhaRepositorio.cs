@@ -1,11 +1,7 @@
 ﻿using Celler.Dominio.Entidades;
 using Celler.Dominio.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Celler.Infraestrutura.Repositorios
 {
@@ -45,6 +41,7 @@ namespace Celler.Infraestrutura.Repositorios
         {
             Vaquinha vaquinha = ObterPorId(idVaquinha);
             VaquinhaModelDetalhes vaquinhaModel = new VaquinhaModelDetalhes(vaquinha);
+            vaquinhaModel.SetarInformacoesEspecificas(vaquinha);
             vaquinhaModel.PopularComentarios(vaquinha);
             if (usuarioLogado)
                 vaquinhaModel.PopularConfirmados(vaquinha);

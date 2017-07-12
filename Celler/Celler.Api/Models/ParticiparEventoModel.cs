@@ -8,7 +8,6 @@ namespace Celler.Api.Models
     public class ParticiparEventoModel
     {
         public int IdUsuario { get; set; }
-
         public int IdEvento { get; set; }
     }
 }

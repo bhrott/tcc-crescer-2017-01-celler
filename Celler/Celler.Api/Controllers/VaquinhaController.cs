@@ -49,15 +49,15 @@ namespace Celler.Api.Controllers
             Doador doador = new Doador(usuarioLogado, model.ValorDoado);
             vaquinha.Doadores.Add(doador);
 
-            if (vaquinha.Validar())
+            if (doador.Validar())
             {
                 _vaquinhaRepositorio.Alterar(vaquinha);
                 _contexto.SaveChanges();
-                return ResponderOk(new { texto = "Valor Doado com sucesso" });
+                return ResponderOk(new { texto = "Valor doado com sucesso" });
             }
             else
             {
-                return ResponderErro(vaquinha.Mensagens);
+                return ResponderErro(doador.Mensagens);
             }
         }
 
@@ -93,6 +93,16 @@ namespace Celler.Api.Controllers
             {
                 return ResponderErro(vaquinha.Mensagens);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _usuarioRepositorio.Dispose();
+                _vaquinhaRepositorio.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

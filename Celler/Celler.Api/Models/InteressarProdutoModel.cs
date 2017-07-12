@@ -9,8 +9,6 @@ namespace Celler.Api.Models
     public class InteressarProdutoModel
     {
         public int IdUsuario { get; set; }
-
         public int IdProduto{ get; set; }
-
     }
 }

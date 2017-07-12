@@ -1,10 +1,9 @@
 ﻿using Celler.Dominio.Entidades;
+using Celler.Dominio.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data.Entity;
-using Celler.Dominio.Models;
-using System.Collections;
+using System.Linq;
 
 namespace Celler.Infraestrutura.Repositorios
 {
@@ -67,14 +66,12 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado)
+        public dynamic ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado)
         {
             List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
-                .ToList()
-                .AsEnumerable()
                 .Select(a => new AnuncioModelFeed(a.Id,
                                                a.Titulo,
                                                a.Descricao,
@@ -121,17 +118,20 @@ namespace Celler.Infraestrutura.Repositorios
                     case TipoAnuncio.EVENTO:
                         anuncio.NumeroInteressados = GetNumeroConfirmadosEventos(anuncio);
                         anuncio.TemInteresse = UsuarioLogadoConfirmado(anuncio, usuarioLogado);
+                        anuncio.Postou = UsuarioLogadoPostou(anuncio, usuarioLogado);
                         break;
 
                     case TipoAnuncio.PRODUTO:
                         anuncio.NumeroInteressados = GetNumeroInteressadosProduto(anuncio);
                         anuncio.ValorProduto = GetValorProduto(anuncio);
                         anuncio.TemInteresse = UsuarioLogadoInteressado(anuncio, usuarioLogado);
+                        anuncio.Postou = UsuarioLogadoPostou(anuncio, usuarioLogado);
                         break;
 
                     case TipoAnuncio.VAQUINHA:
                         anuncio.NumeroInteressados = GetNumeroDoadoresVaquinha(anuncio);
                         anuncio.TemInteresse = UsuarioLogadoDoou(anuncio, usuarioLogado);
+                        anuncio.Postou = UsuarioLogadoPostou(anuncio, usuarioLogado);
                         break;
 
                     default: break;
@@ -194,6 +194,14 @@ namespace Celler.Infraestrutura.Repositorios
                            .AsEnumerable()
                            .Select(e => e.Id == usuario.Id)
                            .Count() > 0;
+        }
+
+        private bool UsuarioLogadoPostou(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Anuncio
+                           .Include(a => a.Criador)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Criador.Id == usuario.Id;
         }
 
         private double GetValorProduto(AnuncioModelFeed anuncio)

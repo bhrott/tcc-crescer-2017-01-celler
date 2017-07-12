@@ -14,28 +14,6 @@ namespace Celler.Dominio.Models
         public List<UsuarioModel> Interessados { get; set; }
         public int NumeroInteressados { get; set; }
 
-        public ProdutoModelDetalhes(int id,
-                                   string titulo,
-                                   string descricao,
-                                   DateTime dataAnuncio,
-                                   string tipoAnuncio,
-                                   string foto1,
-                                   string foto2,
-                                   string foto3,
-                                   UsuarioModel criador,
-                                   string status)
-                                   :base (id,
-                                          titulo,
-                                          descricao,
-                                          dataAnuncio,
-                                          tipoAnuncio,
-                                          foto1,
-                                          foto2,
-                                          foto3,
-                                          criador,
-                                          status)
-        { }
-
         public ProdutoModelDetalhes(Anuncio anuncio)
                                    : base(anuncio.Id,
                                           anuncio.Titulo,
@@ -48,6 +26,11 @@ namespace Celler.Dominio.Models
                                           new UsuarioModel (anuncio.Criador.Id, anuncio.Criador.Nome, anuncio.Criador.Email),
                                           anuncio.Status)
         { }
+
+        public void SetarInformacoesEspecificas(Produto produto)
+        {
+            this.Valor = produto.Valor;
+        }
 
         public void PopularConfirmados(Produto produto)
         {
