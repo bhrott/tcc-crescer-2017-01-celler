@@ -60,5 +60,39 @@ namespace Celler.Api.Controllers
                 return ResponderErro(vaquinha.Mensagens);
             }
         }
+
+        [HttpPost, Route("confirmar")]
+        public HttpResponseMessage SalvarVendaProduto([FromBody] ReceberDoacaoModel model)
+        {
+            var usuario = _usuarioRepositorio.ObterPorId(model.IdUsuario);
+            var vaquinha = _vaquinhaRepositorio.ObterPorId(model.IdVaquinha);
+            var doador = _vaquinhaRepositorio.ObterDoadorPorId(model.IdDoacao);
+
+            if (usuario == null || vaquinha == null || doador == null)
+            {
+                return ResponderErro("Usuario ou Vaquinha inválidos.");
+            }
+
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+
+            if (usuarioLogado != vaquinha.Criador)
+            {
+                return ResponderErro("Você não tem permissão para aceitar essa doação.");
+            }
+
+            double valorDoado = doador.AlterarStatusDoacao(doador);
+
+            if (vaquinha.Validar())
+            {
+                vaquinha.IncrementarTotal(valorDoado);
+                _vaquinhaRepositorio.Alterar(vaquinha);
+                _contexto.SaveChanges();
+                return ResponderOk(new { texto = "Valor recebido com sucesso" });
+            }
+            else
+            {
+                return ResponderErro(vaquinha.Mensagens);
+            }
+        }
     }
 }

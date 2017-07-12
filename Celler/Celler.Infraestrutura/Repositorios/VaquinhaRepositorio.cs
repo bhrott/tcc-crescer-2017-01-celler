@@ -36,6 +36,11 @@ namespace Celler.Infraestrutura.Repositorios
                 .FirstOrDefault(v => v.Id == id);
         }
 
+        public Doador ObterDoadorPorId(int IdDoacao)
+        {
+            return _contexto.Doador.FirstOrDefault(d => d.Id == IdDoacao);
+        }
+
         public AnuncioModelDetalhes ObterDetalhes (int idVaquinha, bool usuarioLogado)
         {
             Vaquinha vaquinha = ObterPorId(idVaquinha);
