@@ -4,10 +4,6 @@ using Celler.Dominio.Entidades;
 using Celler.Dominio.Models;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
@@ -97,5 +93,14 @@ namespace Celler.Api.Controllers
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _usuarioRepositorio.Dispose();
+                _eventoRepositorio.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
