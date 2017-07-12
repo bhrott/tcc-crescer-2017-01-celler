@@ -1,5 +1,7 @@
 ﻿using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace Celler.Api.Controllers
 {
@@ -11,6 +13,12 @@ namespace Celler.Api.Controllers
         public NotificacaoController()
         {
             _notificacaoRepositorio = new NotificacaoRepositorio(_contexto);
+        }
+
+        [HttpGet, Route("notificacoes")]
+        public HttpResponseMessage ObterNotificacoes()
+        {
+            return null;
         }
 
         protected override void Dispose(bool disposing)
