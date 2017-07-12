@@ -21,53 +21,33 @@ namespace Celler.Infraestrutura.Servicos
 
         public void NotificarUsuarioComentario()
         {
-            if (this.Usuario.NotificacaoComentarioAnuncioEmail == true)
-            {
-                EnviarEmail email = new EnviarEmail();
-                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " comentou no anúncio: " + this.Anuncio.Titulo);
-                email.enviar(this.Usuario.Email, modelEmail);
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " comentou no seu anúncio: " + this.Anuncio.Titulo);
-            }
-
-            if(this.Usuario.NotificacaoComentarioAnuncioSlack == true)
-            {
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " comentou no seu anúncio: " + this.Anuncio.Titulo);
-            }
-
+            EnviarNotificacao(" comentou na sua publicação: ");
         }
 
         public void NotificarUsuarioEvento()
         {
-            if (this.Usuario.NotificacaoComentarioAnuncioEmail == true)
-            {
-                EnviarEmail email = new EnviarEmail();
-                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " confirmou presença no evento: " + this.Anuncio.Titulo);
-                email.enviar(this.Usuario.Email, modelEmail);
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " confirmou presença no evento: " + this.Anuncio.Titulo);
-            }
-
-            if (this.Usuario.NotificacaoComentarioAnuncioSlack == true)
-            {
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " confirmou presença no evento: " + this.Anuncio.Titulo);
-            }
-
+            EnviarNotificacao(" confirmou presença no seu evento: ");
         }
 
         public void NotificarUsuarioInteresse()
         {
+            EnviarNotificacao(" se interessou no seu produto: ");
+        }
+
+        private void EnviarNotificacao(string conteudoNotificacao)
+        {
             if (this.Usuario.NotificacaoComentarioAnuncioEmail == true)
             {
                 EnviarEmail email = new EnviarEmail();
-                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " se interessou no seu: " + this.Anuncio.Titulo);
+                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + conteudoNotificacao + this.Anuncio.Titulo);
                 email.enviar(this.Usuario.Email, modelEmail);
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " se interessou no seu: " + this.Anuncio.Titulo);
+                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + conteudoNotificacao + this.Anuncio.Titulo);
             }
 
             if (this.Usuario.NotificacaoComentarioAnuncioSlack == true)
             {
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + " se interessou no seu: " + this.Anuncio.Titulo);
+                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + conteudoNotificacao + this.Anuncio.Titulo);
             }
-
         }
     }
 }
