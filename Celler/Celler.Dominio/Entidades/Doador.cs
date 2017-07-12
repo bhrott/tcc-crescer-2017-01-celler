@@ -25,5 +25,11 @@ namespace Celler.Dominio.Entidades
             if (this.ValorDoado <= 0)
                 Mensagens.Add("O valor doado não pode ser 0.");
         }
+
+        public double AlterarStatusDoacao(Doador doador)
+        {
+            this.Status = "p";
+            return this.ValorDoado;
+        }
     }
 }
