@@ -16,28 +16,6 @@ namespace Celler.Dominio.Models
         public List<UsuarioModel> Confirmados { get; set; }
         public int NumeroConfirmados { get; set; }
 
-        public EventoModelDetalhes(int id, 
-                                   string titulo, 
-                                   string descricao, 
-                                   DateTime dataAnuncio, 
-                                   string tipoAnuncio, 
-                                   string foto1, 
-                                   string foto2, 
-                                   string foto3, 
-                                   UsuarioModel criador, 
-                                   string status)
-                                   :base (id,
-                                          titulo,
-                                          descricao,
-                                          dataAnuncio,
-                                          tipoAnuncio,
-                                          foto1,
-                                          foto2,
-                                          foto3,
-                                          criador,
-                                          status)
-        { }
-
         public EventoModelDetalhes(Anuncio anuncio)
                                    : base(anuncio.Id,
                                           anuncio.Titulo,
@@ -50,6 +28,12 @@ namespace Celler.Dominio.Models
                                           new UsuarioModel (anuncio.Criador.Id, anuncio.Criador.Nome, anuncio.Criador.Email),
                                           anuncio.Status)
         { }
+
+        public void SetarInformacoesEspecificas (Evento evento)
+        {
+            this.Local = evento.Local;
+            this.ValorPorPessoa = evento.ValorPorPessoa;
+        }
 
         public void PopularConfirmados(Evento evento)
         {

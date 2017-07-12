@@ -15,28 +15,6 @@ namespace Celler.Dominio.Models
         public List<DoadorModel> Doadores { get; set; }
         public int NumeroDoadores { get; set; }
 
-        public VaquinhaModelDetalhes(int id,
-                                   string titulo,
-                                   string descricao,
-                                   DateTime dataAnuncio,
-                                   string tipoAnuncio,
-                                   string foto1,
-                                   string foto2,
-                                   string foto3,
-                                   UsuarioModel criador,
-                                   string status)
-                                   :base (id,
-                                          titulo,
-                                          descricao,
-                                          dataAnuncio,
-                                          tipoAnuncio,
-                                          foto1,
-                                          foto2,
-                                          foto3,
-                                          criador,
-                                          status)
-        { }
-
         public VaquinhaModelDetalhes(Anuncio anuncio)
                                    : base(anuncio.Id,
                                           anuncio.Titulo,
@@ -49,6 +27,13 @@ namespace Celler.Dominio.Models
                                           new UsuarioModel (anuncio.Criador.Id, anuncio.Criador.Nome, anuncio.Criador.Email),
                                           anuncio.Status)
         { }
+
+        public void SetarInformacoesEspecificas(Vaquinha vaquinha)
+        {
+            this.DataTermino = vaquinha.DateTermino;
+            this.TotalArrecadado = vaquinha.TotalArrecadado;
+            this.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
+        }
 
         public void PopularConfirmados(Vaquinha vaquinha)
         {

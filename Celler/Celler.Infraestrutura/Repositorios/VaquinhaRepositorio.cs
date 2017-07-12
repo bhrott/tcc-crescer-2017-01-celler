@@ -45,6 +45,7 @@ namespace Celler.Infraestrutura.Repositorios
         {
             Vaquinha vaquinha = ObterPorId(idVaquinha);
             VaquinhaModelDetalhes vaquinhaModel = new VaquinhaModelDetalhes(vaquinha);
+            vaquinhaModel.SetarInformacoesEspecificas(vaquinha);
             vaquinhaModel.PopularComentarios(vaquinha);
             if (usuarioLogado)
                 vaquinhaModel.PopularConfirmados(vaquinha);
