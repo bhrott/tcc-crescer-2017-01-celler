@@ -23,7 +23,7 @@ namespace Celler.Dominio.Entidades
             this.Status = "n";
 
             if (this.ValorDoado <= 0)
-                Mensagens.Add("Informe o criador.");
+                Mensagens.Add("O valor doado não pode ser 0.");
         }
     }
 }
