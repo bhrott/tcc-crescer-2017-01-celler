@@ -4,7 +4,9 @@ modulo.factory("postService", function ($http) {
         interessarProduto:interessarProduto,
         desinteressarProduto:desinteressarProduto,
         confirmarEvento:confirmarEvento,
-        desconfirmarEvento:desconfirmarEvento
+        desconfirmarEvento:desconfirmarEvento,
+        doarVaquinha:doarVaquinha,
+        venderProduto:venderProduto
     });
 
 
@@ -44,6 +46,27 @@ modulo.factory("postService", function ($http) {
             IdEvento:idEvento
         }
         return $http.post("http://localhost:50694/api/evento/desistir", objetoEnvio);
+    }
+    
+    function doarVaquinha(idUser, idVaquinha, valorDoado){
+        
+        var objetoEnvio = {
+            IdUsuario:idUser,
+            IdVaquinha:idVaquinha,
+            ValorDoado:valorDoado
+        }
+        return $http.post("http://localhost:50694/api/vaquinha/doar", objetoEnvio);
+        
+    }
+    
+    function venderProduto(idInteressado, idAnuncio){
+        
+        var objetoEnvio = {
+            IdUsuario:idInteressado,
+            IdProduto:idAnuncio
+        }
+        
+         return $http.post("http://localhost:50694/api/produto/vender", objetoEnvio);
     }
 
 });

@@ -29,8 +29,11 @@
                 <p class="title is-3 has-text-muted">Arrecadado: {{anuncioEspecifico.TotalArrecadado}}</p>
                 <p class="title is-3 has-text-muted">Data Limite:{{anuncioEspecifico.DateTermino | date:'dd/MM/yy'}}</p>
                 <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
+                    
+                </div>
+                   <br>
                     <br>
-                    <br>
+                   <div>
                     <table class="table">
                         <tbody>
                             <tr>
@@ -43,16 +46,22 @@
                                 <td class="has-text-right">
                                     <strong>Apoiadores</strong>
                                 </td>
-                                <td>anuncioEspecifico.Doadores.Count</td>
+                                <td>{{anuncioEspecifico.Doadores.length}}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <p class="">
-                        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                        <a class="button is-primary"> <i class="fa fa-plus-circle interessado"> </i> &nbsp; &nbsp; Apoiar</a>
+                    <p ng-if="!doou" class="">
+                      <label for="">Quantia a doar</label><br>
+                       <input type="number" ng-model="vaquinha.ValorDoado" >
+                        <a ng-click="doarVaquinha(vaquinha.ValorDoado)" ng-if="vaquinha.ValorDoado > 0" class="button is-primary is-small"> <i class="fa fa-plus-circle interessado"> </i> &nbsp; &nbsp; Apoiar</a>
                     </p>
+                    <p ng-if="doou">
+                        Obrigado! :)
+                    </p>
+                    
                     <br>
-                </div>
+                    </div>
+                
             </div>
         </div>
     </div>

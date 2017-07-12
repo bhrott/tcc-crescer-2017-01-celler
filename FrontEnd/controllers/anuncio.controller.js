@@ -37,14 +37,29 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
 
 
-
+    $scope.venderProduto = function (idInteressado){
+        postService.venderProduto(idInteressado, $scope.anuncioEspecifico.Id).then(
+        
+        
+            function(response){
+                
+                console.log(response);
+                $scope.exibirModal = false;
+                  swal("Feito!", "Vendido com sucesso!", "success");
+                $location.url('#!/feed');
+            }
+            
+        );
+        
+    }
+    
     $scope.confirmarInteresse = function confirmarInteresse(){
         postService.interessarProduto($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id).then(
 
             function(response){
                 console.log(response);
                 $scope.temInteresse = true;
-                $scope.anuncioEspecifico.Interessados.push({Increment: 'incrementarNumero'});
+                $scope.anuncioEspecifico.Interessados.push({Email:$localStorage.usuarioLogado.Email, Nome:$localStorage.usuarioLogado.Nome});
             }
 
         );
@@ -69,7 +84,7 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
             function(response){
                 console.log(response);
                 $scope.estaConfirmado = true;
-                $scope.anuncioEspecifico.Confirmados.push({Increment: 'incrementarNumero'});
+                $scope.anuncioEspecifico.Confirmados.push({Email:$localStorage.usuarioLogado.Email, Nome:$localStorage.usuarioLogado.Nome});
             }
 
         );
@@ -86,6 +101,22 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
             }
 
         );
+    }
+    
+    $scope.doarVaquinha = function doarVaquinha(valorDoado){
+        
+        console.log(valorDoado);
+        postService.doarVaquinha($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id, valorDoado).then(
+        
+            function(response){
+                
+                console.log(response);
+                $scope.doou = true;
+                
+            }
+        
+        )
+        
     }
 
 
