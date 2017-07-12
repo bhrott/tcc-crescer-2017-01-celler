@@ -50,7 +50,7 @@
 
             </div>
             <div class="column is-5 is-offset-1">
-                <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarProduto/{{anuncioEspecifico.Id}}">Editar seu Produto</a></div>
+                <div ng-if="idUsuarioLogado == anuncioEspecifico.Criador.Id" class="title is-2"><a class="button is-primary is-large" href="#!/editarProduto/{{anuncioEspecifico.Id}}">Editar seu Produto</a></div>
                 <div class="title is-2">{{anuncioEspecifico.Titulo}}</div>
                 <p ng-if="anuncioEspecifico.Status == 'a' " class="title is-3 has-text-muted">R$ {{anuncioEspecifico.Valor}}</p>
                 <p ng-if="anuncioEspecifico.Status == 'f' " class="title is-3 has-text-muted" style="color:red;"> VENDIDO </p>
@@ -77,10 +77,10 @@
                     </tbody>
                 </table>
                 <p class="">
-                    <a ng-click="confirmarInteresse()" ng-if="!temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
-                    <a ng-if="temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-warning is-small" ng-click="retirarInteresse()"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Cancelar Interesse</a>
-                    <a ng-if=" anuncioEspecifico.Status != 'f' && idUsuarioLogado == anuncioEspecifico.IdUsuario && anuncioEspecifico.Interessados.length > 0" class="button is-primary is-small" ng-click=" exibirAModal()"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
-                    <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario && anuncioEspecifico.Interessados.length <= 0" class="button is-warning is-small"> <i class="fa fa-warning"> &nbsp; &nbsp;</i> Nenhum interessado :( </a>
+                    <a ng-click="confirmarInteresse()" ng-if="!temInteresse && idUsuarioLogado != anuncioEspecifico.Criador.Id" class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
+                    <a ng-if="temInteresse && idUsuarioLogado != anuncioEspecifico.Criador.Id" class="button is-warning is-small" ng-click="retirarInteresse()"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Cancelar Interesse</a>
+                    <a ng-if=" anuncioEspecifico.Status != 'f' && idUsuarioLogado == anuncioEspecifico.Criador.Id && anuncioEspecifico.Interessados.length > 0" class="button is-primary is-small" ng-click=" exibirAModal()"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
+                    <a ng-if="idUsuarioLogado == anuncioEspecifico.Criador.Id && anuncioEspecifico.Interessados.length <= 0" class="button is-warning is-small"> <i class="fa fa-warning"> &nbsp; &nbsp;</i> Nenhum interessado :( </a>
                     <br>
                 </p>
             </div>
@@ -99,7 +99,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
+                            <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
                             <br>
                         </p>
                         <div ng-bind-html="comentario.Texto | markdown">

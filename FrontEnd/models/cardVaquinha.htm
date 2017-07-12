@@ -13,19 +13,18 @@
     </a>
     <div class="card-content">
         <div class="panel-block-item">
+           
+            <span class="likes confirmado" ng-if="anuncio.TemInteresse">
+                Você ja apoiou essa vaquinha :) 
+            </span>
+            <br>
             <span class="likes">
                 <span class="icon">
-                    <i class="fa fa-plus-circle"></i>
+                    <a href="#!/anuncio/{{anuncio.Id}}" style="color:black;"><i class="fa fa-plus-circle"></i></a>
                 </span>
-               Apoiar 
+               Detalhes
             </span>
-            
-            <span class="comments">
-                <span class="icon" style="color:blue;">
-                    <i class="fa fa-thumbs-o-up"></i>
-                </span>
-                 {{anuncio.NumeroInteressados}}
-            </span>
+
             <span class="comments">
                 <span class="icon">
                     <i class="fa fa-comment"></i>
