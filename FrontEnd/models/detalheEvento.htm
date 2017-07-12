@@ -50,7 +50,7 @@
 
             </div>
             <div class="column is-5 is-offset-1">
-                <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarEvento/{{anuncioEspecifico.Id}}">Editar seu Evento</a></div>
+                <div ng-if="idUsuarioLogado == anuncioEspecifico.Criador.Id" class="title is-2"><a class="button is-primary is-large" href="#!/editarEvento/{{anuncioEspecifico.Id}}">Editar seu Evento</a></div>
                 <div class="title is-2">{{anuncioEspecifico.Titulo}}&nbsp; &nbsp;
                 </div>
                 <div class="title is-2"> Data de Realização:{{anuncioEspecifico.DataRealizacao | date:'short'}}</div>
@@ -79,8 +79,8 @@
                 </table>
                 <p class="">
                     &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                    <a class="button is-primary is-small" ng-click="confirmarPresenca()" ng-if="!estaConfirmado && idUsuarioLogado != anuncioEspecifico.IdUsuario"> <i class="fa fa-thumbs-up interessado"> &nbsp; &nbsp;</i> Participar</a>
-                    <a class="button is-warning is-small" ng-click="retirarPresenca()" ng-if="estaConfirmado && idUsuarioLogado != anuncioEspecifico.IdUsuario"> <i class="fa fa-thumbs-down interessado"> &nbsp; &nbsp;</i> Não ir</a>
+                    <a class="button is-primary is-small" ng-click="confirmarPresenca()" ng-if="!estaConfirmado && idUsuarioLogado != anuncioEspecifico.Criador.Id"> <i class="fa fa-thumbs-up interessado"> &nbsp; &nbsp;</i> Participar</a>
+                    <a class="button is-warning is-small" ng-click="retirarPresenca()" ng-if="estaConfirmado && idUsuarioLogado != anuncioEspecifico.Criador.Id"> <i class="fa fa-thumbs-down interessado"> &nbsp; &nbsp;</i> Não ir</a>
                     <a class="button is-success is-small" ng-click="exibirAModal()"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Confirmados</a>
                 </p>
                 <br>
@@ -100,7 +100,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
+                              <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
                             <br>
                         </p>
                         <div ng-bind-html="comentario.Texto | markdown">

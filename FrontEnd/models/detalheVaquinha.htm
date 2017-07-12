@@ -23,11 +23,11 @@
 
             </div>
             <div class="column is-5 is-offset-1">
-                  <div ng-if="idUsuarioLogado === anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarVaquinha/{{anuncioEspecifico.Id}}">Editar sua Vaquinha</a></div>
+                  <div ng-if="idUsuarioLogado === anuncioEspecifico.Criador.Id" class="title is-2"><a class="button is-primary is-large" href="#!/editarVaquinha/{{anuncioEspecifico.Id}}">Editar sua Vaquinha</a></div>
                 <div class="title is-2">{{anuncioEspecifico.Titulo}}</div>
                 <p class="title is-3 has-text-muted">Total Pretendido: {{anuncioEspecifico.ArrecadamentoPrevisto}}</p>
                 <p class="title is-3 has-text-muted">Arrecadado: {{anuncioEspecifico.TotalArrecadado}}</p>
-                <p class="title is-3 has-text-muted">Data Limite:{{anuncioEspecifico.DateTermino | date:'dd/MM/yy'}}</p>
+                <p class="title is-3 has-text-muted">Data Limite:{{anuncioEspecifico.DataTermino | date:'dd/MM/yy'}}</p>
                 <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
                     
                 </div>
@@ -50,7 +50,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p ng-if="!doou" class="">
+                    <p ng-if="!doou && anuncioEspecifico.Criador.Id != idUsuarioLogado" class="">
                       <label for="">Quantia a doar</label><br>
                        <input type="number" ng-model="vaquinha.ValorDoado" >
                         <a ng-click="doarVaquinha(vaquinha.ValorDoado)" ng-if="vaquinha.ValorDoado > 0" class="button is-primary is-small"> <i class="fa fa-plus-circle interessado"> </i> &nbsp; &nbsp; Apoiar</a>
@@ -77,7 +77,7 @@
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <strong>{{comentario.UsuarioNome}}</strong> <small>{{comentario.UsuarioEmail}}</small>
+                                  <strong>{{comentario.Usuario.Nome}}</strong> <small>{{comentario.Usuario.Email}}</small>
                                 <br>
                             </p>
                             <div ng-bind-html="comentario.Texto | markdown">

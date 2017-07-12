@@ -14,8 +14,11 @@
           <div class="card-content footerOffset">
             <div class="panel-block-item">
               <span class="likes">
-                <span class="icon">
-                  <i class="fa fa-check-circle confirmado "></i>
+                <span  ng-if="anuncio.TemInteresse" class="icon">
+                  <i class="fa fa-check-circle confirmado"></i>
+                </span>
+                <span ng-if="!anuncio.TemInteresse" class="icon">
+                  <i class="fa fa-question"></i>
                 </span>
                {{anuncio.NumeroInteressados}}
               </span>
