@@ -1,5 +1,28 @@
 <nav class="nav is-mobile has-shadow" ng-include="'/models/navbarItems.htm'">
 </nav>
+
+<div class="modal" ng-class="{'is-active':exibirModal}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Confirmados</p>
+            <button ng-click="esconderAModal()" class="delete"></button>
+        </header>
+        <section class="modal-card-body">
+            <ul>
+                <div class="box trending metade">
+                    <p class="trend-title"></p>
+                    <div ng-repeat="confirmado in anuncioEspecifico.Confirmados" class="box trending">
+                        <p class="trend-hashtag">
+                            <span><i class="fa fa-user"></i> &nbsp; &nbsp;{{confirmado.Nome}}</span> <em>{{confirmado.Email}}</em>
+                        </p>
+                    </div>
+                </div>
+            </ul>
+        </section>
+    </div>
+</div>
+
 <div class="section product-header">
     <div class="container">
         <div class="columns">
@@ -27,7 +50,7 @@
 
             </div>
             <div class="column is-5 is-offset-1">
-               <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarEvento/{{anuncioEspecifico.Id}}">Editar seu Evento</a></div>
+                <div ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario" class="title is-2"><a class="button is-primary is-large" href="#!/editarEvento/{{anuncioEspecifico.Id}}">Editar seu Evento</a></div>
                 <div class="title is-2">{{anuncioEspecifico.Titulo}}&nbsp; &nbsp;
                 </div>
                 <div class="title is-2"> Data de Realização:{{anuncioEspecifico.DataRealizacao | date:'short'}}</div>
@@ -50,13 +73,15 @@
                             <td class="has-text-right">
                                 <strong>Confirmados</strong>
                             </td>
-                            <td>{{anuncioEspecifico.Confirmados.Length || 0}}</td>
+                            <td>{{anuncioEspecifico.Confirmados.length || 0}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="">
                     &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                    <a class="button is-primary"> <i class="fa fa-thumbs-up interessado"> &nbsp; &nbsp;</i> Confirmar Presença</a>
+                    <a class="button is-primary is-small" ng-click="confirmarPresenca()" ng-if="!estaConfirmado && idUsuarioLogado != anuncioEspecifico.IdUsuario"> <i class="fa fa-thumbs-up interessado"> &nbsp; &nbsp;</i> Participar</a>
+                    <a class="button is-warning is-small" ng-click="retirarPresenca()" ng-if="estaConfirmado && idUsuarioLogado != anuncioEspecifico.IdUsuario"> <i class="fa fa-thumbs-down interessado"> &nbsp; &nbsp;</i> Não ir</a>
+                    <a class="button is-success is-small" ng-click="exibirAModal()"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Confirmados</a>
                 </p>
                 <br>
             </div>

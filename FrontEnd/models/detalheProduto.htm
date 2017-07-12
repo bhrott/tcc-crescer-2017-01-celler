@@ -75,8 +75,8 @@
                     </tbody>
                 </table>
                 <p class="">
-                    <a ng-if="!temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
-                      <a ng-if="temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-warning is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Cancelar Interesse</a>
+                    <a ng-click="confirmarInteresse()" ng-if="!temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-primary is-small"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Manifestar Interesse</a>
+                      <a ng-if="temInteresse && idUsuarioLogado != anuncioEspecifico.IdUsuario" class="button is-warning is-small" ng-click="retirarInteresse()"> <i class="fa fa-money interessado"> &nbsp; &nbsp;</i> Cancelar Interesse</a>
                     <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario && anuncioEspecifico.Interessados.length > 0" class="button is-primary is-small" ng-click=" exibirAModal()"> <i class="fa fa-plus interessado"> &nbsp; &nbsp;</i> Mostrar Interessados</a>
                     <a ng-if="idUsuarioLogado == anuncioEspecifico.IdUsuario && anuncioEspecifico.Interessados.length <= 0" class="button is-warning is-small"> <i class="fa fa-warning"> &nbsp; &nbsp;</i> Nenhum interessado :( </a>
                     <br>
