@@ -3,6 +3,7 @@ using Celler.Api.Models;
 using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
+using Celler.Infraestrutura.Servicos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,8 @@ namespace Celler.Api.Controllers
             {
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();
+                Notificar notificar = new Notificar(usuario, produto);
+                notificar.NotificarUsuarioInteresse();
                 return ResponderOk(new { texto = "Interesse salvo com sucesso" });
             }
             else

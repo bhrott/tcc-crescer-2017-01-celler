@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Celler.Dominio.Entidades
+namespace Celler.Infraestrutura.Servicos
 {
     public class EnviarEmail
     {
@@ -39,8 +39,5 @@ namespace Celler.Dominio.Entidades
             }
 
         }
-
     }
-
-    
 }

@@ -4,6 +4,7 @@ using Celler.Dominio.Entidades;
 using Celler.Dominio.Models;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
+using Celler.Infraestrutura.Servicos;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
@@ -114,6 +115,8 @@ namespace Celler.Api.Controllers
             {
                 _anuncioRepositorio.Alterar(anuncio);
                 _contexto.SaveChanges();
+                Notificar notificar = new Notificar(usuario, anuncio);
+                notificar.NotificarUsuarioComentario();
                 return ResponderOk(new { texto = model.Texto });
             }
             else

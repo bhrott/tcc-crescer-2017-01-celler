@@ -5,15 +5,14 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Celler.Dominio.Entidades
+namespace Celler.Infraestrutura.Servicos
 {
-   public class EnviarMensagemSlack
+    public class EnviarMensagemSlack
     {
         public EnviarMensagemSlack(string usuario, string texto)
         {
             MandarMensagemNoSlack(usuario, texto);
         }
-        
 
         public static void MandarMensagemNoSlack(string usuario, string texto)
         {

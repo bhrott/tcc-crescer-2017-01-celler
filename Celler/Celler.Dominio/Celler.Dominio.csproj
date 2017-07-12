@@ -44,8 +44,6 @@
     <Compile Include="Entidades\Comentario.cs" />
     <Compile Include="Entidades\Doador.cs" />
     <Compile Include="Entidades\EntidadeBasica.cs" />
-    <Compile Include="Entidades\EnviarEmail.cs" />
-    <Compile Include="Entidades\EnviarMensagemSlack.cs" />
     <Compile Include="Entidades\Evento.cs" />
     <Compile Include="Entidades\Notificacao.cs" />
     <Compile Include="Entidades\Permissao.cs" />
