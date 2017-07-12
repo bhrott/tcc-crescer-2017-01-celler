@@ -48,9 +48,17 @@
     <Compile Include="Entidades\Notificacao.cs" />
     <Compile Include="Entidades\Permissao.cs" />
     <Compile Include="Entidades\Produto.cs" />
+    <Compile Include="Entidades\TipoAnuncio.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Entidades\Vaquinha.cs" />
-    <Compile Include="Models\AnuncioModel.cs" />
+    <Compile Include="Models\AnuncioModelDetalhes.cs" />
+    <Compile Include="Models\AnuncioModelFeed.cs" />
+    <Compile Include="Models\ComentarioModelDetalhes.cs" />
+    <Compile Include="Models\DoadorModel.cs" />
+    <Compile Include="Models\EventoModelDetalhes.cs" />
+    <Compile Include="Models\ProdutoModelDetalhes.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
+    <Compile Include="Models\VaquinhaModelDetalhes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

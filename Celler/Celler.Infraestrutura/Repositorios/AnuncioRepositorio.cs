@@ -31,18 +31,18 @@ namespace Celler.Infraestrutura.Repositorios
                 .FirstOrDefault(a => a.Id == id);
         }
 
-        public List<AnuncioModel> ObterUltimosAnuncios(int pagina)
+        public List<AnuncioModelFeed> ObterUltimosAnuncios(int pagina, Usuario usuarioLogado)
         {
             //
             // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
             // o que pode ser coletado genericamente
             //
-            List<AnuncioModel> anuncios = _contexto.Anuncio
+            List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                  .Include(a => a.Criador)
                  .Include(a => a.Comentarios)
                  .OrderByDescending(a => a.DataAnuncio)
                  .AsEnumerable()
-                 .Select(a => new AnuncioModel(a.Id,
+                 .Select(a => new AnuncioModelFeed(a.Id,
                                                 a.Titulo,
                                                 a.Descricao,
                                                 a.DataAnuncio,
@@ -62,20 +62,20 @@ namespace Celler.Infraestrutura.Repositorios
             //
             // Para completar com as informações adicionais, é usado um método de preenchimento
             //
-            PreencherInformacoesAdicionaisEspecificas(anuncios);
+            PreencherInformacoesAdicionaisEspecificas(anuncios, usuarioLogado);
 
             return anuncios;
         }
 
-        public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search)
+        public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado)
         {
-            List<AnuncioModel> anuncios = _contexto.Anuncio
+            List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
                 .ToList()
                 .AsEnumerable()
-                .Select(a => new AnuncioModel(a.Id,
+                .Select(a => new AnuncioModelFeed(a.Id,
                                                a.Titulo,
                                                a.Descricao,
                                                a.DataAnuncio,
@@ -102,7 +102,7 @@ namespace Celler.Infraestrutura.Repositorios
                 .Take(9)
                 .ToList();
 
-            PreencherInformacoesAdicionaisEspecificas(anuncios);
+            PreencherInformacoesAdicionaisEspecificas(anuncios, usuarioLogado);
 
             return anuncios;
         }
@@ -112,23 +112,26 @@ namespace Celler.Infraestrutura.Repositorios
             _contexto.Entry(anuncio).State = EntityState.Modified;
         }
 
-        private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModel> anuncios)
+        private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModelFeed> anuncios, Usuario usuarioLogado)
         {
-            foreach (AnuncioModel anuncio in anuncios)
+            foreach (AnuncioModelFeed anuncio in anuncios)
             {
                 switch (anuncio.TipoAnuncio)
                 {
-                    case "Evento":
+                    case TipoAnuncio.EVENTO:
                         anuncio.NumeroInteressados = GetNumeroConfirmadosEventos(anuncio);
+                        anuncio.TemInteresse = UsuarioLogadoConfirmado(anuncio, usuarioLogado);
                         break;
 
-                    case "Produto":
+                    case TipoAnuncio.PRODUTO:
                         anuncio.NumeroInteressados = GetNumeroInteressadosProduto(anuncio);
                         anuncio.ValorProduto = GetValorProduto(anuncio);
+                        anuncio.TemInteresse = UsuarioLogadoInteressado(anuncio, usuarioLogado);
                         break;
 
-                    case "Vaquinha":
+                    case TipoAnuncio.VAQUINHA:
                         anuncio.NumeroInteressados = GetNumeroDoadoresVaquinha(anuncio);
+                        anuncio.TemInteresse = UsuarioLogadoDoou(anuncio, usuarioLogado);
                         break;
 
                     default: break;
@@ -136,7 +139,7 @@ namespace Celler.Infraestrutura.Repositorios
             }
         }
 
-        private int GetNumeroConfirmadosEventos(AnuncioModel anuncio)
+        private int GetNumeroConfirmadosEventos(AnuncioModelFeed anuncio)
         {
             return _contexto.Evento
                            .Include(a => a.Confirmados)
@@ -144,7 +147,7 @@ namespace Celler.Infraestrutura.Repositorios
                            .Confirmados.Count;
         }
 
-        private int GetNumeroInteressadosProduto(AnuncioModel anuncio)
+        private int GetNumeroInteressadosProduto(AnuncioModelFeed anuncio)
         {
             return _contexto.Produto
                            .Include(a => a.Interessados)
@@ -152,7 +155,7 @@ namespace Celler.Infraestrutura.Repositorios
                            .Interessados.Count;
         }
 
-        private int GetNumeroDoadoresVaquinha(AnuncioModel anuncio)
+        private int GetNumeroDoadoresVaquinha(AnuncioModelFeed anuncio)
         {
             return _contexto.Vaquinha
                            .Include(a => a.Doadores)
@@ -160,20 +163,44 @@ namespace Celler.Infraestrutura.Repositorios
                            .Doadores.Count;
         }
 
-        private double GetValorProduto(AnuncioModel anuncio)
+        private bool UsuarioLogadoConfirmado(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Evento
+                           .Include(a => a.Confirmados)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Confirmados
+                           .AsEnumerable()
+                           .Select (e => e.Id == usuario.Id)
+                           .Count() > 0;
+        }
+
+        private bool UsuarioLogadoInteressado(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Produto
+                           .Include(a => a.Interessados)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Interessados
+                           .AsEnumerable()
+                           .Select(e => e.Id == usuario.Id)
+                           .Count() > 0;
+        }
+
+        private bool UsuarioLogadoDoou(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Vaquinha
+                           .Include(a => a.Doadores)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Doadores
+                           .AsEnumerable()
+                           .Select(e => e.Id == usuario.Id)
+                           .Count() > 0;
+        }
+
+        private double GetValorProduto(AnuncioModelFeed anuncio)
         {
             return _contexto.Produto
                            .SingleOrDefault(a => a.Id == anuncio.Id)
                            .Valor;
-        }
-
-
-        public IEnumerable ObterDetalhesAnuncio(Anuncio anuncio)
-        {
-            var AnuncioDetalhado = PreencherAnuncioDetalhado(anuncio);
-
-            return AnuncioDetalhado;
-
         }
 
         public dynamic ObterComentariosPorId(int id, int pagina)
@@ -186,101 +213,6 @@ namespace Celler.Infraestrutura.Repositorios
                 .Take(3);
 
             return result;
-        }
-
-        private IEnumerable PreencherAnuncioDetalhado(Anuncio anuncio)
-        {
-            dynamic AnuncioDetalhado = new System.Dynamic.ExpandoObject();
-            AnuncioDetalhado.Id = anuncio.Id;
-            AnuncioDetalhado.Titulo = anuncio.Titulo;
-            AnuncioDetalhado.Descricao = anuncio.Descricao;
-            AnuncioDetalhado.DataAnuncio = anuncio.DataAnuncio;
-            AnuncioDetalhado.TipoAnuncio = anuncio.TipoAnuncio;
-            AnuncioDetalhado.Foto1 = anuncio.Foto1;
-            AnuncioDetalhado.Foto2 = anuncio.Foto2;
-            AnuncioDetalhado.Foto3 = anuncio.Foto3;
-            AnuncioDetalhado.NomeCriador = anuncio.Criador.Nome;
-            AnuncioDetalhado.IdUsuario = anuncio.Criador.Id;
-            AnuncioDetalhado.Comentarios = new List<IEnumerable>();
-            AnuncioDetalhado.Status = anuncio.Status;
-
-            foreach (var comentarioAnuncio in anuncio.Comentarios)
-            {
-                dynamic Comentario = new System.Dynamic.ExpandoObject();
-                Comentario.Texto = comentarioAnuncio.Texto;
-                Comentario.Id = comentarioAnuncio.Id;
-                Comentario.DataComentario = comentarioAnuncio.DataComentario;
-                Comentario.UsuarioNome = comentarioAnuncio.Usuario.Nome;
-                Comentario.UsuarioEmail = comentarioAnuncio.Usuario.Email;
-                Comentario.UsuarioId = comentarioAnuncio.Usuario.Id;
-                AnuncioDetalhado.Comentarios.Add(Comentario);
-            }
-
-            switch (anuncio.TipoAnuncio)
-            {
-                case "Evento":
-                    Evento evento = _contexto.Evento
-                        .Include(e => e.Confirmados)
-                        .FirstOrDefault(e => e.Id == anuncio.Id);
-                    AnuncioDetalhado.DataRealizacao = evento.DataRealizacao;
-                    AnuncioDetalhado.Local = evento.Local;
-                    AnuncioDetalhado.DataMaximaConfirmacao = evento.DataMaximaConfirmacao;
-                    AnuncioDetalhado.ValorPorPessoa = evento.ValorPorPessoa;
-                    AnuncioDetalhado.Confirmados = new List<IEnumerable>();
-
-                    foreach (var interessadoEvento in evento.Confirmados)
-                    {
-                        dynamic Interessado = new System.Dynamic.ExpandoObject();
-                        Interessado.Id = interessadoEvento.Id;
-                        Interessado.Nome = interessadoEvento.Nome;
-                        Interessado.Email = interessadoEvento.Email;
-                        AnuncioDetalhado.Confirmados.Add(Interessado);
-                    }
-                    return AnuncioDetalhado;
-
-                case "Produto":
-                    Produto produto = _contexto.Produto
-                        .Include(p => p.Interessados)
-                        .FirstOrDefault(p => p.Id == anuncio.Id);
-
-                    AnuncioDetalhado.Valor = produto.Valor;
-                    AnuncioDetalhado.Interessados = new List<IEnumerable>();
-
-                    foreach (var interessadoProduto in produto.Interessados)
-                    {
-                        dynamic Interessado = new System.Dynamic.ExpandoObject();
-                        Interessado.Id = interessadoProduto.Id;
-                        Interessado.Nome = interessadoProduto.Nome;
-                        Interessado.Email = interessadoProduto.Email;
-                        AnuncioDetalhado.Interessados.Add(Interessado);
-                    }
-
-                    return AnuncioDetalhado;
-
-                case "Vaquinha":
-                    Vaquinha vaquinha = _contexto.Vaquinha
-                        .Include(v => v.Doadores)
-                        .Include(v => v.Doadores.Select(v1 => v1.Usuario))
-                        .FirstOrDefault(v => v.Id == anuncio.Id);
-                    AnuncioDetalhado.ArrecadamentoPrevisto = vaquinha.ArrecadamentoPrevisto;
-                    AnuncioDetalhado.TotalArrecadado = vaquinha.TotalArrecadado;
-                    AnuncioDetalhado.DateTermino = vaquinha.DateTermino;
-                    AnuncioDetalhado.Doadores = new List<IEnumerable>();
-                    foreach (var interessadoVaquinha in vaquinha.Doadores)
-                    {
-                        dynamic Interessado = new System.Dynamic.ExpandoObject();
-                        Interessado.Id = interessadoVaquinha.Usuario.Id;
-                        Interessado.Nome = interessadoVaquinha.Usuario.Nome;
-                        Interessado.Email = interessadoVaquinha.Usuario.Email;
-                        Interessado.Valor = interessadoVaquinha.ValorDoado;
-                        Interessado.Status = interessadoVaquinha.Status;
-                        AnuncioDetalhado.Doadores.Add(Interessado);
-                    }
-
-                    return AnuncioDetalhado;
-
-                default: return null;
-            }
         }
 
         public void Dispose()
