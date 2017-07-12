@@ -34,5 +34,10 @@ namespace Celler.Infraestrutura.Repositorios
                 .Include(v => v.Criador)
                 .FirstOrDefault(v => v.Id == id);
         }
+
+        public Doador ObterDoadorPorId(int IdDoacao)
+        {
+            return _contexto.Doador.FirstOrDefault(d => d.Id == IdDoacao);
+        }
     }
 }

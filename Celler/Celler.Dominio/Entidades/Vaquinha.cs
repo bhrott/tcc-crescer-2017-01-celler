@@ -25,5 +25,10 @@ namespace Celler.Dominio.Entidades
         {
 
         }
+
+        public void IncrementarTotal(double valorRecebido)
+        {
+            this.TotalArrecadado += valorRecebido;
+        }
     }
 }
