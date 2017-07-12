@@ -8,6 +8,11 @@ namespace Celler.Api.Controllers
         readonly NotificacaoRepositorio _notificacaoRepositorio;
         readonly Contexto _contexto = new Contexto();
 
+        public NotificacaoController()
+        {
+            _notificacaoRepositorio = new NotificacaoRepositorio(_contexto);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
