@@ -66,7 +66,7 @@ namespace Celler.Dominio.Models
 
         public void ContarConfirmados(Evento evento)
         {
-            Confirmados = new List<UsuarioModel>();
+            if (Confirmados == null) { Confirmados = new List<UsuarioModel>(); }
             this.NumeroConfirmados = evento.Confirmados.Count;
         }
     }

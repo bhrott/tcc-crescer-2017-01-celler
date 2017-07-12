@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Celler.Dominio.Models
 {
-    public class ComentarioModel
+    public class ComentarioModelDetalhes
     {
-        public ComentarioModel(int id, string texto, UsuarioModel usuario, DateTime dataComentario)
+        public ComentarioModelDetalhes(int id, string texto, UsuarioModel usuario, DateTime dataComentario)
         {
             Id = id;
             Texto = texto;

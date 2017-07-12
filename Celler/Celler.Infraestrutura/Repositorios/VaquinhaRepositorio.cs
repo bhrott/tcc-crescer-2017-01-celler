@@ -1,4 +1,5 @@
 ﻿using Celler.Dominio.Entidades;
+using Celler.Dominio.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -33,6 +34,19 @@ namespace Celler.Infraestrutura.Repositorios
                 .Include(v => v.Doadores)
                 .Include(v => v.Criador)
                 .FirstOrDefault(v => v.Id == id);
+        }
+
+        public AnuncioModelDetalhes ObterDetalhes (int idVaquinha, bool usuarioLogado)
+        {
+            Vaquinha vaquinha = ObterPorId(idVaquinha);
+            VaquinhaModelDetalhes vaquinhaModel = new VaquinhaModelDetalhes(vaquinha);
+            vaquinhaModel.PopularComentarios(vaquinha);
+            if (usuarioLogado)
+                vaquinhaModel.PopularConfirmados(vaquinha);
+            else
+                vaquinhaModel.ContarConfirmados(vaquinha);
+
+            return vaquinhaModel;
         }
     }
 }

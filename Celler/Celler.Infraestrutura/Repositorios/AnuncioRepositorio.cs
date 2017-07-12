@@ -31,7 +31,7 @@ namespace Celler.Infraestrutura.Repositorios
                 .FirstOrDefault(a => a.Id == id);
         }
 
-        public List<AnuncioModelFeed> ObterUltimosAnuncios(int pagina)
+        public List<AnuncioModelFeed> ObterUltimosAnuncios(int pagina, Usuario usuarioLogado)
         {
             //
             // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
@@ -62,12 +62,12 @@ namespace Celler.Infraestrutura.Repositorios
             //
             // Para completar com as informações adicionais, é usado um método de preenchimento
             //
-            PreencherInformacoesAdicionaisEspecificas(anuncios);
+            PreencherInformacoesAdicionaisEspecificas(anuncios, usuarioLogado);
 
             return anuncios;
         }
 
-        public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search)
+        public object ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado)
         {
             List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
@@ -102,7 +102,7 @@ namespace Celler.Infraestrutura.Repositorios
                 .Take(9)
                 .ToList();
 
-            PreencherInformacoesAdicionaisEspecificas(anuncios);
+            PreencherInformacoesAdicionaisEspecificas(anuncios, usuarioLogado);
 
             return anuncios;
         }
@@ -112,23 +112,26 @@ namespace Celler.Infraestrutura.Repositorios
             _contexto.Entry(anuncio).State = EntityState.Modified;
         }
 
-        private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModelFeed> anuncios)
+        private void PreencherInformacoesAdicionaisEspecificas(List<AnuncioModelFeed> anuncios, Usuario usuarioLogado)
         {
             foreach (AnuncioModelFeed anuncio in anuncios)
             {
                 switch (anuncio.TipoAnuncio)
                 {
-                    case "Evento":
+                    case TipoAnuncio.EVENTO:
                         anuncio.NumeroInteressados = GetNumeroConfirmadosEventos(anuncio);
+                        anuncio.TemInteresse = UsuarioLogadoConfirmado(anuncio, usuarioLogado);
                         break;
 
-                    case "Produto":
+                    case TipoAnuncio.PRODUTO:
                         anuncio.NumeroInteressados = GetNumeroInteressadosProduto(anuncio);
                         anuncio.ValorProduto = GetValorProduto(anuncio);
+                        anuncio.TemInteresse = UsuarioLogadoInteressado(anuncio, usuarioLogado);
                         break;
 
-                    case "Vaquinha":
+                    case TipoAnuncio.VAQUINHA:
                         anuncio.NumeroInteressados = GetNumeroDoadoresVaquinha(anuncio);
+                        anuncio.TemInteresse = UsuarioLogadoDoou(anuncio, usuarioLogado);
                         break;
 
                     default: break;
@@ -160,6 +163,39 @@ namespace Celler.Infraestrutura.Repositorios
                            .Doadores.Count;
         }
 
+        private bool UsuarioLogadoConfirmado(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Evento
+                           .Include(a => a.Confirmados)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Confirmados
+                           .AsEnumerable()
+                           .Select (e => e.Id == usuario.Id)
+                           .Count() > 0;
+        }
+
+        private bool UsuarioLogadoInteressado(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Produto
+                           .Include(a => a.Interessados)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Interessados
+                           .AsEnumerable()
+                           .Select(e => e.Id == usuario.Id)
+                           .Count() > 0;
+        }
+
+        private bool UsuarioLogadoDoou(AnuncioModelFeed anuncio, Usuario usuario)
+        {
+            return _contexto.Vaquinha
+                           .Include(a => a.Doadores)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Doadores
+                           .AsEnumerable()
+                           .Select(e => e.Id == usuario.Id)
+                           .Count() > 0;
+        }
+
         private double GetValorProduto(AnuncioModelFeed anuncio)
         {
             return _contexto.Produto
@@ -177,57 +213,6 @@ namespace Celler.Infraestrutura.Repositorios
                 .Take(3);
 
             return result;
-        }
-
-        public object ObterDetalhesAnuncio(Anuncio anuncio, bool usuarioLogado, ref ProdutoRepositorio _produtoRepositorio, ref EventoRepositorio _eventoRepositorio)
-        {
-            object retorno = null;
-            switch (anuncio.TipoAnuncio)
-            {
-                case "Evento":
-                    {
-                        EventoModelDetalhes eventoModel = new EventoModelDetalhes(anuncio);
-                        Evento evento = _eventoRepositorio.ObterPorId(anuncio.Id);
-                        eventoModel.PopularComentarios(evento);
-                        if (usuarioLogado)
-                            eventoModel.PopularConfirmados(evento);
-                        else
-                            eventoModel.ContarConfirmados(evento);
-
-                        retorno = eventoModel;
-                        break;
-                    }
-
-                case "Produto":
-                    {
-                        ProdutoModelDetalhes produtoModel = new ProdutoModelDetalhes(anuncio);
-                        Produto produto = _produtoRepositorio.ObterPorId(anuncio.Id);
-                        produtoModel.PopularComentarios(produto);
-                        if (usuarioLogado)
-                            produtoModel.PopularConfirmados(produto);
-                        else
-                            produtoModel.ContarConfirmados(produto);
-
-                        retorno = produtoModel;
-                        break;
-                    }
-
-                /*case "Vaquinha":
-                    {
-                        VaquinhaModelDetalhes vaquinhaModel = new VaquinhaModelDetalhes(anuncio);
-                        Vaquinha vaquinha = _produtoRepositorio.ObterPorId(anuncio.Id);
-                        produtoModel.PopularComentarios(vaquinha);
-                        if (usuarioLogado)
-                            vaquinhaModel.PopularConfirmados(vaquinha);
-                        else
-                            vaquinhaModel.ContarConfirmados(vaquinha);
-
-                        retorno = vaquinhaModel;
-                        break;
-                    }*/
-            }
-
-            return retorno;
         }
 
         public void Dispose()

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Collections;
+using Celler.Dominio.Models;
 
 namespace Celler.Infraestrutura.Repositorios
 {
@@ -33,6 +34,16 @@ namespace Celler.Infraestrutura.Repositorios
         public void Alterar(Evento evento)
         {
             _contexto.Entry(evento).State = EntityState.Modified;
+        }
+
+        public AnuncioModelDetalhes ObterDetalhes(int idEvento)
+        {
+            Evento evento = ObterPorId(idEvento);
+            EventoModelDetalhes eventoModel = new EventoModelDetalhes(evento);
+            eventoModel.PopularComentarios(evento);
+            eventoModel.PopularConfirmados(evento);
+
+            return eventoModel;
         }
     }
 }

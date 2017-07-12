@@ -1,4 +1,5 @@
 ﻿using Celler.Dominio.Entidades;
+using Celler.Dominio.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -33,6 +34,19 @@ namespace Celler.Infraestrutura.Repositorios
         public void Alterar(Produto produto)
         {
             _contexto.Entry(produto).State = EntityState.Modified;
+        }
+
+        public AnuncioModelDetalhes ObterDetalhes(int idProduto, bool usuarioLogado)
+        {
+            Produto produto = ObterPorId(idProduto);
+            ProdutoModelDetalhes produtoModel = new ProdutoModelDetalhes(produto);
+            produtoModel.PopularComentarios(produto);
+            if (usuarioLogado)
+                produtoModel.PopularConfirmados(produto);
+            else
+                produtoModel.ContarConfirmados(produto);
+
+            return produtoModel;
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Celler.Dominio.Models
 
         public void ContarConfirmados(Produto produto)
         {
-            Interessados = new List<UsuarioModel>();
+            if (Interessados == null) { Interessados = new List<UsuarioModel>(); }
             this.NumeroInteressados = produto.Interessados.Count;
         }
     }

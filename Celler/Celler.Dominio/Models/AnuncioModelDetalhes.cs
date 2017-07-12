@@ -22,7 +22,7 @@ namespace Celler.Dominio.Models
             TipoAnuncio = tipoAnuncio;
             Status = status;
 
-            Comentarios = new List<ComentarioModel>();
+            Comentarios = new List<ComentarioModelDetalhes>();
         }
 
         public int Id { get; set; }
@@ -33,13 +33,13 @@ namespace Celler.Dominio.Models
         public string Foto2 { get; set; }
         public string Foto3 { get; set; }
         public UsuarioModel Criador { get; set; }
-        public List<ComentarioModel> Comentarios { get; set; }
+        public List<ComentarioModelDetalhes> Comentarios { get; set; }
         public string TipoAnuncio { get; set; }
         public string Status { get; set; }
 
         public void PopularComentarios(Anuncio anuncio)
         {
-            Comentarios = new List<ComentarioModel>();
+            Comentarios = new List<ComentarioModelDetalhes>();
 
             foreach (var comentarioAnuncio in anuncio.Comentarios)
             {
@@ -47,7 +47,7 @@ namespace Celler.Dominio.Models
                                                                   comentarioAnuncio.Usuario.Nome,
                                                                   comentarioAnuncio.Usuario.Email);
 
-                Comentarios.Add(new ComentarioModel(comentarioAnuncio.Id,
+                Comentarios.Add(new ComentarioModelDetalhes(comentarioAnuncio.Id,
                                                     comentarioAnuncio.Texto,
                                                     usuarioComentador,
                                                     comentarioAnuncio.DataComentario));

@@ -21,6 +21,7 @@ namespace Celler.Dominio.Models
         public int NumeroComentarios { get; set; }
         public int NumeroInteressados { get; set; }
         public double ValorProduto { get; set; }
+        public bool TemInteresse { get; set; }
 
 
         public AnuncioModelFeed(int id, string titulo, string descricao, DateTime dataAnuncio, string tipoAnuncio, string foto1, string foto2, string foto3, string nomeCriador, string status, int numeroComentarios)

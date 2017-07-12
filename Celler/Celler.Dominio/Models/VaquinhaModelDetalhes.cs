@@ -68,7 +68,7 @@ namespace Celler.Dominio.Models
 
         public void ContarConfirmados(Vaquinha vaquinha)
         {
-            Doadores = new List<DoadorModel>();
+            if (Doadores == null) { Doadores = new List<DoadorModel>(); }
             this.NumeroDoadores = vaquinha.Doadores.Count;
         }
     }
