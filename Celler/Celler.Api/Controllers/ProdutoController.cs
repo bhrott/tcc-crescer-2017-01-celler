@@ -2,6 +2,7 @@
 using Celler.Api.Models;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
+using Celler.Infraestrutura.Servicos;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
