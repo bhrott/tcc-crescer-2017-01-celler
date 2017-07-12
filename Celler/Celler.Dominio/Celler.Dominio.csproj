@@ -44,6 +44,8 @@
     <Compile Include="Entidades\Comentario.cs" />
     <Compile Include="Entidades\Doador.cs" />
     <Compile Include="Entidades\EntidadeBasica.cs" />
+    <Compile Include="Entidades\EnviarEmail.cs" />
+    <Compile Include="Entidades\EnviarMensagemSlack.cs" />
     <Compile Include="Entidades\Evento.cs" />
     <Compile Include="Entidades\Notificacao.cs" />
     <Compile Include="Entidades\Permissao.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="Models\ProdutoModelDetalhes.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\VaquinhaModelDetalhes.cs" />
+    <Compile Include="Models\MensagemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

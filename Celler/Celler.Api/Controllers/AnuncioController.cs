@@ -100,7 +100,7 @@ namespace Celler.Api.Controllers
         public HttpResponseMessage ComentarAnuncio(ComentarioModelDetalhes model)
         {
             Usuario usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            Anuncio anuncio = _anuncioRepositorio.Obter(model.Id);
+            Anuncio anuncio = _anuncioRepositorio.ObterCompleto(model.IdAnuncio);
 
             if (usuario == null || anuncio == null)
             {
