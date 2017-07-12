@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
-    public class Doador
+    public class Doador : EntidadeBasica
     {
         public int Id { get; private set; }
         public Usuario Usuario { get; set; }
@@ -21,6 +21,9 @@ namespace Celler.Dominio.Entidades
             this.Usuario = usuario;
             this.ValorDoado = valorDoado;
             this.Status = "n";
+
+            if (this.ValorDoado <= 0)
+                Mensagens.Add("Informe o criador.");
         }
     }
 }
