@@ -41,7 +41,6 @@ namespace Celler.Infraestrutura.Servicos
                 EnviarEmail email = new EnviarEmail();
                 MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + conteudoNotificacao + this.Anuncio.Titulo);
                 email.enviar(this.Usuario.Email, modelEmail);
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.Usuario.CanalSlack, this.Usuario.Nome + conteudoNotificacao + this.Anuncio.Titulo);
             }
 
             if (this.Usuario.NotificacaoComentarioAnuncioSlack == true)
