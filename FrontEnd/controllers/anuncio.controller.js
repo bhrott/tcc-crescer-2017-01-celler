@@ -3,6 +3,7 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
     if(!authService.isAutenticado()){
         $location.path("#!/login");
     }
+
     $scope.exibirAModal = exibirModal;
     $scope.esconderAModal = esconderModal;
     var idAnuncioEspecifico = $routeParams.idAnuncio;
@@ -13,6 +14,7 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
     $scope.idUsuarioLogado = $localStorage.usuarioLogado.Id;
     console.log($scope.idUsuarioLogado);
     console.log(idAnuncioEspecifico);
+
     detalheService.carregarDetalhes(idAnuncioEspecifico).then(
         function(response){
             console.log(idAnuncioEspecifico);
@@ -28,20 +30,82 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
             $scope.anuncioEspecifico = response.data.dados;
             console.log($scope.anuncioEspecifico);
             checarInteresse();
+            checarPresenca();
         }
 
     );
 
+
+
+
+    $scope.confirmarInteresse = function confirmarInteresse(){
+        postService.interessarProduto($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id).then(
+
+            function(response){
+                console.log(response);
+                $scope.temInteresse = true;
+                $scope.anuncioEspecifico.Interessados.push({Increment: 'incrementarNumero'});
+            }
+
+        );
+    }
+
+    $scope.retirarInteresse = function retirarInteresse(){
+        postService.desinteressarProduto($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id).then(
+
+            function(response){
+                console.log(response);
+                $scope.temInteresse = false;
+                $scope.anuncioEspecifico.Interessados.pop();
+
+            }
+
+        );
+    }
+    
+    $scope.confirmarPresenca = function confirmarPresenca(){
+        postService.confirmarEvento($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id).then(
+
+            function(response){
+                console.log(response);
+                $scope.estaConfirmado = true;
+                $scope.anuncioEspecifico.Confirmados.push({Increment: 'incrementarNumero'});
+            }
+
+        );
+    }
+
+    $scope.retirarPresenca = function retirarPresenca(){
+        postService.desconfirmarEvento($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id).then(
+
+            function(response){
+                console.log(response);
+                $scope.estaConfirmado = false;
+                $scope.anuncioEspecifico.Confirmados.pop();
+
+            }
+
+        );
+    }
+
+
     function checarInteresse(){
 
-        $scope.temInteresse = $scope.anuncioEspecifico.Interessados.some( x=> x.Id == $localStorage.usuarioLogado.Id );
+        $scope.temInteresse = $scope.anuncioEspecifico.Confirmados.some( x=> x.Id == $localStorage.usuarioLogado.Id );
+
+    }
+
+
+    function checarPresenca(){
+
+        $scope.estaConfirmado = $scope.anuncioEspecifico.Confirmados.some( x=> x.Id == $localStorage.usuarioLogado.Id );
 
     }
     function exibirModal(){
         $scope.exibirModal = true;
     }
-    
-     function esconderModal(){
+
+    function esconderModal(){
         $scope.exibirModal = false;
     }
 
@@ -50,7 +114,6 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
             function(response){
                 console.log(response.data.dados);
-
                 $scope.produto.Comentario = '';
 
             },

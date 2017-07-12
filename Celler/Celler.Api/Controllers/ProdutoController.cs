@@ -1,5 +1,6 @@
 ﻿using Celler.Api.App_Start;
 using Celler.Api.Models;
+using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
 using System;
@@ -84,6 +85,38 @@ namespace Celler.Api.Controllers
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();
                 return ResponderOk(new { texto = "Desinteresse salvo com sucesso" });
+            }
+            else
+            {
+                return ResponderErro(produto.Mensagens);
+            }
+        }
+
+        [HttpPost, Route("vender")]
+        public HttpResponseMessage SalvarVendaProduto([FromBody] InteressarProdutoModel model)
+        {
+            var usuario = _usuarioRepositorio.ObterPorId(model.IdUsuario);
+            var produto = _produtoRepositorio.ObterPorId(model.IdProduto);
+
+            if (usuario == null || produto == null)
+            {
+                return ResponderErro("Usuario ou Produto inválidos.");
+            }
+
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+
+            if (usuarioLogado != produto.Criador)
+            {
+                return ResponderErro("Você não tem permissão para vender esse produto.");
+            }
+
+            produto.MarcarVendido(usuario);
+
+            if (produto.Validar())
+            {
+                _produtoRepositorio.Alterar(produto);
+                _contexto.SaveChanges();
+                return ResponderOk(new { texto = "Produto vendido com sucesso" });
             }
             else
             {
