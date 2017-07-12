@@ -72,8 +72,6 @@ namespace Celler.Infraestrutura.Repositorios
                 .Include(a => a.Criador)
                 .Include(a => a.Comentarios)
                 .OrderByDescending(a => a.DataAnuncio)
-                .ToList()
-                .AsEnumerable()
                 .Select(a => new AnuncioModelFeed(a.Id,
                                                a.Titulo,
                                                a.Descricao,
@@ -99,7 +97,7 @@ namespace Celler.Infraestrutura.Repositorios
                       : true))
                 .Skip(pagina)
                 .Take(9)
-                .;
+                .ToList();
 
             PreencherInformacoesAdicionaisEspecificas(anuncios, usuarioLogado);
 
