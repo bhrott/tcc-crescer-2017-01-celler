@@ -7,17 +7,11 @@ namespace Celler.Tests
     [TestClass]
     public class ProdutoTest
     {
-        Produto produtoCorreto;
-        Produto produtoUsuarioJaInteressado;
-        Produto produtoUsuarioInteressadoProprioProduto;
-        Produto produtoUsuarioNaoInteressado;
-        Produto produtoPrecoInferiorMinimo;
-
         [TestMethod]
         public void ProdutoCorretoOk ()
         {
-            produtoCorreto = new Produto("Titulo", "Descricao", null, null, null, new Usuario("Nome", "Email", "Senha"), 50.0);
-            Assert.IsTrue(produtoCorreto.Validar());
+            Produto produto = new Produto("Titulo", "Descricao", null, null, null, new Usuario("Nome", "Email", "Senha"), 50.0);
+            Assert.IsTrue(produto.Validar());
         }
 
         [TestMethod]
@@ -25,13 +19,45 @@ namespace Celler.Tests
         {
             Usuario usuario = new Usuario("Nome", "Email", "Senha");
             Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
-            produtoCorreto = new Produto("Titulo", "Descricao", null, null, null, usuario, 50.0);
-            produtoCorreto.Interessados = new List<Usuario>();
-            produtoCorreto.AdicionarInteressado(usuarioLogado);
-            Assert.IsTrue(produtoCorreto.Validar());
-            produtoCorreto.AdicionarInteressado(usuarioLogado);
-            Assert.IsFalse(produtoCorreto.Validar());
-            Assert.IsTrue(produtoCorreto.Mensagens.Contains(Produto.Erro_Usuario_Ja_Interessado));
+            Produto produto = new Produto("Titulo", "Descricao", null, null, null, usuario, 50.0);
+            produto.Interessados = new List<Usuario>();
+            produto.AdicionarInteressado(usuarioLogado);
+            Assert.IsTrue(produto.Validar());
+            produto.AdicionarInteressado(usuarioLogado);
+            Assert.IsFalse(produto.Validar());
+            Assert.IsTrue(produto.Mensagens.Contains(Produto.Erro_Usuario_Ja_Interessado));
+        }
+
+        [TestMethod]
+        public void ProdutoUsuarioInteressadoProprioProduto()
+        {
+            Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
+            Produto produto = new Produto("Titulo", "Descricao", null, null, null, usuarioLogado, 50.0);
+            produto.Interessados = new List<Usuario>();
+            produto.AdicionarInteressado(usuarioLogado);
+            Assert.IsFalse(produto.Validar());
+            Assert.IsTrue(produto.Mensagens.Contains(Produto.Erro_Proprio_Produto));
+        }
+
+        [TestMethod]
+        public void ProdutoUsuarioNaoInteressado()
+        {
+            Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
+            Produto produto = new Produto("Titulo", "Descricao", null, null, null, usuarioLogado, 50.0);
+            produto.Interessados = new List<Usuario>();
+            produto.RemoverInteressado(usuarioLogado);
+            Assert.IsFalse(produto.Validar());
+            Assert.IsTrue(produto.Mensagens.Contains(Produto.Erro_Usuario_Nao_Interessado));
+        }
+
+        [TestMethod]
+        public void ProdutoPrecoInferiorMinimo()
+        {
+            Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
+            Produto produto = new Produto("Titulo", "Descricao", null, null, null, usuarioLogado, 2.0);
+            produto.Interessados = new List<Usuario>();
+            Assert.IsFalse(produto.Validar());
+            Assert.IsTrue(produto.Mensagens.Contains(Produto.Erro_Preco_Inferior_5Reais));
         }
     }
 }

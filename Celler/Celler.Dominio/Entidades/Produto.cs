@@ -17,29 +17,13 @@ namespace Celler.Dominio.Entidades
         public static readonly string Erro_Usuario_Nao_Interessado = "Usuário não está interessado neste produto.";
         public static readonly string Erro_Preco_Inferior_5Reais = "Produto com valor inferior a R$5.00.";
 
-        public Produto(string titulo,
-            string descricao,
-            Usuario criador,
-            double valor) : base(titulo, descricao, criador, "Produto")
+        public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
+            : base(titulo, descricao, usuarioLogado, "Produto")
         {
-            Valor = valor;
+            this.Valor = valor;
 
             if (valor < 5)
                 AdicionarMensagem(Erro_Preco_Inferior_5Reais);
-        }
-
-        public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
-        {
-            base.Titulo = titulo;
-            base.Descricao = descricao;
-            base.Foto1 = foto1;
-            base.Foto2 = foto2;
-            base.Foto3 = foto3;
-            base.DataAnuncio = DateTime.Now;
-            base.Criador = usuarioLogado;
-            base.TipoAnuncio = "Produto";
-            base.Status = "a";
-            this.Valor = valor;
         }
 
         public override int GetNumeroPessoasComInteresse()
