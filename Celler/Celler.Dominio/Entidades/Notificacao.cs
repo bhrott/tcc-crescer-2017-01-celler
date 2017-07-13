@@ -24,5 +24,10 @@ namespace Celler.Dominio.Entidades
             Usuario = usuario;
             Link = link;
         }
+
+        public void Ler()
+        {
+            Status = "l";
+        }
     }
 }

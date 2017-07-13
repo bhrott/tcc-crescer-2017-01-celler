@@ -14,11 +14,19 @@ namespace Celler.Infraestrutura.Repositorios
             _contexto = contexto;
         }
 
+        public Notificacao Obter(int id)
+        {
+            return _contexto.Notificacao
+                .Include(x => x.Usuario)
+                .FirstOrDefault(x => x.Id == id);
+        }
+
         public dynamic ObterNotificacoes(Usuario usuario)
         {
             return _contexto.Notificacao
                             .Include(x => x.Usuario)
-                            .Select(x => new { texto = x.Texto,
+                            .Select(x => new { id = x.Id,
+                                               texto = x.Texto,
                                                link = x.Link,
                                                status = x.Status});
         }
@@ -31,7 +39,8 @@ namespace Celler.Infraestrutura.Repositorios
 
         public void Alterar(Notificacao notificacao)
         {
-            
+            _contexto.Entry(notificacao).State = System.Data.Entity.EntityState.Modified;
+            _contexto.SaveChanges();
         }
 
         public void Dispose()
