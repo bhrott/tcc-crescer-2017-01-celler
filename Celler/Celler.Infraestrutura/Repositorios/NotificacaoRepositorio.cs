@@ -1,6 +1,7 @@
 ﻿using Celler.Dominio.Entidades;
 using System.Linq;
 using System.Data.Entity;
+using System;
 
 namespace Celler.Infraestrutura.Repositorios
 {
@@ -26,6 +27,11 @@ namespace Celler.Infraestrutura.Repositorios
         {
             _contexto.Notificacao.Add(notificacao);
             _contexto.SaveChanges();
+        }
+
+        public void Alterar(Notificacao notificacao)
+        {
+            
         }
 
         public void Dispose()

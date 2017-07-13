@@ -1,4 +1,5 @@
 ﻿using Celler.Api.App_Start;
+using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
 using System.Net.Http;
@@ -8,6 +9,7 @@ using System.Web.Http;
 namespace Celler.Api.Controllers
 {
     [BasicAuthorization]
+    [RoutePrefix("notificacao")]
     public class NotificacaoController : ControllerBasica
     {
         readonly NotificacaoRepositorio _notificacaoRepositorio;
@@ -19,6 +21,7 @@ namespace Celler.Api.Controllers
             _notificacaoRepositorio = new NotificacaoRepositorio(_contexto);
         }
 
+        [HttpGet]
         public HttpResponseMessage ObterNotificacoes()
         {
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
@@ -26,7 +29,14 @@ namespace Celler.Api.Controllers
             return ResponderOk(notificacoes);
         }
 
-    
+        [HttpPut]
+        public HttpResponseMessage LerNotificacao(int idNotificacao)
+        {
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+            Notificacao notificacao = null;
+            _notificacaoRepositorio.Alterar(notificacao);
+            return ResponderOk();
+        }
 
         protected override void Dispose(bool disposing)
         {
