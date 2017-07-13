@@ -26,12 +26,7 @@ namespace Celler.Api.Controllers
             return ResponderOk(notificacoes);
         }
 
-        public HttpResponseMessage ObterNotificacoes()
-        {
-            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            var notificacoes = _notificacaoRepositorio.ObterNotificacoes(usuarioLogado);
-            return ResponderOk(notificacoes);
-        }
+    
 
         protected override void Dispose(bool disposing)
         {

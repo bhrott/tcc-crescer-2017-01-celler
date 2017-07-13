@@ -58,9 +58,8 @@ namespace Celler.Api.Controllers
         public HttpResponseMessage ObterDetalhesAnuncio(int id)
         {
             var anuncio = _anuncioRepositorio.ObterCompleto(id);
-            var usuarioQuePostouAnuncio = _anuncioRepositorio.Obter(anuncio.Criador.Id);
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            bool isUsuarioLogado = usuarioQuePostouAnuncio.Id == usuarioLogado.Id;
+            bool isUsuarioLogado = anuncio.Criador.Id == usuarioLogado.Id;
 
             if (anuncio == null)
             {
