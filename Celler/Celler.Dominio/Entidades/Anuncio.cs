@@ -23,6 +23,11 @@ namespace Celler.Dominio.Entidades
         /// </summary>
         public string Status { get; protected set; }
 
+        public static readonly string Erro_Sem_Titulo = "Informe um título.";
+        public static readonly string Erro_Sem_Descricao = "Informe uma descrição.";
+        public static readonly string Erro_Sem_Criador = "Informe o criador.";
+        public static readonly string Erro_Tipo_Anuncio = "Informe o tipo do anuncio.";
+
         protected Anuncio() { }
 
         protected Anuncio(string titulo,
@@ -39,16 +44,16 @@ namespace Celler.Dominio.Entidades
             Status = "A";
 
             if (string.IsNullOrWhiteSpace(Titulo))
-                Mensagens.Add("Informe um título.");
+                Mensagens.Add(Erro_Sem_Titulo);
 
             if (string.IsNullOrWhiteSpace(Descricao))
-                Mensagens.Add("Informe uma descrição.");
+                Mensagens.Add(Erro_Sem_Descricao);
 
             if (criador == null)
-                Mensagens.Add("Informe o criador.");
+                Mensagens.Add(Erro_Sem_Criador);
 
             if (string.IsNullOrWhiteSpace(TipoAnuncio))
-                Mensagens.Add("Informe o tipo do anuncio.");
+                Mensagens.Add(Erro_Tipo_Anuncio);
         }
 
         public void AdicionarComentario(Comentario comentario)

@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Celler.Dominio.Entidades;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Celler.Dominio.Entidades;
-using Celler.Api.Models;
 
 namespace Celler.Tests
 {

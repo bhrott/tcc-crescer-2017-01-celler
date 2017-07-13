@@ -1,10 +1,10 @@
-modulo.controller('PostController', function ($scope, authService, $routeParams, $location) {
+modulo.controller('PostController', function ($scope, authService,postService, $routeParams, $location) {
 
 
-     if(!authService.isAutenticado()){
+    if(!authService.isAutenticado()){
         $location.path("#!/login");
     }
-    
+
     $scope.habilitarNotificacoes = false;
     $scope.buscar = buscar;
     $scope.cadastrarProduto = cadastrarProduto;
@@ -28,14 +28,21 @@ modulo.controller('PostController', function ($scope, authService, $routeParams,
     }
 
     function cadastrarProduto(produto){
-        console.log(produto);
+        
+            postService.cadastrarProduto(produto).then(
+            
+                function(response){
+                    console.log(response);
+                }
+                
+            );
     }
 
     function cadastrarEvento(evento){
         console.log(evento);
     }
-    
-     function cadastrarVaquinha(vaquinha){
+
+    function cadastrarVaquinha(vaquinha){
         console.log(vaquinha);
     }
 
