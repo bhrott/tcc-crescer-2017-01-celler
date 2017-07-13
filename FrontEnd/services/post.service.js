@@ -76,7 +76,19 @@ modulo.factory("postService", function ($http) {
 
     function cadastrarProduto(produto){
 
-        console.log(produto);
+        var objetoEnvio = {
+
+            Titulo:produto.Titulo,
+            Descricao:produto.Descricao,
+            Foto1:produto.Foto1,
+            Foto2:produto.Foto2,
+            Foto3:produto.Foto3,
+            Valor:produto.Valor
+        }
+        console.log(objetoEnvio);
+        
+        return $http.post("http://localhost:50694/api/produto/adicionar", objetoEnvio)
+
     }
 
     function cadastrarEvento(evento){
@@ -88,23 +100,23 @@ modulo.factory("postService", function ($http) {
 
         console.log(vaquinha);
     }
-    
+
     function cancelarNotificacao(idNotificacao){
-        
+
         return $http.put("http://localhost:50694/api/notificacao?id=" + idNotificacao);
-        
+
     }
-    
+
     function aceitarDoacao(usuario, anuncio, idDoacao){
-        
+
         var objetoEnvio = {
             IdUsuario:usuario.Id,
-        IdVaquinha:anuncio.Id,
-        IdDoacao:idDoacao
+            IdVaquinha:anuncio.Id,
+            IdDoacao:idDoacao
         }
         console.log(objetoEnvio);
         return $http.post("http://localhost:50694/api/vaquinha/confirmar", objetoEnvio);
-        
+
     }
 
 });

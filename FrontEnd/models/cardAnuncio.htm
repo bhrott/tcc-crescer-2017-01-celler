@@ -23,10 +23,10 @@
                 <span  ng-if="anuncio.TemInteresse && !anuncio.Postou" ng-click="desinteressar(anuncio)" class="icon">
                     <i class="fa fa-money confirmado"></i>
                 </span>
-                 <span  ng-if="anuncio.TemInteresse && anuncio.Postou" ng-click="desinteressar(anuncio)" class="icon">
-                    <i class="fa fa-money confirmado"></i>
+                 <span  ng-if="anuncio.Postou" class="icon">
+                    <i class="fa fa-money"></i>
                 </span>
-                <span ng-if="!anuncio.TemInteresse" ng-click="interessar(anuncio)" class="icon">
+                <span ng-if="!anuncio.TemInteresse && !anuncio.Postou" ng-click="interessar(anuncio)" class="icon">
                     <i class="fa fa-money"></i>
                 </span>
                 <span class="confirmado" > &nbsp; {{anuncio.ValorProduto | currency}} </span>
