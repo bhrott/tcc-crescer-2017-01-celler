@@ -1,9 +1,5 @@
 modulo.controller('LoginController', function ($scope, authService, $routeParams, $location) {
-  
-     if(!authService.isAutenticado()){
-        $location.path("#!/login");
-    }
-    
+
   $scope.login = function (usuario) {
 
     authService.login($scope.usuario)
