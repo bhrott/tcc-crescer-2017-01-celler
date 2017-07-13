@@ -41,7 +41,7 @@ namespace Celler.Infraestrutura.Repositorios
                  .Include(a => a.Comentarios)
                  .OrderByDescending(a => a.DataAnuncio)
                  .Where(x => x.Criador.Id == usuarioLogado.Id)
-                 .AsEnumerable()
+                 .AsEnumerable()    
                  .Select(a => new AnuncioModelFeed(a.Id,
                                                 a.Titulo,
                                                 a.Descricao,

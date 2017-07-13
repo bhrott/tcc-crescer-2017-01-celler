@@ -39,11 +39,6 @@ namespace Celler.Api.Controllers
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
 
-            if (usuarioLogado.Equals(evento.Criador))
-            {
-                return ResponderErro("Você não pode manifestar interesse no próprio anúncio.");
-            }
-
             evento.AdicionarInteressado(usuarioLogado);
 
             if (evento.Validar())

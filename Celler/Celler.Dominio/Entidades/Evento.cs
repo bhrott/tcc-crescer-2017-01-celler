@@ -24,7 +24,11 @@ namespace Celler.Dominio.Entidades
         public void AdicionarInteressado(Usuario usuario)
         {
             if (Confirmados.Contains(usuario))
-                AdicionarMensagem("Usuário já está confirmado nesse evento.");
+                AdicionarMensagem("Usuário já está confirmado neste evento.");
+            else if (Criador.Equals(usuario))
+                AdicionarMensagem("O criador não pode confirmar presença no próprio produto");
+            else if (Status == "f")
+                AdicionarMensagem("Você não pode confirmar presença num evento já ocorrido");
             else
                 Confirmados.Add(usuario);
 

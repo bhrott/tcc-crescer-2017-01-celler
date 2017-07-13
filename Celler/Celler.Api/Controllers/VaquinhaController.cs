@@ -37,14 +37,8 @@ namespace Celler.Api.Controllers
             }
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-
-            if (usuarioLogado.Equals(vaquinha.Criador))
-            {
-                return ResponderErro("Você não pode doar para sua própria vaquinha.");
-            }
-
             Doador doador = new Doador(usuarioLogado, model.ValorDoado);
-            vaquinha.Doadores.Add(doador);
+            vaquinha.AdicionarDoador(doador);
 
             if (doador.Validar())
             {

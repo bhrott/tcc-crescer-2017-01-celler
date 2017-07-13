@@ -21,9 +21,12 @@ namespace Celler.Dominio.Entidades
             return Doadores.Count;
         }
 
-        public void AdicionarDoador()
+        public void AdicionarDoador(Doador doador)
         {
-
+            if (Status == "f")
+                AdicionarMensagem("Você não pode doar numa vaquinha fechada");
+            else
+                Doadores.Add(doador);
         }
 
         public void IncrementarTotal(double valorRecebido)
