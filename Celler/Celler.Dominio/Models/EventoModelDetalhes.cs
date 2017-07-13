@@ -33,6 +33,7 @@ namespace Celler.Dominio.Models
         {
             this.Local = evento.Local;
             this.ValorPorPessoa = evento.ValorPorPessoa;
+            this.DataRealizacao = evento.DataRealizacao;
         }
 
         public void PopularConfirmados(Evento evento)
