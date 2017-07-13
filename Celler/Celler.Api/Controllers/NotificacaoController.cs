@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace Celler.Api.Controllers
 {
     [BasicAuthorization]
-    [RoutePrefix("notificacao")]
+    [RoutePrefix("api/notificacao")]
     public class NotificacaoController : ControllerBasica
     {
         readonly NotificacaoRepositorio _notificacaoRepositorio;

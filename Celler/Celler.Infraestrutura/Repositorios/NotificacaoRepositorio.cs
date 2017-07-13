@@ -25,10 +25,14 @@ namespace Celler.Infraestrutura.Repositorios
         {
             return _contexto.Notificacao
                             .Include(x => x.Usuario)
-                            .Select(x => new { id = x.Id,
-                                               texto = x.Texto,
-                                               link = x.Link,
-                                               status = x.Status});
+                            .Where(x => x.Usuario.Id == usuario.Id)
+                            .Select(x => new
+                            {
+                                id = x.Id,
+                                texto = x.Texto,
+                                link = x.Link,
+                                status = x.Status
+                            });
         }
 
         public void CriarNotificacao(Notificacao notificacao)
