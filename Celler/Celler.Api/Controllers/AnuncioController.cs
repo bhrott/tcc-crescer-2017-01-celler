@@ -47,7 +47,6 @@ namespace Celler.Api.Controllers
                 filtro1 = TipoAnuncio.EVENTO;
                 filtro2 = TipoAnuncio.PRODUTO;
                 filtro3 = TipoAnuncio.VAQUINHA;
-
             }
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);

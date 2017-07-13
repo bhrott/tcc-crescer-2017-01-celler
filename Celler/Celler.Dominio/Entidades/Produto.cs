@@ -14,6 +14,7 @@ namespace Celler.Dominio.Entidades
         public static readonly string Erro_Proprio_Produto = "O criador não pode se interessar pelo seu próprio produto";
         public static readonly string Erro_Produto_Vendido = "Você não pode se interessar por um produto vendido";
         public static readonly string Erro_Usuario_Nao_Interessado = "Usuário não está interessado neste produto.";
+        public static readonly string Erro_Preco_Inferior_5Reais = "Produto com valor inferior a R$5.00.";
 
         public Produto(string titulo,
             string descricao,
@@ -23,7 +24,7 @@ namespace Celler.Dominio.Entidades
             Valor = valor;
 
             if (valor < 5)
-                AdicionarMensagem("Produto com valor inferior a R$5.00.");
+                AdicionarMensagem(Erro_Preco_Inferior_5Reais);
         }
 
         public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
