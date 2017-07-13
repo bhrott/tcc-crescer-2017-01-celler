@@ -11,15 +11,16 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
 
             function(response){
-                
+
                 console.log(response);
-                
+
             }
 
         )
 
     }
-
+    
+    $scope.logout = logout;
     $scope.exibirAModal = exibirModal;
     $scope.esconderAModal = esconderModal;
     var idAnuncioEspecifico = $routeParams.idAnuncio;
@@ -135,21 +136,26 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
     }
     
+    
+    function logout(){
+        authService.logout();
+    }
+
     $scope.aceitarDoacao = function aceitarDoacao(usuario, anuncio, idDoacao){
         console.log(usuario);
         console.log(anuncio);
         postService.aceitarDoacao(usuario, anuncio, idDoacao).then(
-        
+
             function(response){
                 var doacao = $scope.anuncioEspecifico.Doadores.filter( x => x.Id == idDoacao);
                 doacao[0].Status = 'p';
                 console.log(doacao);
                 console.log(response);
-                
+
             }
-        
+
         )
-        
+
     }
 
 

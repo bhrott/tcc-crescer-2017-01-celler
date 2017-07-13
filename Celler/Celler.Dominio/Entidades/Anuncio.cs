@@ -47,7 +47,7 @@ namespace Celler.Dominio.Entidades
             DataAnuncio = DateTime.Now;
             Criador = criador;
             TipoAnuncio = tipoAnuncio;
-            Status = "A";
+            Status = "a";
 
             if (string.IsNullOrWhiteSpace(Titulo))
                 Mensagens.Add(Erro_Sem_Titulo);
