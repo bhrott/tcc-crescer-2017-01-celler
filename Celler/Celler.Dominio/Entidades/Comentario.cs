@@ -13,6 +13,8 @@ namespace Celler.Dominio.Entidades
         public Usuario Usuario { get; private set; }
         public DateTime DataComentario { get; private set; }
 
+        public static readonly string Erro_Comentario_Branco = "Comentário não pode estar branco.";
+
         protected Comentario() { }
 
         public Comentario(string texto, Usuario usuario)
@@ -22,7 +24,7 @@ namespace Celler.Dominio.Entidades
             DataComentario = DateTime.Now;
 
             if (string.IsNullOrWhiteSpace(texto))
-                AdicionarMensagem("Comentário não pode estar branco.");
+                AdicionarMensagem(Erro_Comentario_Branco);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Celler.Infraestrutura.Servicos
 {
     public class EnviarEmail
     {
-        public void enviar(String email, MensagemModel model)
+        public void Enviar(String email, MensagemModel model)
         {
             try
             {

@@ -16,6 +16,9 @@ namespace Celler.Dominio.Entidades
 
         protected Doador(){}
 
+        public static readonly string Erro_Valor_Doado_Zero = "O valor doado não pode ser 0.";
+        public static readonly string Erro_Valor_Doado_Negativo = "O valor doado não pode ser negativo.";
+
         public Doador(Usuario usuario, double valorDoado)
         {
             this.Usuario = usuario;
@@ -23,10 +26,10 @@ namespace Celler.Dominio.Entidades
             this.Status = "n";
 
             if (this.ValorDoado == 0)
-                Mensagens.Add("O valor doado não pode ser 0.");
+                Mensagens.Add(Erro_Valor_Doado_Zero);
 
             if (this.ValorDoado < 0)
-                Mensagens.Add("O valor doado não pode ser negativo.");
+                Mensagens.Add(Erro_Valor_Doado_Negativo);
         }
 
         public double AlterarStatusDoacao(Doador doador)
