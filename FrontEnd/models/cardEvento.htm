@@ -13,11 +13,13 @@
           </a>
           <div class="card-content footerOffset">
             <div class="panel-block-item">
+             
               <span class="likes">
-                <span  ng-if="anuncio.TemInteresse" class="icon">
+
+                <span  ng-if="anuncio.TemInteresse" ng-click="desconfirmar(anuncio)" class="icon">
                   <i class="fa fa-check-circle confirmado"></i>
                 </span>
-                <span ng-if="!anuncio.TemInteresse" class="icon">
+                <span ng-if="!anuncio.TemInteresse" ng-click="confirmar(anuncio)" class="icon">
                   <i class="fa fa-question"></i>
                 </span>
                {{anuncio.NumeroInteressados}}

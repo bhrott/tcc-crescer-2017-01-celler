@@ -1,7 +1,7 @@
-modulo.controller('FeedController', function ($scope, authService, feedService, $routeParams, $route, $location) {
+modulo.controller('FeedController', function ($scope, authService, feedService, postService, $routeParams, $route, $location, $localStorage) {
 
     //  $scope.anuncios = [{Titulo:'Birlll', TipoAnuncio:'Vaquinha'},{Titulo:'Negativa bambam', TipoAnuncio:'Vaquinha'},{TipoAnuncio:'Produto'},{TipoAnuncio:'Evento'}];
-    
+
     if(!authService.isAutenticado()){
         $location.path("#!/login");
     }
@@ -34,6 +34,8 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     function redirectNovaVaquinha(){
         $location.url('novaVaquinha');
     }
+
+
     $scope.habilitarNotificacoes = false;
     $scope.buscar = buscar;
 
@@ -64,7 +66,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         $scope.busca.nome = $routeParams.search;
         $scope.busca.anuncios = ($routeParams.filtro1 == 'Produto' || $routeParams.filtro2 == 'Produto' || $routeParams.filtro3 == 'Produto');
         $scope.busca.eventos = ($routeParams.filtro1 == 'Evento' || $routeParams.filtro2 == 'Evento' || $routeParams.filtro3 == 'Evento');
-      $scope.busca.vaquinhas = ($routeParams.filtro1 == 'Vaquinha' || $routeParams.filtro2 == 'Vaquinha' || $routeParams.filtro3 == 'Vaquinha');
+        $scope.busca.vaquinhas = ($routeParams.filtro1 == 'Vaquinha' || $routeParams.filtro2 == 'Vaquinha' || $routeParams.filtro3 == 'Vaquinha');
 
         feedService.carregarPosts($routeParams).then(
             function(response){
@@ -102,5 +104,57 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     function logout(){
         authService.logout();
     }
+
+
+    $scope.interessar = function confirmarInteresse(produto){
+        console.log('entrei aqui interesse');
+        postService.interessarProduto($localStorage.usuarioLogado.Id, produto.Id).then(
+
+            function(response){
+                console.log(response);
+                produto.TemInteresse = true;
+                produto.NumeroInteressados += 1;
+            }
+
+        );
+    }
+
+    $scope.desinteressar = function retirarInteresse(produto){
+        console.log('entrei aqui desinteresse');
+        postService.desinteressarProduto($localStorage.usuarioLogado.Id, produto.Id).then(
+            function(response){
+                console.log(response);
+                produto.TemInteresse = false;
+                produto.NumeroInteressados -= 1;
+            }
+
+        );
+    }
+
+    $scope.confirmar = function confirmarPresenca(evento){
+        postService.confirmarEvento($localStorage.usuarioLogado.Id, evento.Id).then(
+
+            function(response){
+                console.log(response);
+                evento.TemInteresse = true;
+                evento.NumeroInteressados += 1;
+            }
+
+        );
+    }
+
+    $scope.desconfirmar = function retirarPresenca(evento){
+        postService.desconfirmarEvento($localStorage.usuarioLogado.Id, evento.Id).then(
+
+            function(response){
+                console.log(response);
+                evento.TemInteresse = false;
+                evento.NumeroInteressados -= 1;
+
+            }
+
+        );
+    }
+
 
 });
