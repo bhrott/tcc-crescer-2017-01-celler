@@ -134,6 +134,23 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
         )
 
     }
+    
+    $scope.aceitarDoacao = function aceitarDoacao(usuario, anuncio, idDoacao){
+        console.log(usuario);
+        console.log(anuncio);
+        postService.aceitarDoacao(usuario, anuncio, idDoacao).then(
+        
+            function(response){
+                var doacao = $scope.anuncioEspecifico.Doadores.filter( x => x.Id == idDoacao);
+                doacao[0].Status = 'p';
+                console.log(doacao);
+                console.log(response);
+                
+            }
+        
+        )
+        
+    }
 
 
     function checarInteresse(){

@@ -10,7 +10,8 @@ modulo.factory("postService", function ($http) {
         cadastrarVaquinha:cadastrarVaquinha,
         cadastrarEvento:cadastrarEvento,
         cadastrarProduto:cadastrarProduto,
-        cancelarNotificacao:cancelarNotificacao
+        cancelarNotificacao:cancelarNotificacao,
+        aceitarDoacao:aceitarDoacao
     });
 
 
@@ -91,6 +92,18 @@ modulo.factory("postService", function ($http) {
     function cancelarNotificacao(idNotificacao){
         
         return $http.put("http://localhost:50694/api/notificacao?id=" + idNotificacao);
+        
+    }
+    
+    function aceitarDoacao(usuario, anuncio, idDoacao){
+        
+        var objetoEnvio = {
+            IdUsuario:usuario.Id,
+        IdVaquinha:anuncio.Id,
+        IdDoacao:idDoacao
+        }
+        console.log(objetoEnvio);
+        return $http.post("http://localhost:50694/api/vaquinha/confirmar", objetoEnvio);
         
     }
 
