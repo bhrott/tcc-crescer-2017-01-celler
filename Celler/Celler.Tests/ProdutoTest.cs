@@ -13,9 +13,21 @@ namespace Celler.Tests
         Produto produtoPrecoInferiorMinimo;
 
         [TestMethod]
-        public static void ProdutoCorretoOk ()
+        public void ProdutoCorretoOk ()
         {
-            
+            produtoCorreto = new Produto("Titulo", "Descricao", null, null, null, new Usuario("Nome", "Email", "Senha"), 50.0);
+            Assert.IsTrue(produtoCorreto.Validar());
+        }
+
+        [TestMethod]
+        public void ProdutoUsuarioJaInteressado()
+        {
+            Usuario usuario = new Usuario("Nome", "Email", "Senha");
+            produtoCorreto = new Produto("Titulo", "Descricao", null, null, null, usuario, 50.0);
+            produtoCorreto.AdicionarInteressado(usuario);
+            Assert.IsTrue(produtoCorreto.Validar());
+            produtoCorreto.AdicionarInteressado(usuario);
+            Assert.IsFalse(produtoCorreto.Validar());
         }
     }
 }
