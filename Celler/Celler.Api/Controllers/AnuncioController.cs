@@ -72,6 +72,7 @@ namespace Celler.Api.Controllers
             {
                 case TipoAnuncio.PRODUTO:
                     anuncioDetalhes = _produtoRepositorio.ObterDetalhes(anuncio.Id, isUsuarioLogado);
+                    ((ProdutoModelDetalhes)anuncioDetalhes).TemInteresse = _anuncioRepositorio.UsuarioLogadoInteressadoAnuncio(anuncio, usuarioLogado);
                     return ResponderOk(anuncioDetalhes);
 
                 case TipoAnuncio.EVENTO:

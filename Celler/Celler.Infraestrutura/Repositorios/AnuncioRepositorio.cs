@@ -187,6 +187,17 @@ namespace Celler.Infraestrutura.Repositorios
                            .Count() > 0;
         }
 
+        public bool UsuarioLogadoInteressadoAnuncio(Anuncio anuncio, Usuario usuario)
+        {
+            return _contexto.Produto
+                           .Include(a => a.Interessados)
+                           .SingleOrDefault(a => a.Id == anuncio.Id)
+                           .Interessados
+                           .AsEnumerable()
+                           .Select(e => e.Id == usuario.Id)
+                           .Count() > 0;
+        }
+
         private bool UsuarioLogadoDoou(AnuncioModelFeed anuncio, Usuario usuario)
         {
             return _contexto.Vaquinha
