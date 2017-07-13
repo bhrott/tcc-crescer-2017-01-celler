@@ -118,6 +118,7 @@
     <Compile Include="Models\DoarVaquinhaModel.cs" />
     <Compile Include="Models\ParticiparEventoModel.cs" />
     <Compile Include="Models\ReceberDoacaoModel.cs" />
+    <Compile Include="Models\SalvarProdutoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\InteressarProdutoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,8 +1,10 @@
 ﻿using Celler.Api.App_Start;
 using Celler.Api.Models;
+using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
 using Celler.Infraestrutura.Servicos;
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
@@ -112,6 +114,31 @@ namespace Celler.Api.Controllers
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();
                 return ResponderOk(new { texto = "Produto vendido com sucesso" });
+            }
+            else
+            {
+                return ResponderErro(produto.Mensagens);
+            }
+        }
+
+        [HttpPost, Route("adicionar")]
+        public HttpResponseMessage SalvarNovoProduto(SalvarProdutoModel model)
+        {
+            if (model == null)
+            {
+                return ResponderErro("Produto inválido");
+            }
+
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+
+            Produto produto = new Produto(model.Titulo, model.Descricao, model.Foto1, model.Foto2, model.Foto3,
+                usuarioLogado, model.Valor);
+
+            if (produto.Validar())
+            {
+                _produtoRepositorio.Salvar(produto);
+                _contexto.SaveChanges();
+                return ResponderOk(new { texto = "Produto adicionado com sucesso" });
             }
             else
             {
