@@ -91,18 +91,18 @@ namespace Celler.Infraestrutura.Servicos
             if (this.UsuarioNotificar.NotificacaoInteresseEmail == true)
             {
                 EnviarEmail email = new EnviarEmail();
-                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " se interessou no seu evento: " + this.Anuncio.Titulo);
+                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " se interessou no seu produto: " + this.Anuncio.Titulo);
                 email.enviar(this.UsuarioNotificar.Email, modelEmail);
             }
 
             if (this.UsuarioNotificar.NotificacaoInteresseSlack == true)
             {
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.UsuarioNotificar.CanalSlack, this.Usuario.Nome + " se interessou no seu evento: " + this.Anuncio.Titulo);
+                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.UsuarioNotificar.CanalSlack, this.Usuario.Nome + " se interessou no seu produto: " + this.Anuncio.Titulo);
             }
 
             if (this.UsuarioNotificar.NotificacaoInteresseBrowser == true)
             {
-                 Notificacao notificacao = new Notificacao(this.Usuario.Nome + " se interessou no seu evento: " + this.Anuncio.Titulo, this.UsuarioNotificar, "#!/anuncio/" + this.Anuncio.Id);
+                 Notificacao notificacao = new Notificacao(this.Usuario.Nome + " se interessou no seu produto: " + this.Anuncio.Titulo, this.UsuarioNotificar, "#!/anuncio/" + this.Anuncio.Id);
                 _notificacaoRepositorio.CriarNotificacao(notificacao);
             }
         }
@@ -112,18 +112,18 @@ namespace Celler.Infraestrutura.Servicos
             if (this.UsuarioNotificar.NotificacaoInteresseEmail == true)
             {
                 EnviarEmail email = new EnviarEmail();
-                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " cancelou o interesse no seu: " + this.Anuncio.Titulo);
+                MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " cancelou o interesse no seu produto: " + this.Anuncio.Titulo);
                 email.enviar(this.UsuarioNotificar.Email, modelEmail);
             }
 
             if (this.UsuarioNotificar.NotificacaoInteresseSlack == true)
             {
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.UsuarioNotificar.CanalSlack, this.Usuario.Nome + " cancelou o interesse no seu: " + this.Anuncio.Titulo);
+                EnviarMensagemSlack enviar = new EnviarMensagemSlack(this.UsuarioNotificar.CanalSlack, this.Usuario.Nome + " cancelou o interesse no seu produto: " + this.Anuncio.Titulo);
             }
 
             if (this.UsuarioNotificar.NotificacaoInteresseBrowser == true)
             {
-                Notificacao notificacao = new Notificacao(this.Usuario.Nome + " se interessou no seu evento: " + this.Anuncio.Titulo, this.UsuarioNotificar, "#!/anuncio/" + this.Anuncio.Id);
+                Notificacao notificacao = new Notificacao(this.Usuario.Nome + " se interessou no seu produto: " + this.Anuncio.Titulo, this.UsuarioNotificar, "#!/anuncio/" + this.Anuncio.Id);
                 _notificacaoRepositorio.CriarNotificacao(notificacao);
             }
         }
