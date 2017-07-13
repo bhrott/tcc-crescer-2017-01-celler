@@ -17,7 +17,7 @@
     <p class="trend-title"></p>
     <div  ng-repeat="notificacao in notificacoes" class="box trending">
         <p class="trend-hashtag">
-            <a href="{{notificacao.link}}" ng-click="marcarComoLida(notificacao)"><span>{{notificacao.texto}}</span></a>
+            <a href="{{notificacao.link}}?idNotificacao={{notificacao.id}}" ng-click="marcarComoLida(notificacao)"><span>{{notificacao.texto}}</span></a>
         </p>
     </div>
 </div>

@@ -32,7 +32,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         var n = new Notification(title,options);
                         n.onclick = function(event) {
                             event.preventDefault(); // prevent the browser from focusing the Notification's tab
-                            window.open('http://127.0.0.1:8080/' +  notificacao.link, '_blank');
+                            window.open('http://127.0.0.1:8080/' +  notificacao.link + '?idNotificacao=' + notificacao.id, '_blank');
                         }
                         setTimeout(n.close.bind(n), 4000);
                     }

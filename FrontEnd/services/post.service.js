@@ -9,7 +9,8 @@ modulo.factory("postService", function ($http) {
         venderProduto:venderProduto,
         cadastrarVaquinha:cadastrarVaquinha,
         cadastrarEvento:cadastrarEvento,
-        cadastrarProduto:cadastrarProduto
+        cadastrarProduto:cadastrarProduto,
+        cancelarNotificacao:cancelarNotificacao
     });
 
 
@@ -85,6 +86,12 @@ modulo.factory("postService", function ($http) {
     function cadastrarVaquinha(vaquinha){
 
         console.log(vaquinha);
+    }
+    
+    function cancelarNotificacao(idNotificacao){
+        
+        return $http.put("http://localhost:50694/api/notificacao?id=" + idNotificacao);
+        
     }
 
 });
