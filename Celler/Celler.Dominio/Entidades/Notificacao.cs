@@ -25,5 +25,9 @@ namespace Celler.Dominio.Entidades
             Link = link;
         }
 
+        public void Ler()
+        {
+            Status = "l";
+        }
     }
 }

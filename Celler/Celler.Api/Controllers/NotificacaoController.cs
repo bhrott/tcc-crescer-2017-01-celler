@@ -19,6 +19,7 @@ namespace Celler.Api.Controllers
         public NotificacaoController()
         {
             _notificacaoRepositorio = new NotificacaoRepositorio(_contexto);
+            _usuarioRepositorio = new UsuarioRepositorio(_contexto);
         }
 
         [HttpGet]
@@ -30,10 +31,11 @@ namespace Celler.Api.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage LerNotificacao(int idNotificacao)
+        public HttpResponseMessage LerNotificacao(int id)
         {
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            Notificacao notificacao = null;
+            var notificacao = _notificacaoRepositorio.Obter(id);
+            notificacao.Ler();
             _notificacaoRepositorio.Alterar(notificacao);
             return ResponderOk();
         }
