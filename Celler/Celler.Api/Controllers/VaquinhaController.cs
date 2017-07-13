@@ -48,7 +48,7 @@ namespace Celler.Api.Controllers
 
             if (doador.Validar())
             {
-                Notificar notificar = new Notificar(usuario, vaquinha, vaquinha.Criador);
+                Notificar notificar = new Notificar(usuario, vaquinha, vaquinha.Criador, new NotificacaoRepositorio(_contexto));
                 notificar.NotificarUsuarioDoacaoVaquinha();
                 _vaquinhaRepositorio.Alterar(vaquinha);
                 _contexto.SaveChanges();

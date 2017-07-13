@@ -24,5 +24,6 @@ namespace Celler.Dominio.Entidades
             Usuario = usuario;
             Link = link;
         }
+
     }
 }

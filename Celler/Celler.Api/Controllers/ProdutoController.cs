@@ -46,7 +46,7 @@ namespace Celler.Api.Controllers
             
             if (produto.Validar())
             {
-                Notificar notificar = new Notificar(usuario, produto, produto.Criador);
+                Notificar notificar = new Notificar(usuario, produto, produto.Criador, new NotificacaoRepositorio(_contexto));
                 notificar.NotificarUsuarioInteresse();
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();
@@ -80,7 +80,7 @@ namespace Celler.Api.Controllers
 
             if (produto.Validar())
             {
-                Notificar notificar = new Notificar(usuario, produto, produto.Criador);
+                Notificar notificar = new Notificar(usuario, produto, produto.Criador, new NotificacaoRepositorio(_contexto));
                 notificar.NotificarUsuarioDesinteresse();
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();

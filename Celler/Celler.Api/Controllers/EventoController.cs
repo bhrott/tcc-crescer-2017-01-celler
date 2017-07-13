@@ -48,7 +48,7 @@ namespace Celler.Api.Controllers
 
             if (evento.Validar())
             {
-                Notificar notificar = new Notificar(usuario, evento, evento.Criador);
+                Notificar notificar = new Notificar(usuario, evento, evento.Criador, new NotificacaoRepositorio(_contexto));
                 notificar.NotificarUsuarioEvento();
                 _eventoRepositorio.Alterar(evento);
                 _contexto.SaveChanges();
@@ -82,7 +82,7 @@ namespace Celler.Api.Controllers
 
             if (evento.Validar())
             {
-                Notificar notificar = new Notificar(usuario, evento, evento.Criador);
+                Notificar notificar = new Notificar(usuario, evento, evento.Criador, new NotificacaoRepositorio(_contexto));
                 notificar.NotificarUsuarioDesistirEvento();
                 _eventoRepositorio.Alterar(evento);
                 _contexto.SaveChanges();
