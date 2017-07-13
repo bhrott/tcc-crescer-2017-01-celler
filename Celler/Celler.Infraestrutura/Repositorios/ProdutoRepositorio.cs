@@ -49,5 +49,10 @@ namespace Celler.Infraestrutura.Repositorios
 
             return produtoModel;
         }
+
+        public void Salvar(Produto produto)
+        {
+            _contexto.Produto.Add(produto);
+        }
     }
 }

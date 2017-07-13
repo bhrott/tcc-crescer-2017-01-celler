@@ -25,6 +25,20 @@ namespace Celler.Dominio.Entidades
                 AdicionarMensagem("Produto com valor inferior a R$5.00.");
         }
 
+        public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
+        {
+            base.Titulo = titulo;
+            base.Descricao = descricao;
+            base.Foto1 = foto1;
+            base.Foto2 = foto2;
+            base.Foto3 = foto3;
+            base.DataAnuncio = DateTime.Now;
+            base.Criador = usuarioLogado;
+            base.TipoAnuncio = "Produto";
+            base.Status = "a";
+            this.Valor = valor;
+        }
+
         public override int GetNumeroPessoasComInteresse()
         {
             return Interessados.Count;
