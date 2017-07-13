@@ -45,7 +45,7 @@ namespace Celler.Api.Controllers
         }
 
         [BasicAuthorization]
-        [HttpPost, Route("configuracoes")]
+        [HttpPut, Route("configuracoes")]
         public HttpResponseMessage AlterarConfiguracoesNotificacao(ConfiguracoesNotificacaoModel model)
         {
             var usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);

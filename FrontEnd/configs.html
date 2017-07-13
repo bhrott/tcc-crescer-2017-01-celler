@@ -6,7 +6,7 @@
                 <div class="control columns">
                     <div class="column">
                         <label class="label">Usuário do Slack (opcional)</label>
-                        <input class="input column" ng-model="produto.Titulo" type="text" placeholder="@johndoe">
+                        <input class="input column" ng-model="usuario.CanalSlack" type="text" placeholder="@johndoe">
                     </div>
                 </div>
                 <div class="control columns">
@@ -17,34 +17,34 @@
                 <div class="control columns">
                     <div class="column">
                         <label class="label">Quando alguém comentar meu anúncio:</label>
-                        <input type="checkbox"><label> Me avisar via Browser.</label><br> 
-                        <input type="checkbox"><label> Me avisar via Email.</label> <br>
-                        <input type="checkbox"><label> Me avisar via Slack.</label> 
+                        <input type="checkbox" ng-model="usuario.NotificacaoComentarioAnuncioBrowser"><label> Me avisar via Browser.</label><br> 
+                        <input type="checkbox" ng-model="usuario.NotificacaoComentarioAnuncioEmail"><label> Me avisar via Email.</label> <br>
+                        <input ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''" type="checkbox" ng-model="usuario.NotificacaoComentarioAnuncioSlack"><label ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''"> Me avisar via Slack.</label> 
                     </div>
                     <div class="column">
                         <label class="label">Quando alguém marcar/desmarcar presença em meu evento:</label>
-                        <input type="checkbox"><label> Me avisar via Browser.</label> <br>
-                        <input type="checkbox"><label> Me avisar via Email.</label> <br>
-                        <input type="checkbox"><label> Me avisar via Slack.</label> 
+                        <input type="checkbox" ng-model="usuario.NotificacaoPresencaBrowser"><label> Me avisar via Browser.</label> <br>
+                        <input type="checkbox" ng-model="usuario.NotificacaoPresencaEmail"><label> Me avisar via Email.</label> <br>
+                        <input ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''" type="checkbox" ng-model="usuario.NotificacaoPresencaSlack"><label ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''"> Me avisar via Slack.</label> 
                     </div>
 
                 </div>
                 <div class="control columns">
                     <div class="column">
                         <label class="label">Quando alguém tiver interesse em meu produto </label>
-                        <input type="checkbox"><label> Me avisar via Browser.</label> <br>
-                        <input type="checkbox"><label> Me avisar via Email.</label> <br>
-                        <input type="checkbox"><label> Me avisar via Slack.</label> 
+                        <input type="checkbox" ng-model="usuario.NotificacaoInteresseBrowser"><label> Me avisar via Browser.</label> <br>
+                        <input  type="checkbox" ng-model="usuario.NotificacaoInteresseEmail"><label> Me avisar via Email.</label> <br>
+                        <input ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''" type="checkbox" ng-model="usuario.NotificacaoInteresseSlack"><label ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''"> Me avisar via Slack.</label> 
                     </div>
                     <div class="column">
                         <label class="label">Quando alguém doar para minha vaquinha. </label>
-                        <input type="checkbox"><label> Me avisar via Browser.</label> <br>
-                        <input type="checkbox"><label> Me avisar via Email.</label> <br>
-                        <input type="checkbox"><label> Me avisar via Slack.</label> 
+                        <input type="checkbox" ng-model="usuario.NotificacaoDoacaoVaquinhaBrowser"><label> Me avisar via Browser.</label> <br>
+                        <input type="checkbox" ng-model="usuario.NotificacaoDoacaoVaquinhaEmail"><label> Me avisar via Email.</label> <br>
+                        <input type="checkbox" ng-model="usuario.NotificacaoDoacaoVaquinhaSlack"><label> Me avisar via Slack.</label> 
                     </div>
                 </div>
                 <p class="control">
-                    <button class="button is-primary is-small">Salvar configurações.</button>
+                    <button ng-click="salvarConfigs(usuario)" class="button is-primary is-small">Salvar configurações.</button>
                     <a href="#!/feed"><button class="button is-primary is-small">Voltar para o Feed</button></a>
                 </p>
             </div>
