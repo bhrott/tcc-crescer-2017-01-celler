@@ -17,7 +17,14 @@ namespace Celler.Dominio.Entidades
                         DateTime DataRealizacao, DateTime DataMaximaConfirmacao,  double valorPessoa) 
             : base(titulo, descricao, usuarioLogado, Entidades.TipoAnuncio.EVENTO, foto1, foto2, foto3)
         {
+            if (DataRealizacao < DataMaximaConfirmacao)
+                AdicionarMensagem(Erro_Data_Confirmacao_Maior_Data_Realizacao);
 
+            if (ValorPorPessoa < 0)
+                AdicionarMensagem(Erro_Valor_Por_Pessoa_Negativo);
+
+            if (string.IsNullOrEmpty(Local))
+                AdicionarMensagem(Erro_Data_Confirmacao_Maior_Data_Realizacao);
         }
 
         public static readonly string Erro_Usuario_Ja_Confirmado = "Usuário já está confirmado neste evento.";
@@ -25,6 +32,8 @@ namespace Celler.Dominio.Entidades
         public static readonly string Erro_Evento_Data_Maxima = "Você não pode confirmar presença depois da data limite";
         public static readonly string Erro_Usuario_Nao_Interessado = "Usuário não está interessado neste evento.";
         public static readonly string Erro_Data_Confirmacao_Maior_Data_Realizacao = "A data máxima para confirmação não pode ser maior que a data de realização.";
+        public static readonly string Erro_Valor_Por_Pessoa_Negativo = "O valor por pessoa não pode ser negativo";
+        public static readonly string Erro_Local_Vazio = "O local precisa ser informado";
 
         public override int GetNumeroPessoasComInteresse()
         {
@@ -39,7 +48,7 @@ namespace Celler.Dominio.Entidades
             else if (Criador.Equals(usuario))
                 AdicionarMensagem(Erro_Proprio_Evento);
 
-            else if (Status == "f")
+            else if (Status == "f" || DataRealizacao > DateTime.Now)
                 AdicionarMensagem(Erro_Evento_Data_Maxima);
 
             else if (DataRealizacao < DataMaximaConfirmacao)
