@@ -33,8 +33,14 @@ namespace Celler.Dominio.Entidades
         protected Anuncio(string titulo,
             string descricao,
             Usuario criador,
-            string tipoAnuncio)
+            string tipoAnuncio,
+            string foto1,
+            string foto2,
+            string foto3)
         {
+            Foto1 = foto1;
+            Foto2 = foto2;
+            Foto3 = foto3;
             Comentarios = new List<Comentario>();
             Titulo = titulo;
             Descricao = descricao;

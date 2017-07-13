@@ -18,7 +18,7 @@ namespace Celler.Dominio.Entidades
         public static readonly string Erro_Preco_Inferior_5Reais = "Produto com valor inferior a R$5.00.";
 
         public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
-            : base(titulo, descricao, usuarioLogado, "Produto")
+            : base(titulo, descricao, usuarioLogado, Entidades.TipoAnuncio.PRODUTO, foto1, foto2, foto3)
         {
             this.Valor = valor;
 
