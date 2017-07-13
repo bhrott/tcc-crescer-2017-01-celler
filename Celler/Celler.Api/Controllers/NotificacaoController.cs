@@ -1,4 +1,5 @@
-﻿using Celler.Infraestrutura;
+﻿using Celler.Api.App_Start;
+using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
 using System.Net.Http;
 using System.Threading;
@@ -6,6 +7,7 @@ using System.Web.Http;
 
 namespace Celler.Api.Controllers
 {
+    [BasicAuthorization]
     public class NotificacaoController : ControllerBasica
     {
         readonly NotificacaoRepositorio _notificacaoRepositorio;
@@ -17,7 +19,6 @@ namespace Celler.Api.Controllers
             _notificacaoRepositorio = new NotificacaoRepositorio(_contexto);
         }
 
-        [HttpGet, Route("notificacoes")]
         public HttpResponseMessage ObterNotificacoes()
         {
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
@@ -25,7 +26,6 @@ namespace Celler.Api.Controllers
             return ResponderOk(notificacoes);
         }
 
-        [HttpGet, Route("notificacoes")]
         public HttpResponseMessage ObterNotificacoes()
         {
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Celler.Dominio.Models;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -53,6 +54,43 @@ namespace Celler.Dominio.Entidades
 
             if (string.IsNullOrWhiteSpace(Senha))
                 AdicionarMensagem("Senha é inválido.");
+        }
+
+        public void SetarConfiguracoes(bool notificacaoComentarioAnuncioEmail,
+                                       bool notificacaoComentarioAnuncioSlack,
+                                       bool notificacaoComentarioAnuncioBrowser,
+                                       bool notificacaoPresencaEmail,
+                                       bool notificacaoPresencaSlack,
+                                       bool notificacaoPresencaBrowser,
+                                       bool notificacaoInteresseEmail,
+                                       bool notificacaoInteresseSlack,
+                                       bool notificacaoInteresseBrowser,
+                                       bool notificacaoDoacaoVaquinhaEmail,
+                                       bool notificacaoDoacaoVaquinhaSlack,
+                                       bool notificacaoDoacaoVaquinhaBrowser,
+                                       string canalSlack)
+        {
+            NotificacaoComentarioAnuncioEmail = notificacaoComentarioAnuncioEmail;
+            NotificacaoComentarioAnuncioSlack = notificacaoComentarioAnuncioSlack;
+            NotificacaoComentarioAnuncioBrowser = notificacaoComentarioAnuncioBrowser;
+            NotificacaoPresencaEmail = notificacaoPresencaEmail;
+            NotificacaoPresencaSlack = notificacaoPresencaSlack;
+            NotificacaoPresencaBrowser = notificacaoPresencaBrowser;
+            NotificacaoInteresseEmail = notificacaoInteresseEmail;
+            NotificacaoInteresseSlack = notificacaoInteresseSlack;
+            NotificacaoInteresseBrowser = notificacaoInteresseBrowser;
+            NotificacaoDoacaoVaquinhaEmail = notificacaoDoacaoVaquinhaEmail;
+            NotificacaoDoacaoVaquinhaSlack = notificacaoDoacaoVaquinhaSlack;
+            NotificacaoDoacaoVaquinhaBrowser = notificacaoDoacaoVaquinhaBrowser;
+
+            if (string.IsNullOrEmpty(canalSlack) && (notificacaoComentarioAnuncioSlack ||
+                                                     notificacaoPresencaSlack ||
+                                                     notificacaoInteresseSlack ||
+                                                     notificacaoDoacaoVaquinhaSlack))
+                AdicionarMensagem("O canal do slack é nulo!");
+
+            else
+                CanalSlack = canalSlack;
         }
 
         public string ResetarSenha()

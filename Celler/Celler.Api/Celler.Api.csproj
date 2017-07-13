@@ -114,6 +114,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ComentarioModel.cs" />
+    <Compile Include="Models\ConfiguracoesNotificacaoModel.cs" />
     <Compile Include="Models\DoarVaquinhaModel.cs" />
     <Compile Include="Models\ParticiparEventoModel.cs" />
     <Compile Include="Models\ReceberDoacaoModel.cs" />

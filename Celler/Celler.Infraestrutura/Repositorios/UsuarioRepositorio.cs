@@ -47,6 +47,27 @@ namespace Celler.Infraestrutura.Repositorios
                 .FirstOrDefault();
         }
 
+        public dynamic ObterConfiguracoesNotificacao(string emailUsuario)
+        {
+            var usuario = Obter(emailUsuario);
+            return new
+            {
+                NotificacaoComentarioAnuncioEmail = usuario.NotificacaoComentarioAnuncioEmail,
+                NotificacaoComentarioAnuncioSlack = usuario.NotificacaoComentarioAnuncioSlack,
+                NotificacaoComentarioAnuncioBrowser = usuario.NotificacaoComentarioAnuncioBrowser,
+                NotificacaoPresencaEmail = usuario.NotificacaoPresencaEmail,
+                NotificacaoPresencaSlack = usuario.NotificacaoPresencaSlack,
+                NotificacaoPresencaBrowser = usuario.NotificacaoPresencaBrowser,
+                NotificacaoInteresseEmail = usuario.NotificacaoInteresseEmail,
+                NotificacaoInteresseSlack = usuario.NotificacaoInteresseSlack,
+                NotificacaoInteresseBrowser = usuario.NotificacaoInteresseBrowser,
+                NotificacaoDoacaoVaquinhaEmail = usuario.NotificacaoDoacaoVaquinhaEmail,
+                NotificacaoDoacaoVaquinhaSlack = usuario.NotificacaoDoacaoVaquinhaSlack,
+                NotificacaoDoacaoVaquinhaBrowser = usuario.NotificacaoDoacaoVaquinhaBrowser,
+                CanalSlack = usuario.CanalSlack
+            };
+        }
+
         public Usuario ObterUsuarioLogado(string basicAuth)
         {
             return Obter(Usuario.ObterEmail(basicAuth));

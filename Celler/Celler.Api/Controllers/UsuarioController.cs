@@ -1,4 +1,5 @@
 ﻿using Celler.Api.App_Start;
+using Celler.Api.Models;
 using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Entidades;
@@ -33,6 +34,44 @@ namespace Celler.Api.Controllers
             if (usuario == null)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { mensagem = "Usuario/Email não cadastrados." });
             return Request.CreateResponse(HttpStatusCode.OK, new { dados = new { Nome = usuario.Nome, Email = usuario.Email, Id = usuario.Id } });
+        }
+
+        [BasicAuthorization]
+        [HttpGet, Route("configuracoes")]
+        public HttpResponseMessage ObterConfiguracoesNotificacao()
+        {
+            var reposta = _usuarioRepositorio.ObterConfiguracoesNotificacao(Thread.CurrentPrincipal.Identity.Name);
+            return ResponderOk(reposta);
+        }
+
+        [BasicAuthorization]
+        [HttpPost, Route("configuracoes")]
+        public HttpResponseMessage AlterarConfiguracoesNotificacao(ConfiguracoesNotificacaoModel model)
+        {
+            var usuario = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+            usuario.SetarConfiguracoes(model.NotificacaoComentarioAnuncioEmail,
+                                       model.NotificacaoComentarioAnuncioSlack,
+                                       model.NotificacaoComentarioAnuncioBrowser,
+                                       model.NotificacaoPresencaEmail,
+                                       model.NotificacaoPresencaSlack,
+                                       model.NotificacaoPresencaBrowser,
+                                       model.NotificacaoInteresseEmail,
+                                       model.NotificacaoInteresseSlack,
+                                       model.NotificacaoInteresseBrowser,
+                                       model.NotificacaoDoacaoVaquinhaEmail,
+                                       model.NotificacaoDoacaoVaquinhaSlack,
+                                       model.NotificacaoDoacaoVaquinhaBrowser,
+                                       model.CanalSlack);
+
+            if (usuario.Validar())
+            {
+                _usuarioRepositorio.Alterar(usuario);
+                return ResponderOk();
+            }
+            else
+            {
+                return ResponderErro(usuario.Mensagens);
+            }
         }
 
         [HttpPost, Route("registrar")]
