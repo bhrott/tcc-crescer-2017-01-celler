@@ -13,10 +13,18 @@ namespace Celler.Dominio.Entidades
 
         protected Evento() { }
 
+        public Evento (string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, 
+                        DateTime DataRealizacao, DateTime DataMaximaConfirmacao,  double valorPessoa) 
+            : base(titulo, descricao, usuarioLogado, Entidades.TipoAnuncio.EVENTO, foto1, foto2, foto3)
+        {
+
+        }
+
         public static readonly string Erro_Usuario_Ja_Confirmado = "Usuário já está confirmado neste evento.";
         public static readonly string Erro_Proprio_Evento = "O criador não pode confirmar presença no próprio produto";
-        public static readonly string Erro_Evento_Ocorrido = "Você não pode confirmar presença num evento já ocorrido";
+        public static readonly string Erro_Evento_Data_Maxima = "Você não pode confirmar presença depois da data limite";
         public static readonly string Erro_Usuario_Nao_Interessado = "Usuário não está interessado neste evento.";
+        public static readonly string Erro_Data_Confirmacao_Maior_Data_Realizacao = "A data máxima para confirmação não pode ser maior que a data de realização.";
 
         public override int GetNumeroPessoasComInteresse()
         {
@@ -32,7 +40,10 @@ namespace Celler.Dominio.Entidades
                 AdicionarMensagem(Erro_Proprio_Evento);
 
             else if (Status == "f")
-                AdicionarMensagem(Erro_Evento_Ocorrido);
+                AdicionarMensagem(Erro_Evento_Data_Maxima);
+
+            else if (DataRealizacao < DataMaximaConfirmacao)
+                AdicionarMensagem(Erro_Data_Confirmacao_Maior_Data_Realizacao);
 
             else
                 Confirmados.Add(usuario);
