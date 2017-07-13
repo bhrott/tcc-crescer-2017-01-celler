@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
@@ -14,29 +11,19 @@ namespace Celler.Dominio.Entidades
 
         protected Produto() { }
 
-        public Produto(string titulo,
-            string descricao,
-            Usuario criador,
-            double valor) : base(titulo, descricao, criador, "Produto")
-        {
-            Valor = valor;
-
-            if (valor < 5)
-                AdicionarMensagem("Produto com valor inferior a R$5.00.");
-        }
+        public static readonly string Erro_Usuario_Ja_Interessado = "Usuário já está interessado neste produto.";
+        public static readonly string Erro_Proprio_Produto = "O criador não pode se interessar pelo seu próprio produto";
+        public static readonly string Erro_Produto_Vendido = "Você não pode se interessar por um produto vendido";
+        public static readonly string Erro_Usuario_Nao_Interessado = "Usuário não está interessado neste produto.";
+        public static readonly string Erro_Preco_Inferior_5Reais = "Produto com valor inferior a R$5.00.";
 
         public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
+            : base(titulo, descricao, usuarioLogado, "Produto")
         {
-            base.Titulo = titulo;
-            base.Descricao = descricao;
-            base.Foto1 = foto1;
-            base.Foto2 = foto2;
-            base.Foto3 = foto3;
-            base.DataAnuncio = DateTime.Now;
-            base.Criador = usuarioLogado;
-            base.TipoAnuncio = "Produto";
-            base.Status = "a";
             this.Valor = valor;
+
+            if (valor < 5)
+                AdicionarMensagem(Erro_Preco_Inferior_5Reais);
         }
 
         public override int GetNumeroPessoasComInteresse()
@@ -47,11 +34,14 @@ namespace Celler.Dominio.Entidades
         public void AdicionarInteressado(Usuario usuario)
         {
             if (Interessados.Contains(usuario))
-                AdicionarMensagem("Usuário já está interessado neste produto.");
+                AdicionarMensagem(Erro_Usuario_Ja_Interessado);
+
             else if (Criador.Equals(usuario))
-                AdicionarMensagem("O criador não pode se interessar pelo seu próprio produto");
+                AdicionarMensagem(Erro_Proprio_Produto);
+
             else if (Status == "f")
-                AdicionarMensagem("Você não pode se interessar por um produto vendido");
+                AdicionarMensagem(Erro_Produto_Vendido);
+
             else
                 Interessados.Add(usuario);
 
@@ -60,7 +50,7 @@ namespace Celler.Dominio.Entidades
         public void RemoverInteressado(Usuario usuario)
         {
             if (!Interessados.Contains(usuario))
-                AdicionarMensagem("Usuário não está interessado neste produto.");
+                AdicionarMensagem(Erro_Usuario_Nao_Interessado);
 
             Interessados.Remove(usuario);   
         }

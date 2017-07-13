@@ -1,9 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
@@ -16,6 +12,8 @@ namespace Celler.Dominio.Entidades
 
         protected Vaquinha() { }
 
+        public static readonly string Erro_Vaquinha_Fechada = "Você não pode doar numa vaquinha fechada";
+
         public override int GetNumeroPessoasComInteresse()
         {
             return Doadores.Count;
@@ -24,7 +22,7 @@ namespace Celler.Dominio.Entidades
         public void AdicionarDoador(Doador doador)
         {
             if (Status == "f")
-                AdicionarMensagem("Você não pode doar numa vaquinha fechada");
+                AdicionarMensagem(Erro_Vaquinha_Fechada);
             else
                 Doadores.Add(doador);
         }

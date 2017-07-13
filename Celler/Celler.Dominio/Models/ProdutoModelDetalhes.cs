@@ -13,6 +13,7 @@ namespace Celler.Dominio.Models
         public UsuarioModel Comprador { get; set; }
         public List<UsuarioModel> Interessados { get; set; }
         public int NumeroInteressados { get; set; }
+        public bool TemInteresse { get; set; }
 
         public ProdutoModelDetalhes(Anuncio anuncio)
                                    : base(anuncio.Id,

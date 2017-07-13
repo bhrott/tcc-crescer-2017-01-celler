@@ -47,7 +47,6 @@ namespace Celler.Api.Controllers
                 filtro1 = TipoAnuncio.EVENTO;
                 filtro2 = TipoAnuncio.PRODUTO;
                 filtro3 = TipoAnuncio.VAQUINHA;
-
             }
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
@@ -72,6 +71,7 @@ namespace Celler.Api.Controllers
             {
                 case TipoAnuncio.PRODUTO:
                     anuncioDetalhes = _produtoRepositorio.ObterDetalhes(anuncio.Id, isUsuarioLogado);
+                    ((ProdutoModelDetalhes)anuncioDetalhes).TemInteresse = _anuncioRepositorio.UsuarioLogadoInteressadoAnuncio(anuncio, usuarioLogado);
                     return ResponderOk(anuncioDetalhes);
 
                 case TipoAnuncio.EVENTO:

@@ -148,7 +148,7 @@ namespace Celler.Dominio.Entidades
         public override bool Equals(object obj)
         {
             Usuario outro = (Usuario)obj;
-            return outro.Id == this.Id;
+            return outro.Id == this.Id && outro.Email == this.Email;
         }
     }
 }

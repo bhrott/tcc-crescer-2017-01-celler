@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Celler.Dominio.Entidades
 {
@@ -16,6 +13,11 @@ namespace Celler.Dominio.Entidades
 
         protected Evento() { }
 
+        public static readonly string Erro_Usuario_Ja_Confirmado = "Usuário já está confirmado neste evento.";
+        public static readonly string Erro_Proprio_Evento = "O criador não pode confirmar presença no próprio produto";
+        public static readonly string Erro_Evento_Ocorrido = "Você não pode confirmar presença num evento já ocorrido";
+        public static readonly string Erro_Usuario_Nao_Interessado = "Usuário não está interessado neste evento.";
+
         public override int GetNumeroPessoasComInteresse()
         {
             return Confirmados.Count;
@@ -24,11 +26,14 @@ namespace Celler.Dominio.Entidades
         public void AdicionarInteressado(Usuario usuario)
         {
             if (Confirmados.Contains(usuario))
-                AdicionarMensagem("Usuário já está confirmado neste evento.");
+                AdicionarMensagem(Erro_Usuario_Ja_Confirmado);
+
             else if (Criador.Equals(usuario))
-                AdicionarMensagem("O criador não pode confirmar presença no próprio produto");
+                AdicionarMensagem(Erro_Proprio_Evento);
+
             else if (Status == "f")
-                AdicionarMensagem("Você não pode confirmar presença num evento já ocorrido");
+                AdicionarMensagem(Erro_Evento_Ocorrido);
+
             else
                 Confirmados.Add(usuario);
 
@@ -37,7 +42,7 @@ namespace Celler.Dominio.Entidades
         public void RemoverInteressado(Usuario usuario)
         {
             if (!Confirmados.Contains(usuario))
-                AdicionarMensagem("Usuário ainda não está confirmado neste evento.");
+                AdicionarMensagem(Erro_Usuario_Nao_Interessado);
 
             Confirmados.Remove(usuario);
         }
