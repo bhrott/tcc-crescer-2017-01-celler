@@ -92,7 +92,7 @@ namespace Celler.Infraestrutura.Servicos
             {
                 EnviarEmail email = new EnviarEmail();
                 MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " se interessou no seu produto: " + this.Anuncio.Titulo);
-                email.enviar(this.UsuarioNotificar.Email, modelEmail);
+                email.Enviar(this.UsuarioNotificar.Email, modelEmail);
             }
 
             if (this.UsuarioNotificar.NotificacaoInteresseSlack == true)
@@ -113,7 +113,7 @@ namespace Celler.Infraestrutura.Servicos
             {
                 EnviarEmail email = new EnviarEmail();
                 MensagemModel modelEmail = new MensagemModel("Celler", this.Usuario.Nome + " cancelou o interesse no seu produto: " + this.Anuncio.Titulo);
-                email.enviar(this.UsuarioNotificar.Email, modelEmail);
+                email.Enviar(this.UsuarioNotificar.Email, modelEmail);
             }
 
             if (this.UsuarioNotificar.NotificacaoInteresseSlack == true)

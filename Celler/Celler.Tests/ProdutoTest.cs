@@ -1,5 +1,6 @@
 ﻿using Celler.Dominio.Entidades;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Celler.Tests
 {
@@ -23,11 +24,14 @@ namespace Celler.Tests
         public void ProdutoUsuarioJaInteressado()
         {
             Usuario usuario = new Usuario("Nome", "Email", "Senha");
+            Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
             produtoCorreto = new Produto("Titulo", "Descricao", null, null, null, usuario, 50.0);
-            produtoCorreto.AdicionarInteressado(usuario);
+            produtoCorreto.Interessados = new List<Usuario>();
+            produtoCorreto.AdicionarInteressado(usuarioLogado);
             Assert.IsTrue(produtoCorreto.Validar());
-            produtoCorreto.AdicionarInteressado(usuario);
+            produtoCorreto.AdicionarInteressado(usuarioLogado);
             Assert.IsFalse(produtoCorreto.Validar());
+            Assert.IsTrue(produtoCorreto.Mensagens.Contains(Produto.Erro_Usuario_Ja_Interessado));
         }
     }
 }
