@@ -112,7 +112,7 @@ namespace Celler.Api.Controllers
 
             if (comentario.Validar() && anuncio.Validar())
             {
-                Notificar notificar = new Notificar(usuario, anuncio, anuncio.Criador);
+                Notificar notificar = new Notificar(usuario, anuncio, anuncio.Criador, new NotificacaoRepositorio(_contexto));
                 notificar.NotificarUsuarioComentario();
                 _anuncioRepositorio.Alterar(anuncio);
                 _contexto.SaveChanges();
