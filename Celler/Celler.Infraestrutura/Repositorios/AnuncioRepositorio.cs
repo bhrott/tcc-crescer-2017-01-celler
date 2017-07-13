@@ -86,7 +86,7 @@ namespace Celler.Infraestrutura.Repositorios
                                                a.Status,
                                                a.Comentarios.Count))
                 //Status
-                .Where(a => a.Status != "d")
+                .Where(a => a.Status == "a")
                 //Filtros
                 .Where(a =>
                       (a.TipoAnuncio.ToUpper() == filtro1.ToUpper()) ||
