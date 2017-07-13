@@ -26,7 +26,7 @@ namespace Celler.Tests
         public void ComenarioNuloEhInvalidado()
         {
             usuario = new Usuario("Robson", "robson@user.com", "hash");
-            comentarioCorreto = new Comentario(null, usuario);
+            comentarioTextoNulo = new Comentario(null, usuario);
 
             Assert.IsFalse(comentarioTextoNulo.Validar());
         }

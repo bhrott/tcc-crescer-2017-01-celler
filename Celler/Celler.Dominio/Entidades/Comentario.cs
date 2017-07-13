@@ -22,8 +22,7 @@ namespace Celler.Dominio.Entidades
             DataComentario = DateTime.Now;
 
             if (string.IsNullOrWhiteSpace(texto))
-                AdicionarMensagem("Comentário não pode ser em branco.");
-
+                AdicionarMensagem("Comentário não pode estar branco.");
         }
     }
 }
