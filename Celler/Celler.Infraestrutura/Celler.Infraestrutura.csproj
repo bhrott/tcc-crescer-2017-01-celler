@@ -90,6 +90,9 @@
     <Compile Include="Repositorios\ProdutoRepositorio.cs" />
     <Compile Include="Repositorios\UsuarioRepositorio.cs" />
     <Compile Include="Repositorios\VaquinhaRepositorio.cs" />
+    <Compile Include="Servicos\EnviarEmail.cs" />
+    <Compile Include="Servicos\EnviarMensagemSlack.cs" />
+    <Compile Include="Servicos\Notificar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
