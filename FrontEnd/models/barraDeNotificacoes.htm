@@ -4,7 +4,7 @@
     <div class="card-content">
         <div class="card-user"  ng-click="habilitarNotificacoes = !habilitarNotificacoes">
             <div class="card-user-name metade">
-                <i class="fa fa-bell novas"></i><span class="title is-5"> &nbsp;Notificações</span>
+                <i ng-class="{'novas':notificacoes.length > 0}" class="fa fa-bell"></i><span class="title is-5"> &nbsp;Notificações</span>
                 <br>
             </div>
         </div>
@@ -15,19 +15,9 @@
 
 <div class="box trending metade" ng-if="habilitarNotificacoes">
     <p class="trend-title"></p>
-    <div class="box trending">
+    <div  ng-repeat="notificacao in notificacoes" class="box trending">
         <p class="trend-hashtag">
-            Fulano comentou seu evento.
-        </p>
-    </div>
-    <div class="box trending">
-        <p class="trend-hashtag">
-            Fulano doou para  sua vaquinha.
-        </p>
-    </div>
-    <div class="box trending">
-        <p class="trend-hashtag">
-            Fulano está interessado em seu produto.
+            <a href="{{notificacao.link}}?idNotificacao={{notificacao.id}}" ng-click="marcarComoLida(notificacao)"><span>{{notificacao.texto}}</span></a>
         </p>
     </div>
 </div>

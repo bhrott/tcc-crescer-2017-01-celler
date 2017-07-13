@@ -1,6 +1,7 @@
 modulo.factory("feedService", function ($http) {
     return ({
-        carregarPosts:carregarPosts
+        carregarPosts:carregarPosts,
+        carregarNotificacoes:carregarNotificacoes
     });
 
 
@@ -31,5 +32,12 @@ modulo.factory("feedService", function ($http) {
         console.log(endereco);
         return $http.get(endereco);
     }
+    
+    function carregarNotificacoes(){
+        
+        return $http.get("http://localhost:50694/api/notificacao");
+        
+    }
+    
 
 });

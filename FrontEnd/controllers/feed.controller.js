@@ -1,10 +1,53 @@
 modulo.controller('FeedController', function ($scope, authService, feedService, postService, $routeParams, $route, $location, $localStorage) {
 
     //  $scope.anuncios = [{Titulo:'Birlll', TipoAnuncio:'Vaquinha'},{Titulo:'Negativa bambam', TipoAnuncio:'Vaquinha'},{TipoAnuncio:'Produto'},{TipoAnuncio:'Evento'}];
-
+    $localStorage.idsNotificacoes = [];
     if(!authService.isAutenticado()){
         $location.path("#!/login");
     }
+    if(intervalo == null || intervalo == undefined){
+        clearInterval(intervalo);
+    }
+
+    carregarNotificacoes();
+    function carregarNotificacoes(){
+        feedService.carregarNotificacoes().then(
+            function(response){
+
+                console.log(response);
+                var resposta = response.data.dados;
+                $scope.notificacoes=resposta.filter(x => x.status == 'n');
+
+                for(notificacao of $scope.notificacoes){
+                    idsNotificacoes = $localStorage.idsNotificacoes;
+                    console.log(notificacao);
+                    if(idsNotificacoes.includes(notificacao.id) == false){
+
+                        var title = 'Celler';
+                        var options = {
+                            body: notificacao.texto,
+                            icon: 'https://thumb1.shutterstock.com/display_pic_with_logo/221737/101774380/stock-photo-sales-and-market-concept-in-word-tag-cloud-on-white-101774380.jpg'
+                        }
+                        $localStorage.idsNotificacoes.push(notificacao.id);
+                        var n = new Notification(title,options);
+                        n.onclick = function(event) {
+                            event.preventDefault(); // prevent the browser from focusing the Notification's tab
+                            window.open('http://127.0.0.1:8080/' +  notificacao.link + '?idNotificacao=' + notificacao.id, '_blank');
+                        }
+                        setTimeout(n.close.bind(n), 4000);
+                    }
+                }
+            }
+        );
+    }
+
+    var intervalo = setInterval(function(){ 
+
+        carregarNotificacoes();
+
+    }, 60000);
+
+
     $scope.busca = {};
     $scope.anuncios = [];
     $scope.habilitarBuscarMais = true;

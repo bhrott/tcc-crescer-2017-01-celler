@@ -4,6 +4,22 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
         $location.path("#!/login");
     }
 
+    if  ($routeParams.idNotificacao !== undefined){
+
+        console.log($routeParams.idNotificacao);
+        postService.cancelarNotificacao($routeParams.idNotificacao).then(
+
+
+            function(response){
+                
+                console.log(response);
+                
+            }
+
+        )
+
+    }
+
     $scope.exibirAModal = exibirModal;
     $scope.esconderAModal = esconderModal;
     var idAnuncioEspecifico = $routeParams.idAnuncio;
@@ -39,20 +55,20 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
     $scope.venderProduto = function (idInteressado){
         postService.venderProduto(idInteressado, $scope.anuncioEspecifico.Id).then(
-        
-        
+
+
             function(response){
-                
+
                 console.log(response);
                 $scope.exibirModal = false;
-                  swal("Feito!", "Vendido com sucesso!", "success");
+                swal("Feito!", "Vendido com sucesso!", "success");
                 $location.url('#!/feed');
             }
-            
+
         );
-        
+
     }
-    
+
     $scope.confirmarInteresse = function confirmarInteresse(){
         postService.interessarProduto($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id).then(
 
@@ -77,7 +93,7 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
         );
     }
-    
+
     $scope.confirmarPresenca = function confirmarPresenca(){
         postService.confirmarEvento($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id).then(
 
@@ -102,21 +118,21 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
         );
     }
-    
+
     $scope.doarVaquinha = function doarVaquinha(valorDoado){
-        
+
         console.log(valorDoado);
         postService.doarVaquinha($localStorage.usuarioLogado.Id, $scope.anuncioEspecifico.Id, valorDoado).then(
-        
+
             function(response){
-                
+
                 console.log(response);
                 $scope.doou = true;
-                
+
             }
-        
+
         )
-        
+
     }
 
 
