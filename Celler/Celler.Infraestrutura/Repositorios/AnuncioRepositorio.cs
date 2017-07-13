@@ -30,7 +30,7 @@ namespace Celler.Infraestrutura.Repositorios
                 .FirstOrDefault(a => a.Id == id);
         }
 
-        public List<AnuncioModelFeed> ObterUltimosAnuncios(int pagina, Usuario usuarioLogado)
+        public List<AnuncioModelFeed> ObterAnunciosUsuario(int pagina, Usuario usuarioLogado)
         {
             //
             // Devido ao fato da classe abstrata não conter todo o necessário, a querry só retorna 
@@ -40,6 +40,7 @@ namespace Celler.Infraestrutura.Repositorios
                  .Include(a => a.Criador)
                  .Include(a => a.Comentarios)
                  .OrderByDescending(a => a.DataAnuncio)
+                 .Where(x => x.Criador.Id == usuarioLogado.Id)
                  .AsEnumerable()
                  .Select(a => new AnuncioModelFeed(a.Id,
                                                 a.Titulo,

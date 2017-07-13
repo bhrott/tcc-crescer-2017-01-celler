@@ -31,11 +31,11 @@ namespace Celler.Api.Controllers
             _vaquinhaRepositorio = new VaquinhaRepositorio(_contexto);
         }
 
-        [HttpGet, Route("feed/{pagina:int}")]
+        [HttpGet, Route("meus/{pagina:int}")]
         public HttpResponseMessage ObterUltimosAnuncios(int pagina)
         {
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, usuarioLogado);
+            var anuncios = _anuncioRepositorio.ObterAnunciosUsuario(pagina, usuarioLogado);
             return ResponderOk(anuncios );
         }
 

@@ -34,6 +34,10 @@ namespace Celler.Dominio.Entidades
         {
             if (Interessados.Contains(usuario))
                 AdicionarMensagem("Usuário já está interessado neste produto.");
+            else if (Criador.Equals(usuario))
+                AdicionarMensagem("O criador não pode se interessar pelo seu próprio produto");
+            else if (Status == "f")
+                AdicionarMensagem("Você não pode se interessar por um produto vendido");
             else
                 Interessados.Add(usuario);
 
