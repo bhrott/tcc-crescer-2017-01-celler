@@ -2,6 +2,7 @@
 using Celler.Api.Models;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
+using Celler.Infraestrutura.Servicos;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
@@ -45,6 +46,8 @@ namespace Celler.Api.Controllers
             
             if (produto.Validar())
             {
+                Notificar notificar = new Notificar(usuario, produto, produto.Criador);
+                notificar.NotificarUsuarioInteresse();
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();
                 return ResponderOk(new { texto = "Interesse salvo com sucesso" });
@@ -77,6 +80,8 @@ namespace Celler.Api.Controllers
 
             if (produto.Validar())
             {
+                Notificar notificar = new Notificar(usuario, produto, produto.Criador);
+                notificar.NotificarUsuarioDesinteresse();
                 _produtoRepositorio.Alterar(produto);
                 _contexto.SaveChanges();
                 return ResponderOk(new { texto = "Desinteresse salvo com sucesso" });

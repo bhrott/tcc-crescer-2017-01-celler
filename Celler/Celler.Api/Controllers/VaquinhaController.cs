@@ -3,6 +3,7 @@ using Celler.Api.Models;
 using Celler.Dominio.Entidades;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
+using Celler.Infraestrutura.Servicos;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
@@ -47,6 +48,8 @@ namespace Celler.Api.Controllers
 
             if (doador.Validar())
             {
+                Notificar notificar = new Notificar(usuario, vaquinha, vaquinha.Criador);
+                notificar.NotificarUsuarioDoacaoVaquinha();
                 _vaquinhaRepositorio.Alterar(vaquinha);
                 _contexto.SaveChanges();
                 return ResponderOk(new { texto = "Valor doado com sucesso" });

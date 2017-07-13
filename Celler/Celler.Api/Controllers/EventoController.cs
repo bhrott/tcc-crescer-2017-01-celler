@@ -4,6 +4,7 @@ using Celler.Dominio.Entidades;
 using Celler.Dominio.Models;
 using Celler.Infraestrutura;
 using Celler.Infraestrutura.Repositorios;
+using Celler.Infraestrutura.Servicos;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
@@ -47,10 +48,8 @@ namespace Celler.Api.Controllers
 
             if (evento.Validar())
             {
-                EnviarEmail email = new EnviarEmail();
-                MensagemModel modelEmail = new MensagemModel("Celler", usuario.Nome + " confirmou presença no seu evento: " + evento.Titulo);
-                email.enviar("lucas.damaceno@cwi.com.br", modelEmail);
-                EnviarMensagemSlack enviar = new EnviarMensagemSlack(usuario.CanalSlack, usuario.Nome + " confirmou presença no seu evento: " + evento.Titulo);
+                Notificar notificar = new Notificar(usuario, evento, evento.Criador);
+                notificar.NotificarUsuarioEvento();
                 _eventoRepositorio.Alterar(evento);
                 _contexto.SaveChanges();
                 return ResponderOk(new { texto = "Interesse salvo com sucesso" });
@@ -83,6 +82,8 @@ namespace Celler.Api.Controllers
 
             if (evento.Validar())
             {
+                Notificar notificar = new Notificar(usuario, evento, evento.Criador);
+                notificar.NotificarUsuarioDesistirEvento();
                 _eventoRepositorio.Alterar(evento);
                 _contexto.SaveChanges();
                 return ResponderOk(new { texto = "Interesse salvo com sucesso" });
