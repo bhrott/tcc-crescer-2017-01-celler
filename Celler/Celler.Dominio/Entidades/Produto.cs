@@ -20,10 +20,11 @@ namespace Celler.Dominio.Entidades
         public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
             : base(titulo, descricao, usuarioLogado, Entidades.TipoAnuncio.PRODUTO, foto1, foto2, foto3)
         {
-            this.Valor = valor;
-
             if (valor < 5)
                 AdicionarMensagem(Erro_Preco_Inferior_5Reais);
+
+            else
+                this.Valor = valor;
         }
 
         public override int GetNumeroPessoasComInteresse()
@@ -36,14 +37,13 @@ namespace Celler.Dominio.Entidades
             if (Interessados.Contains(usuario))
                 AdicionarMensagem(Erro_Usuario_Ja_Interessado);
 
-            else if (Criador.Equals(usuario))
+            if (Criador.Equals(usuario))
                 AdicionarMensagem(Erro_Proprio_Produto);
 
-            else if (Status == "f")
+            if (Status == "f")
                 AdicionarMensagem(Erro_Produto_Vendido);
 
-            else
-                Interessados.Add(usuario);
+            Interessados.Add(usuario);
 
         }
 
