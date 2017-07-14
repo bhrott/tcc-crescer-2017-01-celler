@@ -146,6 +146,38 @@ namespace Celler.Api.Controllers
             }
         }
 
+        [HttpPut, Route("editar")]
+        public HttpResponseMessage EdotarProduto(EditarProdutoModel model)
+        {
+            var produto = _produtoRepositorio.ObterPorId(model.Id);
+
+            if (produto == null)
+            {
+                return ResponderErro("Produto inválido");
+            }
+
+            var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
+
+            if(produto.Criador != usuarioLogado)
+            {
+                return ResponderErro("Você não possui permissão para editar esse produto");
+            }
+
+            if (produto.Validar())
+            {
+                produto.Alterar(produto, model.Titulo, model.Descricao, model.Foto1, model.Foto2,
+                    model.Foto3, model.Valor);
+
+                _produtoRepositorio.Alterar(produto);
+                _contexto.SaveChanges();
+                return ResponderOk(new { texto = "Produto alterado com sucesso" });
+            }
+            else
+            {
+                return ResponderErro(produto.Mensagens);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
