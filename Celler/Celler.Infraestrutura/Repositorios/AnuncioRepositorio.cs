@@ -99,6 +99,7 @@ namespace Celler.Infraestrutura.Repositorios
                       : true))
                 .Skip(pagina)
                 .Take(9)
+                .OrderByDescending( x=> x.Id)
                 .ToList();
 
             PreencherInformacoesAdicionaisEspecificas(anuncios, usuarioLogado);
