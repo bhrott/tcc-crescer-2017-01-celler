@@ -1,20 +1,14 @@
 ﻿CREATE PROCEDURE P_UPDATE_DATAS
 AS
+	UPDATE Anuncio set status = 'f' where id IN
+	(SELECT distinct (a.Id) FROM Anuncio a
+	JOIN Evento e ON a.Id = e.Id
+	WHERE DataRealizacao > GETDATE())
 
-UPDATE Anuncio  
-	SET status = 'f'
-	WHERE EXISTS(SELECT COUNT (Id) 
-					FROM Evento e
-					WHERE DataRealizacao > getdate()
-					)
-
-UPDATE Anuncio  
-	SET status = 'f'
-	WHERE EXISTS(SELECT COUNT (Id) 
-					FROM Vaquinha v
-					WHERE DateTermino > getdate()
-					)
-
+	UPDATE Anuncio set status = 'f' where id IN
+	(SELECT distinct (a.Id) FROM Anuncio a
+	JOIN Vaquinha v ON a.Id = v.Id
+	WHERE DateTermino > GETDATE())
 
 
 
