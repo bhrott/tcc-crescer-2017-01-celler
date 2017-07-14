@@ -14,17 +14,25 @@ namespace Celler.Dominio.Entidades
         protected Evento() { }
 
         public Evento (string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, 
-                        DateTime DataRealizacao, DateTime DataMaximaConfirmacao,  double valorPessoa) 
+                        string local, DateTime dataRealizacao, DateTime dataMaximaConfirmacao,  double valorPessoa) 
             : base(titulo, descricao, usuarioLogado, Entidades.TipoAnuncio.EVENTO, foto1, foto2, foto3)
         {
-            if (DataRealizacao < DataMaximaConfirmacao)
+            if (dataRealizacao < dataMaximaConfirmacao)
                 AdicionarMensagem(Erro_Data_Confirmacao_Maior_Data_Realizacao);
 
-            if (ValorPorPessoa < 0)
+            if (valorPessoa < 0)
                 AdicionarMensagem(Erro_Valor_Por_Pessoa_Negativo);
 
-            if (string.IsNullOrEmpty(Local))
-                AdicionarMensagem(Erro_Data_Confirmacao_Maior_Data_Realizacao);
+            if (string.IsNullOrEmpty(local))
+                AdicionarMensagem(Erro_Local_Vazio);
+
+            else
+            {
+                DataRealizacao = dataRealizacao;
+                Local = local;
+                DataMaximaConfirmacao = dataMaximaConfirmacao;
+                ValorPorPessoa = valorPessoa;
+            }
         }
 
         public static readonly string Erro_Usuario_Ja_Confirmado = "Usuário já está confirmado neste evento.";
@@ -48,7 +56,7 @@ namespace Celler.Dominio.Entidades
             else if (Criador.Equals(usuario))
                 AdicionarMensagem(Erro_Proprio_Evento);
 
-            else if (Status == "f" || DataRealizacao > DateTime.Now)
+            else if (Status == "f" || DataMaximaConfirmacao < DateTime.Now)
                 AdicionarMensagem(Erro_Evento_Data_Maxima);
 
             else if (DataRealizacao < DataMaximaConfirmacao)

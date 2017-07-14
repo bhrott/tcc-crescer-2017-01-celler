@@ -20,10 +20,11 @@ namespace Celler.Dominio.Entidades
         public Produto(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double valor)
             : base(titulo, descricao, usuarioLogado, Entidades.TipoAnuncio.PRODUTO, foto1, foto2, foto3)
         {
-            this.Valor = valor;
-
             if (valor < 5)
                 AdicionarMensagem(Erro_Preco_Inferior_5Reais);
+
+            else
+                this.Valor = valor;
         }
 
         public override int GetNumeroPessoasComInteresse()
