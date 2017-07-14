@@ -32,7 +32,8 @@ modulo.controller('PostController', function ($scope, authService,postService, $
             postService.cadastrarProduto(produto).then(
             
                 function(response){
-                    console.log(response);
+                    swal("Sucesso", "Produto Cadastrado com sucesso.", "success");
+                    $location.path('/feed');
                 }
                 
             );

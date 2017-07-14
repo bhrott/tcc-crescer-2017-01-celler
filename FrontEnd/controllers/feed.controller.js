@@ -8,6 +8,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     if(intervalo == null || intervalo == undefined){
         clearInterval(intervalo);
     }
+    $scope.isFeed = true;
 
     carregarNotificacoes();
     function carregarNotificacoes(){
@@ -121,7 +122,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         resposta.ValorProduto = 0;
                     }
                     if (resposta.Foto1 == null){
-                        resposta.Foto1 = 'https://placehold.it/256x256';
+                        resposta.Foto1 = 'http://placehold.it/256x256?text=Sem+Imagem+:(';
                     }
                     if (resposta.Foto2 == null){
                         resposta.Foto2 = 'https://placehold.it/256x256';
@@ -131,7 +132,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                     }
                 }
                 console.log($scope.anuncios);
-                if(response.data.dados.length != 3){
+                if(response.data.dados.length != 9){
                     $scope.habilitarBuscarMais = false;
                 }
             }
@@ -140,7 +141,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
 
     function carregarMais(){
         console.log('entrei aqui');
-        $routeParams.pagina += 3;
+        $routeParams.pagina += 9;
         carregarPosts($routeParams);
     }
 

@@ -60,5 +60,15 @@ namespace Celler.Dominio.Entidades
             this.Comprador = usuario;
             this.Status = "f";
         }
+
+        public void Alterar(Produto produto, string titulo, string descricao, string foto1, string foto2, string foto3, double valor)
+        {
+            produto.Titulo = titulo;
+            produto.Descricao = descricao;
+            produto.Foto1 = foto1;
+            produto.Foto2 = foto2;
+            produto.Foto3 = foto3;
+            produto.Valor = valor;
+        }
     }
 }
