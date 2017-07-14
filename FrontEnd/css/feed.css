@@ -1,6 +1,6 @@
 
 .fa-bell.novas{
-    
+
     color:#b3c10f;
 }
 .confirmado{
@@ -23,14 +23,28 @@
     left:142px;
 }
 .novoPostTablet{
-position:
-    position:relative;
+    position:
+        position:relative;
     right:1%;
 }
 .ajustarDireita{
     margin-right:-28px;
 }
 
+.nav-item a:not(.button).is-tab.is-active, a.nav-item:not(.button).is-tab.is-active {
+    border-bottom: 3px solid #21f50f;
+    color: #21f50f;
+    padding-bottom: calc(.75rem - 3px);
+}
+
+.nav-item a:not(.button).is-tab:hover, a.nav-item:not(.button).is-tab:hover {
+    border-bottom-color: #21f50f;
+    border-top-color: transparent;
+}
+
+a{
+    color: #21f50f;
+}
 .footerOffset{
     position:relative;
     right:-5%;

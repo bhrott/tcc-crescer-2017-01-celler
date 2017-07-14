@@ -36,14 +36,9 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
         function(response){
             console.log(idAnuncioEspecifico);
             if(response.data.dados.Foto1 == null){
-                response.data.dados.Foto1 = 'https://placehold.it/256x256';
+                response.data.dados.Foto1 = 'http://placehold.it/256x256?text=Sem+Imagem+:(';
             }
-            if(response.data.dados.Foto2 == null){
-                response.data.dados.Foto2 = 'https://placehold.it/128x128';
-            }
-            if(response.data.dados.Foto3 == null){
-                response.data.dados.Foto3 = 'https://placehold.it/128x128';
-            }
+
             $scope.anuncioEspecifico = response.data.dados;
             console.log($scope.anuncioEspecifico);
             checarInteresse();
@@ -75,8 +70,8 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
             function(response){
                 console.log(response);
-                $scope.temInteresse = true;
-                $scope.anuncioEspecifico.Interessados.push({Email:$localStorage.usuarioLogado.Email, Nome:$localStorage.usuarioLogado.Nome});
+                $scope.anuncioEspecifico.TemInteresse = true;
+                $scope.anuncioEspecifico.NumeroInteressados += 1;
             }
 
         );
@@ -87,8 +82,8 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
 
             function(response){
                 console.log(response);
-                $scope.temInteresse = false;
-                $scope.anuncioEspecifico.Interessados.pop();
+                $scope.anuncioEspecifico.TemInteresse = false;
+                $scope.anuncioEspecifico.NumeroInteressados -= 1;
 
             }
 

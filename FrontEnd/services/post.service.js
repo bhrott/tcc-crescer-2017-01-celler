@@ -11,7 +11,8 @@ modulo.factory("postService", function ($http) {
         cadastrarEvento:cadastrarEvento,
         cadastrarProduto:cadastrarProduto,
         cancelarNotificacao:cancelarNotificacao,
-        aceitarDoacao:aceitarDoacao
+        aceitarDoacao:aceitarDoacao,
+        editarProduto:editarProduto
     });
 
 
@@ -20,6 +21,27 @@ modulo.factory("postService", function ($http) {
         console.log(enviar);
         return $http.post("http://localhost:50694/api/anuncio/comentar", enviar);
     }
+
+    function editarProduto(produto){
+
+        console.log(produto);
+        var objetoEnvio = {
+
+            Id: produto.Id,
+            Titulo: produto.Titulo,
+            Descricao: produto.Descricao,
+            Foto1: produto.Foto1,
+            Foto2: produto.Foto2,
+            Foto3: produto.Foto3,
+            Valor: produto.Valor
+
+
+        }
+        
+        return $http.put('http://localhost:50694/api/produto/editar', objetoEnvio);
+
+
+        }
 
     function interessarProduto(idUser, idProduto){
         var objetoEnvio = {
@@ -86,7 +108,7 @@ modulo.factory("postService", function ($http) {
             Valor:produto.Valor
         }
         console.log(objetoEnvio);
-        
+
         return $http.post("http://localhost:50694/api/produto/adicionar", objetoEnvio)
 
     }

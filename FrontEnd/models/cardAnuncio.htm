@@ -13,17 +13,17 @@
         <div class="panel-block-item">
             <span class="likes">
                 <span class="confirmado" ng-if="anuncio.TemInteresse && !anuncio.Postou">
-               Você está interessado  :)
+                    Você está interessado  :)
                 </span>
-                 <span style="font-size:14pt;" ng-if="anuncio.Postou">
-              Esse produto é seu :)
+                <span style="font-size:14pt;" ng-if="anuncio.Postou">
+                    Esse produto é seu :)
                 </span>
                 <br ng-if="anuncio.Postou || anuncio.TemInteresse && !anuncio.Postou">
-              
+
                 <span  ng-if="anuncio.TemInteresse && !anuncio.Postou" ng-click="desinteressar(anuncio)" class="icon">
                     <i class="fa fa-money confirmado"></i>
                 </span>
-                 <span  ng-if="anuncio.Postou" class="icon">
+                <span  ng-if="anuncio.Postou" class="icon">
                     <i class="fa fa-money"></i>
                 </span>
                 <span ng-if="!anuncio.TemInteresse && !anuncio.Postou" ng-click="interessar(anuncio)" class="icon">
@@ -36,7 +36,6 @@
                 <span class="icon">
                     <i class="fa fa-cart-plus"></i> &nbsp;{{anuncio.NumeroInteressados}}
                 </span>
-
             </span>
             &nbsp;&nbsp;
             <span class="comments">
