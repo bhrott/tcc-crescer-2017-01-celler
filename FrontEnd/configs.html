@@ -40,7 +40,7 @@
                         <label class="label">Quando alguém doar para minha vaquinha. </label>
                         <input type="checkbox" ng-model="usuario.NotificacaoDoacaoVaquinhaBrowser"><label> Me avisar via Browser.</label> <br>
                         <input type="checkbox" ng-model="usuario.NotificacaoDoacaoVaquinhaEmail"><label> Me avisar via Email.</label> <br>
-                        <input type="checkbox" ng-model="usuario.NotificacaoDoacaoVaquinhaSlack"><label> Me avisar via Slack.</label> 
+                        <input type="checkbox" ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''" ng-model="usuario.NotificacaoDoacaoVaquinhaSlack"><label ng-if="usuario.CanalSlack != null && usuario.CanalSlack != ''"> Me avisar via Slack.</label> 
                     </div>
                 </div>
                 <p class="control">

@@ -23,7 +23,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                     idsNotificacoes = $localStorage.idsNotificacoes;
                     console.log(notificacao);
                     if(idsNotificacoes.includes(notificacao.id) == false){
-
+                        console.log(notificacao.id);
                         var title = 'Celler';
                         var options = {
                             body: notificacao.texto,
@@ -32,6 +32,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         $localStorage.idsNotificacoes.push(notificacao.id);
                         var n = new Notification(title,options);
                         n.onclick = function(event) {
+                        
                             event.preventDefault(); // prevent the browser from focusing the Notification's tab
                             window.open('http://127.0.0.1:8080/' +  notificacao.link + '?idNotificacao=' + notificacao.id, '_blank');
                         }
