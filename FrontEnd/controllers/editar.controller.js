@@ -14,7 +14,7 @@ modulo.controller('EditarController', function ($scope, authService, postService
 
             function(response){
                 swal("Sucesso!", "Produto alterado com sucesso.", "success");
-                $location.path('/anuncio/'+idAnuncio);
+                $location.path('/anuncio/'+$routeParams.idAnuncio);
             });
 
 

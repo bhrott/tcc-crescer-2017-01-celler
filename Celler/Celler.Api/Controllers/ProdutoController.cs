@@ -138,7 +138,7 @@ namespace Celler.Api.Controllers
             {
                 _produtoRepositorio.Salvar(produto);
                 _contexto.SaveChanges();
-                return ResponderOk(new { texto = "Produto adicionado com sucesso" });
+                return ResponderOk(new { Id = produto.Id });
             }
             else
             {
