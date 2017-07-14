@@ -15,7 +15,7 @@ namespace Celler.Dominio.Entidades
         public Vaquinha(string titulo, string descricao, string foto1, string foto2, string foto3, Usuario usuarioLogado, double arrecadamentoPrevisto, DateTime dataTermino)
             :base(titulo, descricao, usuarioLogado, Entidades.TipoAnuncio.VAQUINHA, foto1, foto2, foto3)
         {
-            if (DateTermino < DateTime.Now)
+            if (dataTermino < DateTime.Now)
                 AdicionarMensagem(Erro_Data_Termino_Ja_Passou);
 
             if(arrecadamentoPrevisto < 0)
@@ -40,11 +40,11 @@ namespace Celler.Dominio.Entidades
         }
 
         public void AdicionarDoador(Doador doador)
-        {
-            if (Status == "f")
+        { 
+            if (Status == "f" || DateTermino < DateTime.Now)
                 AdicionarMensagem(Erro_Vaquinha_Fechada);
-            else
-                Doadores.Add(doador);
+            
+            Doadores.Add(doador);
         }
 
         public void IncrementarTotal(double valorRecebido)
