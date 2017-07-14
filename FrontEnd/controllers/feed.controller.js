@@ -122,7 +122,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         resposta.ValorProduto = 0;
                     }
                     if (resposta.Foto1 == null){
-                        resposta.Foto1 = 'https://placehold.it/256x256';
+                        resposta.Foto1 = 'http://placehold.it/256x256?text=Sem+Imagem+:(';
                     }
                     if (resposta.Foto2 == null){
                         resposta.Foto2 = 'https://placehold.it/256x256';
