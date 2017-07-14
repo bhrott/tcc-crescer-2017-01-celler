@@ -17,6 +17,29 @@ namespace Celler.Tests.Testes
         }
 
         [TestMethod]
+        public void ConfirmarParticipacaoOk()
+        {
+            Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
+            Usuario usuarioOutro = new Usuario("Outro", "Outro", "Senha");
+            Evento evento = new Evento("Titulo", "Descricao", null, null, null, usuarioOutro, "CWI", new DateTime(2017, 10, 18), new DateTime(2017, 10, 08), 20.0);
+            evento.Confirmados = new List<Usuario>();
+            evento.AdicionarInteressado(usuarioLogado);
+            Assert.IsTrue(evento.Validar());
+        }
+
+        [TestMethod]
+        public void RemoverParticipacaoOk()
+        {
+            Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
+            Usuario usuarioOutro = new Usuario("Outro", "Outro", "Senha");
+            Evento evento = new Evento("Titulo", "Descricao", null, null, null, usuarioOutro, "CWI", new DateTime(2017, 10, 18), new DateTime(2017, 10, 08), 20.0);
+            evento.Confirmados = new List<Usuario>();
+            evento.AdicionarInteressado(usuarioLogado);
+            evento.RemoverInteressado(usuarioLogado);
+            Assert.IsTrue(evento.Validar());
+        }
+
+        [TestMethod]
         public void DataConfirmacaoMaiorQueRealizacaoErro()
         {
             Usuario usuarioLogado = new Usuario("Logado", "Logado", "Senha");
@@ -90,6 +113,24 @@ namespace Celler.Tests.Testes
             evento.AdicionarInteressado(usuarioLogado);
             Assert.IsFalse(evento.Validar());
             Assert.IsTrue(evento.Mensagens.Contains(Evento.Erro_Evento_Data_Maxima));
+        }
+
+        [TestMethod]
+        public void DataRealizacaoJaPassou()
+        {
+            Usuario usuarioOutro = new Usuario("Outro", "Outro", "Senha");
+            Evento evento = new Evento("Titulo", "Descricao", null, null, null, usuarioOutro, "CWI", new DateTime(2014, 10, 18), new DateTime(2014, 10, 08), 20.0);
+            Assert.IsFalse(evento.Validar());
+            Assert.IsTrue(evento.Mensagens.Contains(Evento.Erro_Data_Realizacao_Ja_Passou));
+        }
+
+        [TestMethod]
+        public void DataMaximaConfirmacaoJaPassou()
+        {
+            Usuario usuarioOutro = new Usuario("Outro", "Outro", "Senha");
+            Evento evento = new Evento("Titulo", "Descricao", null, null, null, usuarioOutro, "CWI", new DateTime(2014, 10, 18), new DateTime(2014, 10, 08), 20.0);
+            Assert.IsFalse(evento.Validar());
+            Assert.IsTrue(evento.Mensagens.Contains(Evento.Erro_Data_Confirmacao_Ja_Passou));
         }
     }
 }

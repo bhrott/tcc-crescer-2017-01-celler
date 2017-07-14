@@ -12,7 +12,7 @@ namespace Celler.Tests
         Comentario comentarioTextoVazio;
 
         [TestMethod]
-        public void ComenarioCorretoEhValidado()
+        public void ComentarioCorretoEhValidado()
         {
             usuario = new Usuario("Robson", "robson@user.com", "hash");
             comentarioCorreto = new Comentario("Comentario bombante", usuario);
@@ -21,7 +21,7 @@ namespace Celler.Tests
         }
 
         [TestMethod]
-        public void ComenarioNuloEhInvalidado()
+        public void ComentarioNuloEhInvalidado()
         {
             usuario = new Usuario("Robson", "robson@user.com", "hash");
             comentarioTextoNulo = new Comentario(null, usuario);
@@ -30,7 +30,7 @@ namespace Celler.Tests
         }
 
         [TestMethod]
-        public void ComenarioVazioEhInvalidado()
+        public void ComentarioVazioEhInvalidado()
         {
             usuario = new Usuario("Robson", "robson@user.com", "hash");
             comentarioTextoVazio = new Comentario("" ,usuario);

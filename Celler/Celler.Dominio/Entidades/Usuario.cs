@@ -89,8 +89,8 @@ namespace Celler.Dominio.Entidades
                                                      notificacaoDoacaoVaquinhaSlack))
                 AdicionarMensagem("O canal do slack é nulo!");
 
-            else
-                CanalSlack = canalSlack;
+            
+            CanalSlack = canalSlack;
         }
 
         public string ResetarSenha()

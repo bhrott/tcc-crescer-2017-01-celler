@@ -26,6 +26,15 @@ namespace Celler.Dominio.Entidades
             if (string.IsNullOrEmpty(local))
                 AdicionarMensagem(Erro_Local_Vazio);
 
+            if (dataRealizacao < dataMaximaConfirmacao)
+                AdicionarMensagem(Erro_Data_Confirmacao_Maior_Data_Realizacao);
+
+            if (dataRealizacao < DateTime.Now)
+                AdicionarMensagem(Erro_Data_Realizacao_Ja_Passou);
+
+            if (dataMaximaConfirmacao < DateTime.Now)
+                AdicionarMensagem(Erro_Data_Confirmacao_Ja_Passou);
+
             else
             {
                 DataRealizacao = dataRealizacao;
@@ -42,6 +51,8 @@ namespace Celler.Dominio.Entidades
         public static readonly string Erro_Data_Confirmacao_Maior_Data_Realizacao = "A data máxima para confirmação não pode ser maior que a data de realização.";
         public static readonly string Erro_Valor_Por_Pessoa_Negativo = "O valor por pessoa não pode ser negativo";
         public static readonly string Erro_Local_Vazio = "O local precisa ser informado";
+        public static readonly string Erro_Data_Realizacao_Ja_Passou = "A data de realização é inválida.";
+        public static readonly string Erro_Data_Confirmacao_Ja_Passou = "A data máxima para confirmação é inválida.";
 
         public override int GetNumeroPessoasComInteresse()
         {
@@ -53,17 +64,13 @@ namespace Celler.Dominio.Entidades
             if (Confirmados.Contains(usuario))
                 AdicionarMensagem(Erro_Usuario_Ja_Confirmado);
 
-            else if (Criador.Equals(usuario))
+            if (Criador.Equals(usuario))
                 AdicionarMensagem(Erro_Proprio_Evento);
 
-            else if (Status == "f" || DataMaximaConfirmacao < DateTime.Now)
+            if (Status == "f" || DataMaximaConfirmacao < DateTime.Now)
                 AdicionarMensagem(Erro_Evento_Data_Maxima);
 
-            else if (DataRealizacao < DataMaximaConfirmacao)
-                AdicionarMensagem(Erro_Data_Confirmacao_Maior_Data_Realizacao);
-
-            else
-                Confirmados.Add(usuario);
+            Confirmados.Add(usuario);
 
         }
 

@@ -37,14 +37,13 @@ namespace Celler.Dominio.Entidades
             if (Interessados.Contains(usuario))
                 AdicionarMensagem(Erro_Usuario_Ja_Interessado);
 
-            else if (Criador.Equals(usuario))
+            if (Criador.Equals(usuario))
                 AdicionarMensagem(Erro_Proprio_Produto);
 
-            else if (Status == "f")
+            if (Status == "f")
                 AdicionarMensagem(Erro_Produto_Vendido);
 
-            else
-                Interessados.Add(usuario);
+            Interessados.Add(usuario);
 
         }
 
