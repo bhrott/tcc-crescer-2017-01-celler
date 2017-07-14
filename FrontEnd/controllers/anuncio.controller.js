@@ -19,7 +19,7 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
         )
 
     }
-    
+
     $scope.logout = logout;
     $scope.exibirAModal = exibirModal;
     $scope.esconderAModal = esconderModal;
@@ -135,8 +135,8 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
         )
 
     }
-    
-    
+
+
     function logout(){
         authService.logout();
     }
@@ -180,10 +180,13 @@ modulo.controller('AnuncioController', function ($scope, authService, postServic
     }
 
     function postar(texto){
+
         postService.postarComentario(texto, idAnuncioEspecifico).then(
 
             function(response){
                 console.log(response.data.dados);
+                var novoComentario = {Usuario : {Nome:$localStorage.usuarioLogado.Nome, Email:$localStorage.usuarioLogado.Email}, Texto:texto};
+                $scope.anuncioEspecifico.Comentarios.push(novoComentario);
                 $scope.produto.Comentario = '';
 
             },
