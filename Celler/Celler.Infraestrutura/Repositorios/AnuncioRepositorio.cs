@@ -52,7 +52,8 @@ namespace Celler.Infraestrutura.Repositorios
                                                 a.Foto3,
                                                 a.Criador.Nome,
                                                 a.Status,
-                                                a.Comentarios.Count))
+                                                a.Comentarios.Count,
+                                                a.Criador.Id))
                  //Status
                  .Where(a => a.Status != "d")
                  .Skip(pagina)
@@ -67,7 +68,7 @@ namespace Celler.Infraestrutura.Repositorios
             return anuncios;
         }
 
-        public dynamic ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado)
+        public dynamic ObterUltimosAnuncios(int pagina, string filtro1, string filtro2, string filtro3, string search, Usuario usuarioLogado, bool meusAds)
         {
             List<AnuncioModelFeed> anuncios = _contexto.Anuncio
                 .Include(a => a.Criador)
@@ -84,7 +85,8 @@ namespace Celler.Infraestrutura.Repositorios
                                                a.Foto3,
                                                a.Criador.Nome,
                                                a.Status,
-                                               a.Comentarios.Count))
+                                               a.Comentarios.Count,
+                                               a.Criador.Id))
                 //Status
                 .Where(a => a.Status == "a")
                 //Filtros
@@ -92,6 +94,7 @@ namespace Celler.Infraestrutura.Repositorios
                       (a.TipoAnuncio.ToUpper() == filtro1.ToUpper()) ||
                       (filtro2 != null ? a.TipoAnuncio.ToUpper() == filtro2.ToUpper() : false) ||
                       (filtro3 != null ? a.TipoAnuncio.ToUpper() == filtro3.ToUpper() : false))
+                .Where(a => (meusAds == true ? a.IdCriador == usuarioLogado.Id : true ))
                 //Busca
                 .Where(a => (search != null ?
                       a.Titulo.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0 ||

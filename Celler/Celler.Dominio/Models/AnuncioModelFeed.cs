@@ -16,6 +16,7 @@ namespace Celler.Dominio.Models
         public string Foto1 { get; set; }
         public string Foto2 { get; set; }
         public string Foto3 { get; set; }
+        public int IdCriador { get; set; }
         public string NomeCriador { get; set; }
         public string Status { get; set; }
         public int NumeroComentarios { get; set; }
@@ -25,7 +26,7 @@ namespace Celler.Dominio.Models
         public bool Postou { get; set; }
 
 
-        public AnuncioModelFeed(int id, string titulo, string descricao, DateTime dataAnuncio, string tipoAnuncio, string foto1, string foto2, string foto3, string nomeCriador, string status, int numeroComentarios)
+        public AnuncioModelFeed(int id, string titulo, string descricao, DateTime dataAnuncio, string tipoAnuncio, string foto1, string foto2, string foto3, string nomeCriador, string status, int numeroComentarios, int idCriador)
         {
             Id = id;
             Titulo = titulo;
@@ -36,6 +37,7 @@ namespace Celler.Dominio.Models
             Foto2 = foto2;
             Foto3 = foto3;
             NomeCriador = nomeCriador;
+            IdCriador = idCriador;
             Status = status;
             NumeroComentarios = numeroComentarios;
         }

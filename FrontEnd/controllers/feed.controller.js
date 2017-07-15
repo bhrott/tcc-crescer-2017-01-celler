@@ -1,6 +1,6 @@
 modulo.controller('FeedController', function ($scope, authService, feedService, postService, $routeParams, $route, $location, $localStorage) {
 
-    //  $scope.anuncios = [{Titulo:'Birlll', TipoAnuncio:'Vaquinha'},{Titulo:'Negativa bambam', TipoAnuncio:'Vaquinha'},{TipoAnuncio:'Produto'},{TipoAnuncio:'Evento'}];
+    $scope.carregarMeusAds = carregarMeusAds;
     $localStorage.idsNotificacoes = [];
     if(!authService.isAutenticado()){
         $location.path("#!/login");
@@ -61,6 +61,11 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
 
         $routeParams.pagina = 0;
 
+    }
+    
+    if ($routeParams.meusAds == true ){
+        $scope.isMyAds = true;
+        $scope.isFeed = false;
     }
     carregarPosts($routeParams);
     $scope.carregarMais = carregarMais;
@@ -144,6 +149,18 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         console.log('entrei aqui');
         $routeParams.pagina += 9;
         carregarPosts($routeParams);
+    }
+    
+    function carregarMeusAds(){
+            $scope.anuncios = [];
+        $scope.isFeed = false;
+        $scope.isMyAds = true;
+        console.log('entrei meus ads');
+        $routeParams = {};
+        var objetoBusca = {pagina : 0,
+        meusAds : true}
+        $route.updateParams(objetoBusca);
+        carregarPosts();
     }
 
     function logout(){

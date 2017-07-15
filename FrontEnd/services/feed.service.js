@@ -29,6 +29,9 @@ modulo.factory("feedService", function ($http) {
             endereco +="&search=";
             endereco += parametros.search;
         }
+        if(parametros.meusAds !== undefined){
+               endereco += "&meusAds=true";   
+        }
         console.log(endereco);
         return $http.get(endereco);
     }

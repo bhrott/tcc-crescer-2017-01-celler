@@ -36,11 +36,11 @@ namespace Celler.Api.Controllers
         {
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
             var anuncios = _anuncioRepositorio.ObterAnunciosUsuario(pagina, usuarioLogado);
-            return ResponderOk(anuncios );
+            return ResponderOk(anuncios);
         }
 
         [HttpGet, Route("feed")]
-        public HttpResponseMessage ObterUltimosAnunciosFiltrados(int pagina, string filtro1 = null, string filtro2 = null, string filtro3 = null, string search = null)
+        public HttpResponseMessage ObterUltimosAnunciosFiltrados(int pagina, string filtro1 = null, string filtro2 = null, string filtro3 = null, string search = null, bool meusAds = false)
         {
             if (filtro1 == null)
             {
@@ -50,7 +50,7 @@ namespace Celler.Api.Controllers
             }
 
             var usuarioLogado = _usuarioRepositorio.Obter(Thread.CurrentPrincipal.Identity.Name);
-            var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search, usuarioLogado);
+            var anuncios = _anuncioRepositorio.ObterUltimosAnuncios(pagina, filtro1, filtro2, filtro3,search, usuarioLogado, meusAds);
             return ResponderOk(anuncios);
         }
 
