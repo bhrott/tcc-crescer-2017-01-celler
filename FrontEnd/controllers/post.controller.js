@@ -6,7 +6,6 @@ modulo.controller('PostController', function ($scope, authService,postService, $
     }
 
     $scope.habilitarNotificacoes = false;
-    $scope.buscar = buscar;
     $scope.cadastrarProduto = cadastrarProduto;
     $scope.cadastrarEvento = cadastrarEvento;
     $scope.cadastrarVaquinha = cadastrarVaquinha;

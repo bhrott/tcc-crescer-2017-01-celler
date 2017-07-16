@@ -17,14 +17,19 @@ modulo.factory("postService", function ($http) {
 
 
     function postarComentario(textoEnviar, idAnuncio){
-        var enviar = {texto: textoEnviar, IdAnuncio:idAnuncio};
-        console.log(enviar);
-        return $http.post("http://localhost:50694/api/anuncio/comentar", enviar);
+
+        var objetoEnvio = {
+
+            texto: textoEnviar, 
+            IdAnuncio:idAnuncio
+
+        };
+
+        return $http.post("http://localhost:50694/api/anuncio/comentar", objetoEnvio);
     }
 
     function editarProduto(produto){
 
-        console.log(produto);
         var objetoEnvio = {
 
             Id: produto.Id,
@@ -35,43 +40,55 @@ modulo.factory("postService", function ($http) {
             Foto3: produto.Foto3,
             Valor: produto.Valor
 
+        };
 
-        }
-        
         return $http.put('http://localhost:50694/api/produto/editar', objetoEnvio);
-
-
-        }
+    }
 
     function interessarProduto(idUser, idProduto){
+
         var objetoEnvio = {
+
             IdUsuario:idUser,
             IdProduto:idProduto
-        }
+
+        };
+
         return $http.post("http://localhost:50694/api/produto/interessar", objetoEnvio);
     }
 
     function desinteressarProduto(idUser, idProduto){
         var objetoEnvio = {
+
             IdUsuario:idUser,
             IdProduto:idProduto
-        }
+
+        };
+
         return $http.post("http://localhost:50694/api/produto/desinteressar", objetoEnvio);
     }
 
     function confirmarEvento(idUser, idEvento){
+
         var objetoEnvio = {
+
             IdUsuario:idUser,
             IdEvento:idEvento
-        }
+
+        };
+
         return $http.post("http://localhost:50694/api/evento/participar", objetoEnvio);
     }
 
     function desconfirmarEvento(idUser, idEvento){
+
         var objetoEnvio = {
+
             IdUsuario:idUser,
             IdEvento:idEvento
-        }
+
+        };
+
         return $http.post("http://localhost:50694/api/evento/desistir", objetoEnvio);
     }
 
@@ -91,7 +108,7 @@ modulo.factory("postService", function ($http) {
         var objetoEnvio = {
             IdUsuario:idInteressado,
             IdProduto:idAnuncio
-        }
+        };
 
         return $http.post("http://localhost:50694/api/produto/vender", objetoEnvio);
     }
@@ -106,18 +123,19 @@ modulo.factory("postService", function ($http) {
             Foto2:produto.Foto2,
             Foto3:produto.Foto3,
             Valor:produto.Valor
-        }
-        console.log(objetoEnvio);
+
+        };
 
         return $http.post("http://localhost:50694/api/produto/adicionar", objetoEnvio)
 
     }
 
+    //Ainda não implementado.
     function cadastrarEvento(evento){
 
         console.log(evento);
     }
-
+    //Ainda não implementado.
     function cadastrarVaquinha(vaquinha){
 
         console.log(vaquinha);
@@ -132,11 +150,13 @@ modulo.factory("postService", function ($http) {
     function aceitarDoacao(usuario, anuncio, idDoacao){
 
         var objetoEnvio = {
+            
             IdUsuario:usuario.Id,
             IdVaquinha:anuncio.Id,
             IdDoacao:idDoacao
-        }
-        console.log(objetoEnvio);
+            
+        };
+        
         return $http.post("http://localhost:50694/api/vaquinha/confirmar", objetoEnvio);
 
     }

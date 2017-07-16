@@ -11,7 +11,9 @@ modulo.factory("configService", function ($http) {
     }
     
     function modificarConfigs(usuario){
+        
         return $http.put('http://localhost:50694/api/usuario/configuracoes', usuario);
+        
     }
 
 });
