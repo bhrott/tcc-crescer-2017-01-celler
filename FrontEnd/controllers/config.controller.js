@@ -26,6 +26,4 @@ modulo.controller('ConfigController', function ($scope, configService, authServi
             }
         )
     }
-
-
 });

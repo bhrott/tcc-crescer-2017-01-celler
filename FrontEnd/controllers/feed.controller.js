@@ -1,24 +1,23 @@
 modulo.controller('FeedController', function ($scope, authService, feedService, postService, $routeParams, $route, $location, $localStorage) {
-
-    $scope.carregarMeusAds = carregarMeusAds;
-    $localStorage.idsNotificacoes = [];
+    // Se usuário não estiver logado, é redirecionado para a tela de Login.
     if(!authService.isAutenticado()){
         $location.path("#!/login");
     }
+    
     if(intervalo == null || intervalo == undefined){
         clearInterval(intervalo);
     }
+    // variáveis de inicialização.
     $scope.isFeed = true;
+    $scope.carregarMeusAds = carregarMeusAds;
+    $localStorage.idsNotificacoes = [];
 
-    carregarNotificacoes();
-    function carregarNotificacoes(){
+    //IIFE responsável por carregar e criar as notificações do usuário.
+    (function carregarNotificacoes(){
         feedService.carregarNotificacoes().then(
             function(response){
-
-                console.log(response);
                 var resposta = response.data.dados;
                 $scope.notificacoes=resposta.filter(x => x.status == 'n');
-
                 for(notificacao of $scope.notificacoes){
                     idsNotificacoes = $localStorage.idsNotificacoes;
                     console.log(notificacao);
@@ -32,7 +31,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         $localStorage.idsNotificacoes.push(notificacao.id);
                         var n = new Notification(title,options);
                         n.onclick = function(event) {
-                        
+
                             event.preventDefault(); // prevent the browser from focusing the Notification's tab
                             window.open('http://127.0.0.1:8080/' +  notificacao.link + '?idNotificacao=' + notificacao.id, '_blank');
                         }
@@ -41,7 +40,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                 }
             }
         );
-    }
+    })();
 
     var intervalo = setInterval(function(){ 
 
@@ -62,7 +61,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         $routeParams.pagina = 0;
 
     }
-    
+
     if ($routeParams.meusAds == true ){
         $scope.isMyAds = true;
         $scope.isFeed = false;
@@ -150,15 +149,15 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         $routeParams.pagina += 9;
         carregarPosts($routeParams);
     }
-    
+
     function carregarMeusAds(){
-            $scope.anuncios = [];
+        $scope.anuncios = [];
         $scope.isFeed = false;
         $scope.isMyAds = true;
         console.log('entrei meus ads');
         $routeParams = {};
         var objetoBusca = {pagina : 0,
-        meusAds : true}
+                           meusAds : true}
         $route.updateParams(objetoBusca);
         carregarPosts();
     }
