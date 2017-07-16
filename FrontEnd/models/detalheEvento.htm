@@ -53,9 +53,9 @@
                 <div ng-if="idUsuarioLogado == anuncioEspecifico.Criador.Id" class="title is-2"><a class="button is-primary is-large" href="#!/editarEvento/{{anuncioEspecifico.Id}}">Editar seu Evento</a></div>
                 <div class="title is-2">{{anuncioEspecifico.Titulo}}&nbsp; &nbsp;
                 </div>
-                <div class="title is-2"> Data de Realização:{{anuncioEspecifico.DataRealizacao | date:'short'}}</div>
-                <div class="title is-2"> Local: {{anuncioEspecifico.Local}}</div>
-                <p class="title is-3 has-text-muted">Ingresso: R$ {{anuncioEspecifico.ValorPorPessoa}}</p>
+                <div class="title is-4"> Data: {{anuncioEspecifico.DataRealizacao | date:'short'}}</div>
+                <div class="title is-4"> Local: {{anuncioEspecifico.Local}}</div>
+                <p class="title is-4 has-text-muted">Ingresso: R$ {{anuncioEspecifico.ValorPorPessoa}}</p>
                 <div ng-bind-html="anuncioEspecifico.Descricao | markdown">
 
                 </div>
