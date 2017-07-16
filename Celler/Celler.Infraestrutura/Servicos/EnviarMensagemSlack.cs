@@ -23,6 +23,7 @@ namespace Celler.Infraestrutura.Servicos
             enviar.Append("&text=");
             enviar.Append(Uri.EscapeDataString(texto));
             enviar.Append("&pretty=1");
+            enviar.Append("&icon_url=https%3A%2F%2Fd30y9cdsu7xlg0.cloudfront.net%2Fpng%2F24572-200.png&username=Celler&pretty=1");
             String strenviar = enviar.ToString();
             WebRequest request = WebRequest.Create(strenviar);
             WebResponse response = request.GetResponse();
