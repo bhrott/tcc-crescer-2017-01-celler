@@ -1,8 +1,9 @@
 <div class="card">
     <header class="card-header">
-        <span class="card-header-icon timestamp">
+        <span class="card-header-title">
             <i class="fa fa-cart-arrow-down">  {{anuncio.Titulo}} </i>
         </span>
+           <span  ng-if="anuncio.Postou" class="card-header-icon timestamp"><a class="button is-dark is-small" href="#!/editarProduto/{{anuncio.Id}}"> Editar</a></span>
     </header>
     <a href="#!/anuncio/{{anuncio.Id}}"><div class="card-image">
         <figure class="image is-4by3">
