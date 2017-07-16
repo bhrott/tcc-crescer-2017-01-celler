@@ -3,7 +3,8 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     if(!authService.isAutenticado()){
         $location.path("#!/login");
     }
-    
+
+
     if(intervalo == null || intervalo == undefined){
         clearInterval(intervalo);
     }
@@ -11,18 +12,16 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     $scope.isFeed = true;
     $scope.carregarMeusAds = carregarMeusAds;
     $localStorage.idsNotificacoes = [];
-
+    carregarNotificacoes();
     //IIFE responsável por carregar e criar as notificações do usuário.
-    (function carregarNotificacoes(){
+    function carregarNotificacoes(){
         feedService.carregarNotificacoes().then(
             function(response){
                 var resposta = response.data.dados;
                 $scope.notificacoes=resposta.filter(x => x.status == 'n');
                 for(notificacao of $scope.notificacoes){
                     idsNotificacoes = $localStorage.idsNotificacoes;
-                    console.log(notificacao);
                     if(idsNotificacoes.includes(notificacao.id) == false){
-                        console.log(notificacao.id);
                         var title = 'Celler';
                         var options = {
                             body: notificacao.texto,
@@ -31,16 +30,15 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         $localStorage.idsNotificacoes.push(notificacao.id);
                         var n = new Notification(title,options);
                         n.onclick = function(event) {
-
                             event.preventDefault(); // prevent the browser from focusing the Notification's tab
                             window.open('http://127.0.0.1:8080/' +  notificacao.link + '?idNotificacao=' + notificacao.id, '_blank');
                         }
-                        setTimeout(n.close.bind(n), 4000);
+                        setTimeout(n.close.bind(n), 10000);
                     }
                 }
             }
         );
-    })();
+    };
 
     var intervalo = setInterval(function(){ 
 
@@ -49,6 +47,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     }, 60000);
 
 
+    //Inicialização.
     $scope.busca = {};
     $scope.anuncios = [];
     $scope.habilitarBuscarMais = true;
@@ -57,18 +56,18 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     $scope.carregarPosts = carregarPosts;
 
     if  ($routeParams.filtro1 !== undefined || $routeParams.filtro2 !== undefined || $routeParams.filtro3 !== undefined || $routeParams.search !== undefined){
-
         $routeParams.pagina = 0;
-
     }
 
+    //Controlar exibição da NavBar.
     if ($routeParams.meusAds == true ){
         $scope.isMyAds = true;
         $scope.isFeed = false;
     }
     carregarPosts($routeParams);
     $scope.carregarMais = carregarMais;
-    console.log($scope.anuncios);
+
+
 
     $scope.redirectNovoProduto = redirectNovoProduto;
     $scope.redirectNovoEvento = redirectNovoEvento;
@@ -103,15 +102,17 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         }
 
         var objetoBusca = {
-            pagina:$scope.pular, filtro1:arrayTipos[0], filtro2:arrayTipos[1], filtro3:arrayTipos[2], search: busca.nome};
+            pagina:$scope.pular, 
+            filtro1:arrayTipos[0],
+            filtro2:arrayTipos[1], 
+            filtro3:arrayTipos[2], 
+            search: busca.nome
+        };
         $route.updateParams(objetoBusca);
         $scope.pular = 0;
-        console.log(JSON.stringify(objetoBusca));
     }
 
-    console.log($location.search());
     function carregarPosts(){
-        console.log($scope.busca);
         $scope.busca.nome = $routeParams.search;
         $scope.busca.anuncios = ($routeParams.filtro1 == 'Produto' || $routeParams.filtro2 == 'Produto' || $routeParams.filtro3 == 'Produto');
         $scope.busca.eventos = ($routeParams.filtro1 == 'Evento' || $routeParams.filtro2 == 'Evento' || $routeParams.filtro3 == 'Evento');
@@ -119,7 +120,6 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
 
         feedService.carregarPosts($routeParams).then(
             function(response){
-                console.log(response.data.dados);
                 for(resposta of response.data.dados){
                     $scope.anuncios.push(resposta);
 
@@ -136,7 +136,6 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         resposta.Foto3 = 'https://placehold.it/256x256';
                     }
                 }
-                console.log($scope.anuncios);
                 if(response.data.dados.length != 9){
                     $scope.habilitarBuscarMais = false;
                 }
@@ -145,7 +144,6 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     }
 
     function carregarMais(){
-        console.log('entrei aqui');
         $routeParams.pagina += 9;
         carregarPosts($routeParams);
     }
@@ -154,7 +152,6 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         $scope.anuncios = [];
         $scope.isFeed = false;
         $scope.isMyAds = true;
-        console.log('entrei meus ads');
         $routeParams = {};
         var objetoBusca = {pagina : 0,
                            meusAds : true}
@@ -168,11 +165,9 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
 
 
     $scope.interessar = function confirmarInteresse(produto){
-        console.log('entrei aqui interesse');
         postService.interessarProduto($localStorage.usuarioLogado.Id, produto.Id).then(
 
             function(response){
-                console.log(response);
                 produto.TemInteresse = true;
                 produto.NumeroInteressados += 1;
             }
@@ -181,10 +176,8 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     }
 
     $scope.desinteressar = function retirarInteresse(produto){
-        console.log('entrei aqui desinteresse');
         postService.desinteressarProduto($localStorage.usuarioLogado.Id, produto.Id).then(
             function(response){
-                console.log(response);
                 produto.TemInteresse = false;
                 produto.NumeroInteressados -= 1;
             }
@@ -196,7 +189,6 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         postService.confirmarEvento($localStorage.usuarioLogado.Id, evento.Id).then(
 
             function(response){
-                console.log(response);
                 evento.TemInteresse = true;
                 evento.NumeroInteressados += 1;
             }
@@ -208,7 +200,6 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         postService.desconfirmarEvento($localStorage.usuarioLogado.Id, evento.Id).then(
 
             function(response){
-                console.log(response);
                 evento.TemInteresse = false;
                 evento.NumeroInteressados -= 1;
 
