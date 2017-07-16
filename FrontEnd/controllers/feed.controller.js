@@ -25,7 +25,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
                         var title = 'Celler';
                         var options = {
                             body: notificacao.texto,
-                            icon: 'https://thumb1.shutterstock.com/display_pic_with_logo/221737/101774380/stock-photo-sales-and-market-concept-in-word-tag-cloud-on-white-101774380.jpg'
+                            icon: 'https://d30y9cdsu7xlg0.cloudfront.net/png/24572-200.png'
                         }
                         $localStorage.idsNotificacoes.push(notificacao.id);
                         var n = new Notification(title,options);
