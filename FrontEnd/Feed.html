@@ -1,5 +1,4 @@
-<nav class="nav nav-menu is-active has-shadow" ng-include="'/models/navbarItems.htm'">
-</nav>
+<nav class="nav nav-menu is-active has-shadow" ng-include="'/models/navbarItems.htm'"></nav>
 <section class="section main">
     <div class="container">
         <div class="columns">
@@ -15,6 +14,7 @@
             <div class="column is-full is-one-third-desktop " ng-include="'/models/barraDeNotificacoes.htm'"></div>
             <div class="column is-full is-one-third-desktop "  ng-include="'/models/barraNovoPost.htm'"></div>
         </div>
+        
         <div class="columns  is-multiline  offset">
             <div ng-repeat="anuncio in anuncios" class="column is-full  is-one-third-desktop"> 
                 <div ng-if="anuncio.TipoAnuncio == 'Evento'" ng-include="'/models/cardEvento.htm'"></div>
@@ -22,6 +22,7 @@
                 <div ng-if="anuncio.TipoAnuncio == 'Produto'"ng-include="'/models/cardAnuncio.htm'"></div>
             </div>
         </div>
+        
         <div class="columns is-multiline offset">
         <div ng-if="habilitarBuscarMais" ng-click="carregarMais()" class="column is-full">
            <div class="card"  style="text-align:center; height:5vh;">
