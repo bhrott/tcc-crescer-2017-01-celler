@@ -1,13 +1,10 @@
-
+/* Caso hajam  notificações, modifica a cor do ícone de notificações. */
 .fa-bell.novas{
-
     color:#b3c10f;
 }
-.confirmado{
-    color:#0fc11d;   
-}
 
-.interessado{
+
+.interessado, .confirmado{
     color:#0fc11d;
 }
 .apoiado{
@@ -31,6 +28,7 @@
     margin-right:-28px;
 }
 
+/* Alterar estilo dos nav-items */
 .nav-item a:not(.button).is-tab.is-active, a.nav-item:not(.button).is-tab.is-active {
     border-bottom: 3px solid #21f50f;
     color: #21f50f;
@@ -60,6 +58,8 @@ a{
 .inputBusca{
     margin-bottom:20px;
 }
+
+/* Para centralizar texto na barra de busca. */
 .metade{
     position:relative;
     text-align:center;

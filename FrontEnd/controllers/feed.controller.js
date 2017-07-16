@@ -113,6 +113,7 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
     }
 
     function carregarPosts(){
+        // Carregar os routeParams visualmente nos campos de busca.
         $scope.busca.nome = $routeParams.search;
         $scope.busca.anuncios = ($routeParams.filtro1 == 'Produto' || $routeParams.filtro2 == 'Produto' || $routeParams.filtro3 == 'Produto');
         $scope.busca.eventos = ($routeParams.filtro1 == 'Evento' || $routeParams.filtro2 == 'Evento' || $routeParams.filtro3 == 'Evento');
@@ -121,21 +122,17 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         feedService.carregarPosts($routeParams).then(
             function(response){
                 for(resposta of response.data.dados){
+                    
                     $scope.anuncios.push(resposta);
-
                     if (resposta.TipoAnuncio == 'Produto' && resposta.ValorProduto == null){
                         resposta.ValorProduto = 0;
                     }
+                    //Placeholder de imagem.
                     if (resposta.Foto1 == null){
                         resposta.Foto1 = 'http://placehold.it/256x256?text=Sem+Imagem+:(';
                     }
-                    if (resposta.Foto2 == null){
-                        resposta.Foto2 = 'https://placehold.it/256x256';
-                    }
-                    if (resposta.Foto3 == null){
-                        resposta.Foto3 = 'https://placehold.it/256x256';
-                    }
                 }
+                // Se recebeu menos de 9, desabilita paginação.
                 if(response.data.dados.length != 9){
                     $scope.habilitarBuscarMais = false;
                 }
@@ -153,8 +150,10 @@ modulo.controller('FeedController', function ($scope, authService, feedService, 
         $scope.isFeed = false;
         $scope.isMyAds = true;
         $routeParams = {};
-        var objetoBusca = {pagina : 0,
-                           meusAds : true}
+        var objetoBusca = {
+            pagina : 0,
+            meusAds : true
+        }
         $route.updateParams(objetoBusca);
         carregarPosts();
     }
