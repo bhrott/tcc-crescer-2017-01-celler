@@ -4,6 +4,7 @@ modulo.controller('EditarController', function ($scope, authService, postService
     if(!authService.isAutenticado()){
         $location.path("#!/login");
     }
+    
     console.log('Entrei aqui');
     console.log($routeParams.idAnuncio);
 
